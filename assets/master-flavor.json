@@ -1,0 +1,31 @@
+{
+  "flavor": "adithya_horoscope",
+  "appTitle": "adithya_horoscope",
+  "appSubTitle": "adithya_horoscope",
+  "devUrl": "http://adithya_horoscope.com/public/",
+  "prodUrl": "http://adithya_horoscope.com/public/",
+  "testUrl": "http://creativethief.in/adithya_horoscopeWeb/public/",
+  "apiVersion": "api/v1/",
+  "serverAssetPath": "uploads/",
+  "android_app_id": "com.skr.adithya_horoscope",
+  "ios_app_id": "com.skr.adithya_horoscope",
+  "assetPath": "assets",
+  "appLogo": "appLogo.png",
+  "appIcon": "appIcon.png",
+  "logo": "logo.png",
+  "icon": "icon.jpg",
+  "shareMsg": "shareMessage",
+  "shareAsset": "logo.png",
+  "splash_duration": 2500,
+  "support_email": "",
+  "privacy_policy_url": "",
+  "terms_of_use_url": "",
+  "whatsapp": "",
+  "facebook": "",
+  "instagram": "",
+  "linkedin": "",
+  "appTheme": {
+    "primaryColor": "0XFFFF633D",
+    "secondaryColor": "0XFFFFFF"
+  }
+}
