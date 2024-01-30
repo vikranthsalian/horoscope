@@ -46,7 +46,7 @@ class SplashScreenState extends State<SplashScreen> {
             .pushReplacementNamed(RouteConstants.navPath);
       } else {
         Navigator.of(globalContext)
-            .pushReplacementNamed(RouteConstants.loginPath);
+            .pushReplacementNamed(RouteConstants.welcomePath);
       }
     });
   }

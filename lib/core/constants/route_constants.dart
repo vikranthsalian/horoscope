@@ -1,6 +1,6 @@
 class RouteConstants {
   static const splashPath = "/";
-  static const onBoardPath = "/onboard";
+  static const welcomePath = "/welcome";
   static const loginPath = "/login";
   static const navPath = "/nav";
   static const joinMembershipPath = "/joinMembership";

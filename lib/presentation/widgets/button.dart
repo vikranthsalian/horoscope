@@ -35,7 +35,7 @@ class MetaButton extends StatelessWidget {
               elevation: elevation,
               alignment: alignment,
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(radius.r), // <-- Radius
+                borderRadius: BorderRadius.circular(radius.r),
               ),
               minimumSize: Size(double.infinity, 40.h),
               backgroundColor: bgColor),
