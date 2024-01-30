@@ -194,7 +194,7 @@ class MetaBlocTextField extends StatelessWidget {
                     textStyle: MetaStyle(
                         fontSize: 12,
                         fontColor: MetaColors.blackColor,
-                        fontWeight: FontWeight.bold),
+                        fontWeight: FontWeight.w400),
                   ))
               : Container(),
           TextFieldBlocBuilder(
@@ -204,20 +204,14 @@ class MetaBlocTextField extends StatelessWidget {
             maxLength: maxLength != 0 ? maxLength : null,
             onChanged: onChanged,
             textStyle: const MetaStyle(
-                    fontColor: MetaColors.sC4,
+                    fontColor: MetaColors.color3F3F3F,
                     fontSize: 14,
-                    fontWeight: FontWeight.w500)
+                    fontWeight: FontWeight.w100)
                 .getStyle(),
             inputFormatters: inputFormatters,
             maxLines: maxLines ?? 1,
             obscureText: isPassword,
             isEnabled: enabled,
-            // buildCounter: (context, {required currentLength, required isFocused, maxLength}) {
-            //   return showCounter ? Container(
-            //   //  transform: Matrix4.translationValues(0, -kToolbarHeight, 0),
-            //     child: Text("$currentLength/$maxLength"),
-            //   ):Container();
-            // },
             decoration: InputDecoration(
                 contentPadding:
                     EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.w),

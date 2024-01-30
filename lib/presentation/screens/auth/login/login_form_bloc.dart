@@ -9,7 +9,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 
 class LoginFormBloc extends FormBloc<String, String> {
-  final tfUsername = TextFieldBloc(validators: [emptyValidator]);
+  final tfMobile = TextFieldBloc(validators: [emptyValidator]);
   final tfPassword = TextFieldBloc(validators: [emptyValidator]);
 
   final dataModel = SelectFieldBloc<UserData, String>();
@@ -17,11 +17,10 @@ class LoginFormBloc extends FormBloc<String, String> {
   final keepLoggedIn = SelectFieldBloc<bool, String>(initialValue: false);
   final loggedIn = BooleanFieldBloc<bool>(initialValue: false);
   final toggle = BooleanFieldBloc<bool>(initialValue: false);
-  final isWithdraw = BooleanFieldBloc(initialValue: false);
 
   LoginFormBloc() : super(autoValidate: true) {
     addFieldBlocs(fieldBlocs: [
-      tfUsername,
+      tfMobile,
       tfPassword,
     ]);
   }
@@ -36,7 +35,7 @@ class LoginFormBloc extends FormBloc<String, String> {
   @override
   FutureOr<void> onSubmitting() async {
     Map<String, dynamic> data = {
-      "email": tfUsername.value,
+      "email": tfMobile.value,
       "password": tfPassword.value
     };
 
@@ -60,11 +59,6 @@ class LoginFormBloc extends FormBloc<String, String> {
         submitted.updateValue(true);
         emitSuccess(canSubmitAgain: false);
       } else {
-        if (userModel.statusCode == 300) {
-          isWithdraw.updateValue(true);
-        } else {
-          isWithdraw.updateValue(false);
-        }
         submitted.updateValue(false);
         emitSuccess(canSubmitAgain: true);
       }

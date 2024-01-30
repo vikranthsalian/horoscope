@@ -11,7 +11,7 @@ class MetaStyle {
   const MetaStyle({
     required this.fontSize,
     required this.fontColor,
-    this.fontWeight = FontWeight.w500,
+    this.fontWeight = FontWeight.w100,
     this.textDecoration = TextDecoration.none,
     this.overflow = TextOverflow.visible,
     this.fontFamily = 'Poppins',

@@ -5,12 +5,12 @@ import 'package:adithya_horoscope/core/constants/route_constants.dart';
 import 'package:adithya_horoscope/core/service/common_service.dart';
 import 'package:adithya_horoscope/data/cubits/login/login_cubit.dart';
 import 'package:adithya_horoscope/data/datasources/user.dart';
-import 'package:adithya_horoscope/presentation/components/dialog/common_dialog.dart';
 import 'package:adithya_horoscope/presentation/screens/auth/login/login_form_bloc.dart';
 import 'package:adithya_horoscope/presentation/widgets/button.dart';
 import 'package:adithya_horoscope/presentation/widgets/column_view.dart';
 import 'package:adithya_horoscope/presentation/widgets/style.dart';
 import 'package:adithya_horoscope/presentation/widgets/svg_view.dart';
+import 'package:adithya_horoscope/presentation/widgets/text_field.dart';
 import 'package:adithya_horoscope/presentation/widgets/text_view.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -40,7 +40,7 @@ class _LoginScreenState extends State<LoginScreen> {
             if (kDebugMode) {
               //formBloc.tfUsername.updateValue("episode1982@nate.com");
               // formBloc.tfPassword.updateValue("12345678");
-              formBloc.tfUsername
+              formBloc.tfMobile
                   .updateValue("vikkysalian@adithya_horoscope.com");
               formBloc.tfPassword.updateValue("Rikimaru@123");
             }
@@ -62,24 +62,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
                     Navigator.pushReplacementNamed(
                         context, RouteConstants.navPath);
-                  } else {
-                    String msg = "";
-                    if (formBloc.isWithdraw.value) {
-                      msg = "adithya_horoscopeAccessRemoved";
-                    } else {
-                      msg = "emailPasswordDoNotMatch";
-                    }
-                    showDialog(
-                        context: context,
-                        builder: (_) => MetaDialogCommonError(
-                              label: msg,
-                              showYesNo: false,
-                              buttonLabel: 'check',
-                              onPress: () {
-                                Navigator.pop(context);
-                              },
-                            ));
-                  }
+                  } else {}
                 },
                 onFailure: (context, state) {
                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -176,21 +159,11 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ),
                                 SizedBox(height: 20.h),
                                 Container(
-                                  height: 40.h,
                                   padding: padding,
-                                  child: MetaButton(
-                                    radius: 12,
-                                    borderSide: BorderSide(
-                                        color: MetaColors().primaryColor),
-                                    bgColor: MetaColors.whiteColor,
-                                    textStyle: const MetaStyle(
-                                        fontColor: MetaColors.blackColor,
-                                        fontWeight: FontWeight.w100,
-                                        fontSize: 20),
-                                    onTap: () async {
-                                      formBloc.submit();
-                                    },
-                                    text: "login",
+                                  child: MetaBlocTextField(
+                                    labelText: "mobile_number",
+                                    hintText: "enter_mobile_number",
+                                    textFieldBloc: formBloc.tfMobile,
                                   ),
                                 ),
                                 SizedBox(

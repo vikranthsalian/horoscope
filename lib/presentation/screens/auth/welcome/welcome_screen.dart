@@ -1,6 +1,7 @@
 import 'package:adithya_horoscope/core/constants/asset_constants.dart';
 import 'package:adithya_horoscope/core/constants/color_constants.dart';
 import 'package:adithya_horoscope/core/constants/flavour_constants.dart';
+import 'package:adithya_horoscope/core/constants/route_constants.dart';
 import 'package:adithya_horoscope/presentation/widgets/button.dart';
 import 'package:adithya_horoscope/presentation/widgets/column_view.dart';
 import 'package:adithya_horoscope/presentation/widgets/style.dart';
@@ -117,7 +118,10 @@ class WelcomeScreen extends StatelessWidget {
                                 fontColor: MetaColors.blackColor,
                                 fontWeight: FontWeight.w100,
                                 fontSize: 20),
-                            onTap: () async {},
+                            onTap: () async {
+                              Navigator.of(context).pushReplacementNamed(
+                                  RouteConstants.loginPath);
+                            },
                             text: "login",
                           ),
                         ),
