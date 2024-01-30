@@ -1,6 +1,8 @@
 class AssetConstants {
   static const String imagesPath = "images/";
 
+  static String logoSVG = "logo.svg";
+
   static String homeIcon = "home_icon.svg";
   static String shopIcon = "shop_icon.svg";
   static String reviewIcon = "review_icon.svg";

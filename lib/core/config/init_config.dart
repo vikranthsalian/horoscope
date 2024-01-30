@@ -16,8 +16,6 @@ class InitConfig extends StatefulWidget {
 }
 
 class _InitConfigState extends State<InitConfig> {
-  static const fetchBackground = "fetchBackground";
-
   @override
   void initState() {
     super.initState();

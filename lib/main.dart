@@ -31,7 +31,7 @@ configureFlavour() async {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    context.setLocale(MetaLocalizationConfig().korean);
+    context.setLocale(MetaLocalizationConfig().english);
 
     return ScreenUtilInit(
       useInheritedMediaQuery: true,

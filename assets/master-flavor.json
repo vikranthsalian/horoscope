@@ -1,5 +1,5 @@
 {
-  "flavor": "adithya_horoscope",
+  "flavor": "adithya",
   "appTitle": "adithya_horoscope",
   "appSubTitle": "adithya_horoscope",
   "devUrl": "http://adithya_horoscope.com/public/",
@@ -25,7 +25,7 @@
   "instagram": "",
   "linkedin": "",
   "appTheme": {
-    "primaryColor": "0XFFFF633D",
-    "secondaryColor": "0XFFFFFF"
+    "primaryColor": "0XFFE58719",
+    "secondaryColor": "0XFFFFFFFF"
   }
 }

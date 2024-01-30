@@ -7,6 +7,7 @@ class MetaColors {
   static const whiteColor = Color(0xFFFFFFFF);
   static const beigeColor = Color(0xFFFFF9ED);
   static const blackColor = Color(0xFF000000);
+  static const color3F3F3F = Color(0xFF3F3F3F);
   static const color3c3c3c = Color(0xFF3c3c3c);
   static const colord7d7d7 = Color(0xFFd7d7d7);
   static const colorf7f7f7 = Color(0xFFf7f7f7);

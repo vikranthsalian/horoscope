@@ -1,5 +1,5 @@
-import 'package:bloc/bloc.dart';
 import 'package:adithya_horoscope/data/datasources/user.dart';
+import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 
 part 'login_state.dart';
@@ -17,8 +17,8 @@ class LoginCubit extends Cubit<LoginState> {
   }
 
   setLoginResponse(UserData LoginResponse) {
-    //  if(state is LoggedIn) {
-    emit(LoggedIn(loginResponse: LoginResponse));
-    //   }
+    if (state is LoggedIn) {
+      emit(LoggedIn(loginResponse: LoginResponse));
+    }
   }
 }
