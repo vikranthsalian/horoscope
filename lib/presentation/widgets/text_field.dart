@@ -193,7 +193,7 @@ class MetaBlocTextField extends StatelessWidget {
                     textAlign: TextAlign.center,
                     textStyle: MetaStyle(
                         fontSize: 12,
-                        fontColor: MetaColors.blackColor,
+                        fontColor: MetaColors().primaryColor,
                         fontWeight: FontWeight.w400),
                   ))
               : Container(),

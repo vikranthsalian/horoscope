@@ -5,7 +5,6 @@ import 'package:adithya_horoscope/core/constants/flavour_constants.dart';
 import 'package:adithya_horoscope/core/constants/route_constants.dart';
 import 'package:adithya_horoscope/presentation/widgets/column_view.dart';
 import 'package:adithya_horoscope/presentation/widgets/icon.dart';
-import 'package:adithya_horoscope/presentation/widgets/row_view.dart';
 import 'package:adithya_horoscope/presentation/widgets/style.dart';
 import 'package:adithya_horoscope/presentation/widgets/svg_view.dart';
 import 'package:adithya_horoscope/presentation/widgets/text_field.dart';
@@ -21,7 +20,7 @@ class MetaAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   const MetaAppBar(
       {required this.title,
-      this.height = 70,
+      this.height = 40,
       this.showClose = false,
       this.leadingAction,
       this.action = const SizedBox()});
@@ -31,40 +30,36 @@ class MetaAppBar extends StatelessWidget implements PreferredSizeWidget {
       height: height.h,
       alignment: Alignment.bottomLeft,
       color: MetaColors.whiteColor,
-      padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.h),
-      child: MetaRowView(
+      padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
+      child: Stack(
+        alignment: Alignment.center,
         children: [
-          Container(
-            child: MetaRowView(
-              children: [
-                SizedBox(
-                    child: MetaIcon(
-                        icon: showClose
-                            ? Icons.close
-                            : Icons.arrow_back_ios_new_outlined,
-                        onIconPressed: () {
-                          if (leadingAction != null) {
-                            leadingAction!();
-                          } else {
-                            Navigator.pop(context);
-                          }
-                        },
-                        size: 15.r,
-                        color: MetaColors.blackColor))
-              ],
-            ),
+          Align(
+            alignment: Alignment.centerLeft,
+            child: SizedBox(
+                child: MetaIcon(
+                    icon: showClose
+                        ? Icons.close
+                        : Icons.arrow_back_ios_new_outlined,
+                    onIconPressed: () {
+                      if (leadingAction != null) {
+                        leadingAction!();
+                      } else {
+                        Navigator.pop(context);
+                      }
+                    },
+                    size: 15.r,
+                    color: MetaColors.blackColor)),
           ),
           SizedBox(width: 10.w),
-          Expanded(
-            child: Container(
-              child: MetaTextView(
-                text: title,
-                textAlign: TextAlign.start,
-                textStyle: MetaStyle(
-                    fontSize: 14,
-                    fontColor: MetaColors.blackColor,
-                    fontWeight: FontWeight.bold),
-              ),
+          Container(
+            child: MetaTextView(
+              text: title,
+              textAlign: TextAlign.center,
+              textStyle: MetaStyle(
+                  fontSize: 18,
+                  fontColor: MetaColors.blackColor,
+                  fontWeight: FontWeight.w400),
             ),
           ),
           Container(

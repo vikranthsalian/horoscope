@@ -138,7 +138,10 @@ class WelcomeScreen extends StatelessWidget {
                                 fontColor: MetaColors.whiteColor,
                                 fontWeight: FontWeight.w100,
                                 fontSize: 20),
-                            onTap: () async {},
+                            onTap: () async {
+                              Navigator.of(context)
+                                  .pushNamed(RouteConstants.signUpPath);
+                            },
                             text: "signup",
                           ),
                         ),
