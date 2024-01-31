@@ -1,4 +1,5 @@
 import 'package:adithya_horoscope/core/constants/color_constants.dart';
+import 'package:adithya_horoscope/core/constants/flavour_constants.dart';
 import 'package:adithya_horoscope/core/utils/show_alert.dart';
 import 'package:adithya_horoscope/presentation/components/app_bar.dart';
 import 'package:adithya_horoscope/presentation/screens/auth/signup/signup_form_bloc.dart';
@@ -19,7 +20,7 @@ class SignUpScreen extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
           backgroundColor: MetaColors.whiteColor,
-          appBar: MetaAppBar(title: "new_profile"),
+          appBar: MetaAppBar(title: MetaFlavourConstants.appTitle),
           resizeToAvoidBottomInset: true,
           body: Container(
             child: BlocProvider(
@@ -50,12 +51,24 @@ class SignUpScreen extends StatelessWidget {
                           SizedBox(height: 10.h),
                           Container(
                             padding: padding,
+                            alignment: Alignment.center,
+                            child: MetaTextView(
+                              text: "new_profile",
+                              textStyle: MetaStyle(
+                                  fontSize: 20,
+                                  fontColor: MetaColors().primaryColor,
+                                  fontWeight: FontWeight.w100),
+                            ),
+                          ),
+                          SizedBox(height: 20.h),
+                          Container(
+                            padding: padding,
                             alignment: Alignment.centerLeft,
                             child: MetaTextView(
                               text: "enter_details",
                               textStyle: MetaStyle(
-                                  fontSize: 20,
-                                  fontColor: MetaColors().primaryColor,
+                                  fontSize: 15,
+                                  fontColor: MetaColors.color3F3F3F,
                                   fontWeight: FontWeight.w100),
                             ),
                           ),

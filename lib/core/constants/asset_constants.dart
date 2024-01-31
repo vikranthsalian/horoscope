@@ -4,9 +4,9 @@ class AssetConstants {
   static String logoSVG = "logo.svg";
   static String bg = "bg.svg";
 
-  static String homeIcon = "home_icon.svg";
-  static String shopIcon = "shop_icon.svg";
-  static String reviewIcon = "review_icon.svg";
+  static String nowIcon = "icon_now.svg";
+  static String proceedIcon = "icon_proceed.svg";
+  static String historyIcon = "icon_history.svg";
   static String starIcon = "star_icon.svg";
   static String profileIcon = "profile_icon.svg";
   static String directoryIcon = "directory_icon.svg";

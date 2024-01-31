@@ -2,7 +2,6 @@ import 'package:adithya_horoscope/core/app/navigator_key.dart';
 import 'package:adithya_horoscope/core/constants/asset_constants.dart';
 import 'package:adithya_horoscope/core/constants/color_constants.dart';
 import 'package:adithya_horoscope/core/constants/flavour_constants.dart';
-import 'package:adithya_horoscope/core/constants/route_constants.dart';
 import 'package:adithya_horoscope/presentation/widgets/column_view.dart';
 import 'package:adithya_horoscope/presentation/widgets/icon.dart';
 import 'package:adithya_horoscope/presentation/widgets/style.dart';
@@ -89,7 +88,7 @@ getMainAppBar(TextEditingController controller) {
     actions: [
       InkWell(
         onTap: () {
-          Navigator.pushNamed(globalContext, RouteConstants.searchPath);
+          // Navigator.pushNamed(globalContext, RouteConstants.searchPath);
         },
         child: Container(
           width: 20.w,
@@ -102,7 +101,7 @@ getMainAppBar(TextEditingController controller) {
       SizedBox(width: 20.w),
       InkWell(
         onTap: () {
-          Navigator.pushNamed(globalContext, RouteConstants.notificationPath);
+          //   Navigator.pushNamed(globalContext, RouteConstants.notificationPath);
         },
         child: Container(
           width: 20.w,
