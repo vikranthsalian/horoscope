@@ -180,9 +180,11 @@ class _LoginScreenState extends State<LoginScreen> {
                                         fontWeight: FontWeight.w100,
                                         fontSize: 20),
                                     onTap: () async {
-                                      formBloc.submit();
+                                      Navigator.pushNamed(
+                                          context, RouteConstants.homePath);
+                                      // formBloc.submit();
                                     },
-                                    text: "signup",
+                                    text: "login",
                                   ),
                                 ),
                               ],
