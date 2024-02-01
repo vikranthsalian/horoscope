@@ -1,9 +1,10 @@
 import 'package:adithya_horoscope/core/constants/asset_constants.dart';
 import 'package:adithya_horoscope/core/constants/color_constants.dart';
 import 'package:adithya_horoscope/core/constants/flavour_constants.dart';
+import 'package:adithya_horoscope/core/constants/route_constants.dart';
 import 'package:adithya_horoscope/core/utils/show_alert.dart';
 import 'package:adithya_horoscope/presentation/components/app_bar.dart';
-import 'package:adithya_horoscope/presentation/screens/horoscope/add_horoscope_form_bloc.dart';
+import 'package:adithya_horoscope/presentation/screens/horoscope/add/add_horoscope_form_bloc.dart';
 import 'package:adithya_horoscope/presentation/widgets/column_view.dart';
 import 'package:adithya_horoscope/presentation/widgets/row_view.dart';
 import 'package:adithya_horoscope/presentation/widgets/style.dart';
@@ -57,7 +58,10 @@ class AddHoroScopeScreen extends StatelessWidget {
                           child: customButtons(
                               AssetConstants.proceedIcon, "proceed")),
                       InkWell(
-                          onTap: () {},
+                          onTap: () {
+                            Navigator.pushNamed(
+                                context, RouteConstants.savedHoroScopePath);
+                          },
                           child: customButtons(
                               AssetConstants.historyIcon, "history")),
                     ])

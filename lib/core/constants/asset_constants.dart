@@ -7,12 +7,12 @@ class AssetConstants {
   static String nowIcon = "icon_now.svg";
   static String proceedIcon = "icon_proceed.svg";
   static String historyIcon = "icon_history.svg";
+  static String searchIcon = "icon_search.svg";
   static String starIcon = "star_icon.svg";
   static String profileIcon = "profile_icon.svg";
   static String directoryIcon = "directory_icon.svg";
   static String medalL = "medal-l.svg";
   static String medalR = "medal-r.svg";
-  static String searchIcon = "search_icon.svg";
   static String notificationIcon = "notification_icon.svg";
   static String notificationIconOff = "notification_icon_off.svg";
   static String callIcon = "call_icon.svg";
