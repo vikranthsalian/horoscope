@@ -92,7 +92,7 @@ class SignUpScreen extends StatelessWidget {
                               labelText: "phone_number",
                               hintText: "enter_phone_number",
                               textFieldBloc: formBloc.tfMobile,
-                              inputType: TextInputType.emailAddress,
+                              inputType: TextInputType.number,
                             ),
                           ),
                           SizedBox(
@@ -104,7 +104,7 @@ class SignUpScreen extends StatelessWidget {
                               labelText: "date_of_birth",
                               hintText: "choose_date_of_birth",
                               textFieldBloc: formBloc.tfMobile,
-                              inputType: TextInputType.emailAddress,
+                              inputType: TextInputType.text,
                             ),
                           ),
                           SizedBox(

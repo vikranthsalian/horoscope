@@ -50,7 +50,6 @@ class MetaAppBar extends StatelessWidget implements PreferredSizeWidget {
                     size: 15.r,
                     color: MetaColors.blackColor)),
           ),
-          SizedBox(width: 10.w),
           Container(
             child: MetaTextView(
               text: title,
@@ -61,8 +60,11 @@ class MetaAppBar extends StatelessWidget implements PreferredSizeWidget {
                   fontWeight: FontWeight.w400),
             ),
           ),
-          Container(
-            child: action,
+          Align(
+            alignment: Alignment.centerRight,
+            child: Container(
+              child: action,
+            ),
           )
         ],
       ),

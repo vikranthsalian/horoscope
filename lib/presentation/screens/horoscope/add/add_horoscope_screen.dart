@@ -6,6 +6,7 @@ import 'package:adithya_horoscope/core/utils/show_alert.dart';
 import 'package:adithya_horoscope/presentation/components/app_bar.dart';
 import 'package:adithya_horoscope/presentation/screens/horoscope/add/add_horoscope_form_bloc.dart';
 import 'package:adithya_horoscope/presentation/widgets/column_view.dart';
+import 'package:adithya_horoscope/presentation/widgets/icon.dart';
 import 'package:adithya_horoscope/presentation/widgets/row_view.dart';
 import 'package:adithya_horoscope/presentation/widgets/style.dart';
 import 'package:adithya_horoscope/presentation/widgets/svg_view.dart';
@@ -24,7 +25,20 @@ class AddHoroScopeScreen extends StatelessWidget {
       bottom: false,
       child: Scaffold(
           backgroundColor: MetaColors.whiteColor,
-          appBar: MetaAppBar(title: MetaFlavourConstants.appTitle),
+          appBar: MetaAppBar(
+              title: MetaFlavourConstants.appTitle,
+              action: Container(
+                alignment: Alignment.topCenter,
+                height: 40.w,
+                width: 20.w,
+                child: MetaIcon(
+                    icon: Icons.settings,
+                    onIconPressed: () {
+                      Navigator.pushNamed(context, RouteConstants.settingsPath);
+                    },
+                    size: 15,
+                    color: MetaColors.color3F3F3F),
+              )),
           bottomNavigationBar: Container(
             // padding: EdgeInsets.symmetric(vertical: 20.h),
             height: 70.h,
