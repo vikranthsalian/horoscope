@@ -12,6 +12,9 @@ class RouteConstants {
   static const forgotPasswordPath = "/forgotPassword";
   static const homePath = "/home";
   static const addHoroScopePath = "/addHoroScope";
+  static const profilePath = "/profile";
+  static const premiumPlanPath = "/premiumPlan";
+  static const successPath = "/success";
   static const settingsPath = "/settings";
   static const savedHoroScopePath = "/savedHoroScope";
   static const privacyPath = "/privacy";

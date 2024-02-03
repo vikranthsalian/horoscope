@@ -6,8 +6,11 @@ import 'package:adithya_horoscope/presentation/screens/auth/welcome/welcome_scre
 import 'package:adithya_horoscope/presentation/screens/home/home_screen.dart';
 import 'package:adithya_horoscope/presentation/screens/horoscope/add/add_horoscope_screen.dart';
 import 'package:adithya_horoscope/presentation/screens/horoscope/saved/saved_horoscope_screen.dart';
+import 'package:adithya_horoscope/presentation/screens/profile/profile_screen.dart';
 import 'package:adithya_horoscope/presentation/screens/setting/settings_screen.dart';
 import 'package:adithya_horoscope/presentation/screens/splash/splash_screen.dart';
+import 'package:adithya_horoscope/presentation/screens/subcription/premium_plan.dart';
+import 'package:adithya_horoscope/presentation/screens/subcription/success.dart';
 import 'package:flutter/material.dart';
 
 class RouteConfig {
@@ -48,6 +51,15 @@ class RouteConfig {
 
       case RouteConstants.settingsPath:
         return SettingsScreen();
+
+      case RouteConstants.profilePath:
+        return ProfileScreen();
+
+      case RouteConstants.premiumPlanPath:
+        return PremiumPlanScreen();
+
+      case RouteConstants.successPath:
+        return SuccessScreen();
 
       default:
         return SplashScreen();

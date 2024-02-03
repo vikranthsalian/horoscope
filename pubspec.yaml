@@ -42,6 +42,7 @@ dependencies:
       url: https://github.com/Cavin6080/form_bloc.git
       path: packages/flutter_form_bloc
   package_info_plus: ^4.2.0
+  lottie: ^3.0.0
   dio: ^5.3.4
   intl: ^0.18.1
   kiwi: ^4.1.0
@@ -83,8 +84,7 @@ flutter:
   assets:
     - assets/
     - assets/translations/
-    - assets/flavor/
-    - assets/flavor/adithya/images/
+    - assets/flavor/adithya/.
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

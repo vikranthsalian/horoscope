@@ -4,6 +4,7 @@ import 'package:adithya_horoscope/core/constants/flavour_constants.dart';
 import 'package:adithya_horoscope/core/constants/route_constants.dart';
 import 'package:adithya_horoscope/presentation/widgets/button.dart';
 import 'package:adithya_horoscope/presentation/widgets/column_view.dart';
+import 'package:adithya_horoscope/presentation/widgets/row_view.dart';
 import 'package:adithya_horoscope/presentation/widgets/style.dart';
 import 'package:adithya_horoscope/presentation/widgets/svg_view.dart';
 import 'package:adithya_horoscope/presentation/widgets/text_view.dart';
@@ -28,26 +29,50 @@ class HomeScreen extends StatelessWidget {
                   SizedBox(
                     height: 60.h,
                   ),
-                  Container(
-                    alignment: Alignment.centerRight,
-                    child: MetaTextView(
-                      text: "Dheemahi",
-                      textStyle: MetaStyle(
-                          fontSize: 16,
-                          fontColor: MetaColors.color3F3F3F,
-                          fontWeight: FontWeight.w100),
+                  MetaRowView(children: [
+                    InkWell(
+                      onTap: () {
+                        Navigator.pushNamed(
+                            context, RouteConstants.profilePath);
+                      },
+                      child: Container(
+                        height: 20,
+                        width: 20,
+                        child: MetaSVGView(
+                            svgName: AssetConstants.profileIcon,
+                            basePath: MetaFlavourConstants.flavorPath),
+                      ),
                     ),
-                  ),
-                  Container(
-                    alignment: Alignment.centerRight,
-                    child: MetaTextView(
-                      text: "Apps for life",
-                      textStyle: MetaStyle(
-                          fontSize: 10,
-                          fontColor: MetaColors.color3F3F3F,
-                          fontWeight: FontWeight.w100),
+                    Expanded(
+                      child: Container(
+                        alignment: Alignment.centerRight,
+                        child: MetaColumnView(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                alignment: Alignment.centerRight,
+                                child: MetaTextView(
+                                  text: "Dheemahi",
+                                  textStyle: MetaStyle(
+                                      fontSize: 16,
+                                      fontColor: MetaColors.color3F3F3F,
+                                      fontWeight: FontWeight.w100),
+                                ),
+                              ),
+                              Container(
+                                alignment: Alignment.centerRight,
+                                child: MetaTextView(
+                                  text: "Apps for life",
+                                  textStyle: MetaStyle(
+                                      fontSize: 10,
+                                      fontColor: MetaColors.color3F3F3F,
+                                      fontWeight: FontWeight.w100),
+                                ),
+                              ),
+                            ]),
+                      ),
                     ),
-                  ),
+                  ]),
                   Container(
                     height: MediaQuery.sizeOf(context).height * 0.4,
                     child: MetaSVGView(
