@@ -27,5 +27,13 @@
   "appTheme": {
     "primaryColor": "0XFFE58719",
     "secondaryColor": "0XFFFFFFFF"
-  }
+  },
+  "premiumPlans": [
+    "pachanga",
+    "dasha-bhukti",
+    "shadvarga",
+    "ashtakavarga",
+    "trisphutadi",
+    "dhoomadi"
+  ]
 }

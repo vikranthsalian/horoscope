@@ -11,6 +11,7 @@ class AssetConstants {
   static String historyIcon = "icon_history.svg";
   static String searchIcon = "icon_search.svg";
   static String profileIcon = "icon_profile.svg";
+  static String premiumIcon = "icon_premium.svg";
 
   static String logo = "logo.png";
   static String logoName = "logo_name.svg";

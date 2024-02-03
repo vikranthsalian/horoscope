@@ -1,3 +1,4 @@
+import 'package:adithya_horoscope/core/constants/asset_constants.dart';
 import 'package:adithya_horoscope/core/constants/color_constants.dart';
 import 'package:adithya_horoscope/core/constants/flavour_constants.dart';
 import 'package:adithya_horoscope/core/constants/route_constants.dart';
@@ -7,6 +8,7 @@ import 'package:adithya_horoscope/presentation/screens/profile/profile_form_bloc
 import 'package:adithya_horoscope/presentation/widgets/column_view.dart';
 import 'package:adithya_horoscope/presentation/widgets/icon.dart';
 import 'package:adithya_horoscope/presentation/widgets/image_view.dart';
+import 'package:adithya_horoscope/presentation/widgets/row_view.dart';
 import 'package:adithya_horoscope/presentation/widgets/style.dart';
 import 'package:adithya_horoscope/presentation/widgets/svg_view.dart';
 import 'package:adithya_horoscope/presentation/widgets/text_field.dart';
@@ -52,16 +54,29 @@ class ProfileScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           SizedBox(height: 10.h),
-                          Container(
-                            padding: padding,
-                            alignment: Alignment.center,
-                            child: MetaTextView(
-                              text: "profile",
-                              textStyle: MetaStyle(
-                                  fontSize: 20,
-                                  fontColor: MetaColors().primaryColor,
-                                  fontWeight: FontWeight.w100),
-                            ),
+                          MetaRowView(
+                            children: [
+                              Container(
+                                alignment: Alignment.center,
+                                child: MetaTextView(
+                                  text: "profile",
+                                  textStyle: MetaStyle(
+                                      fontSize: 20,
+                                      fontColor: MetaColors().primaryColor,
+                                      fontWeight: FontWeight.w100),
+                                ),
+                              ),
+                              SizedBox(
+                                width: 10.w,
+                              ),
+                              Container(
+                                height: 20,
+                                width: 20,
+                                child: MetaSVGView(
+                                    svgName: AssetConstants.premiumIcon,
+                                    basePath: MetaFlavourConstants.flavorPath),
+                              ),
+                            ],
                           ),
                           SizedBox(height: 20.h),
                           Stack(

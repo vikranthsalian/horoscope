@@ -29,7 +29,7 @@ class RouteConfig {
 
     switch (routeSettings.name) {
       case RouteConstants.splashPath:
-        return SplashScreen();
+        return HomeScreen();
 
       case RouteConstants.welcomePath:
         return WelcomeScreen();

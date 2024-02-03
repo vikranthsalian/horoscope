@@ -17,6 +17,8 @@ class MetaFlavourConstants {
   static String linkedin = FlavorConfig.instance.variables["linkedin"];
   static String shareMsg = FlavorConfig.instance.variables["shareMsg"];
   static String shareAsset = FlavorConfig.instance.variables["shareAsset"];
+  static List<dynamic> premiumPlansList =
+      FlavorConfig.instance.variables["premiumPlans"];
   static String serverAssetPath =
       FlavorConfig.instance.variables["serverAssetPath"];
   static String primaryColor =

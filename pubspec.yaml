@@ -84,7 +84,8 @@ flutter:
   assets:
     - assets/
     - assets/translations/
-    - assets/flavor/adithya/.
+    - assets/flavor/adithya/images/
+    - assets/flavor/adithya/jsons/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

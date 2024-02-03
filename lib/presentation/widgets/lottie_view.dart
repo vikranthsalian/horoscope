@@ -6,14 +6,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
 
 class MetaLottieView extends StatelessWidget {
-  final String imageName;
+  final String lottieName;
   final String type;
   final String basePath;
   final BoxFit fit;
 
   const MetaLottieView(
       {super.key,
-      required this.imageName,
+      required this.lottieName,
       required this.basePath,
       this.type = AssetConstants.jsonPath,
       this.fit = BoxFit.cover});
@@ -21,7 +21,7 @@ class MetaLottieView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Lottie.asset(
-      basePath + type + imageName,
+      basePath + type + lottieName,
       fit: fit,
       width: double.infinity,
     );

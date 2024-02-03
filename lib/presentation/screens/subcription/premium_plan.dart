@@ -6,6 +6,7 @@ import 'package:adithya_horoscope/core/utils/show_alert.dart';
 import 'package:adithya_horoscope/presentation/components/app_bar.dart';
 import 'package:adithya_horoscope/presentation/screens/profile/profile_form_bloc.dart';
 import 'package:adithya_horoscope/presentation/widgets/button.dart';
+import 'package:adithya_horoscope/presentation/widgets/row_view.dart';
 import 'package:adithya_horoscope/presentation/widgets/style.dart';
 import 'package:adithya_horoscope/presentation/widgets/svg_view.dart';
 import 'package:adithya_horoscope/presentation/widgets/text_view.dart';
@@ -118,22 +119,41 @@ class PremiumPlanScreen extends StatelessWidget {
                                 ),
                               ),
                               SizedBox(
-                                height: 10.h,
+                                height: 5.h,
                               ),
                               ListView(
                                 padding: padding,
                                 shrinkWrap: true,
-                                children: getListPlans().map((String e) {
+                                children: MetaFlavourConstants.premiumPlansList
+                                    .map((e) {
                                   return Container(
                                     alignment: Alignment.centerLeft,
                                     padding:
-                                        EdgeInsets.symmetric(vertical: 5.h),
-                                    child: MetaTextView(
-                                      text: "● " + e.tr(),
-                                      textStyle: MetaStyle(
-                                          fontSize: 14,
-                                          fontColor: MetaColors.color3F3F3F,
-                                          fontWeight: FontWeight.w100),
+                                        EdgeInsets.symmetric(vertical: 10.h),
+                                    child: MetaRowView(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        Container(
+                                          width: 15.w,
+                                          height: 15.w,
+                                          child: MetaSVGView(
+                                              activeColor:
+                                                  MetaColors.color3F3F3F,
+                                              svgName:
+                                                  AssetConstants.premiumIcon,
+                                              basePath: MetaFlavourConstants
+                                                  .flavorPath),
+                                        ),
+                                        SizedBox(width: 10.w),
+                                        MetaTextView(
+                                          text: e,
+                                          textStyle: MetaStyle(
+                                              fontSize: 14,
+                                              fontColor: MetaColors.color3F3F3F,
+                                              fontWeight: FontWeight.w100),
+                                        ),
+                                      ],
                                     ),
                                   );
                                 }).toList(),
@@ -147,16 +167,5 @@ class PremiumPlanScreen extends StatelessWidget {
             ),
           )),
     );
-  }
-
-  List<String> getListPlans() {
-    return [
-      "pachanga",
-      "dasha-bhukti",
-      "shadvarga",
-      "ashtakavarga",
-      "trisphutadi",
-      "dhoomadi",
-    ];
   }
 }
