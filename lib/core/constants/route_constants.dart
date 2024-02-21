@@ -15,6 +15,7 @@ class RouteConstants {
   static const profilePath = "/profile";
   static const premiumPlanPath = "/premiumPlan";
   static const successPath = "/success";
+  static const viewHoroScopePath = "/viewHoroScope";
   static const settingsPath = "/settings";
   static const savedHoroScopePath = "/savedHoroScope";
   static const privacyPath = "/privacy";

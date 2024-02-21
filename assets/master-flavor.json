@@ -28,6 +28,20 @@
     "primaryColor": "0XFFE58719",
     "secondaryColor": "0XFFFFFFFF"
   },
+  "features": [
+    "basic_details",
+    "planet_info",
+    "rashi_kundli",
+    "navamsha_kundli",
+    "bhava_kundli",
+    "bhava_sandhi",
+    "pachanga",
+    "dasha-bhukti",
+    "shadvarga",
+    "ashtakavarga",
+    "trisphutadi",
+    "dhoomadi"
+  ],
   "premiumPlans": [
     "pachanga",
     "dasha-bhukti",

@@ -68,7 +68,10 @@ class AddHoroScopeScreen extends StatelessWidget {
                           onTap: () {},
                           child: customButtons(AssetConstants.nowIcon, "now")),
                       InkWell(
-                          onTap: () {},
+                          onTap: () {
+                            Navigator.pushNamed(
+                                context, RouteConstants.viewHoroScopePath);
+                          },
                           child: customButtons(
                               AssetConstants.proceedIcon, "proceed")),
                       InkWell(

@@ -3,6 +3,7 @@ class AssetConstants {
   static const String jsonPath = "jsons/";
 
   static String logoSVG = "logo.svg";
+  static String logoOnySVG = "logo_square.svg";
   static String bg = "bg.svg";
   static String success = "success.svg";
 

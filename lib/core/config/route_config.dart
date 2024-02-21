@@ -6,6 +6,7 @@ import 'package:adithya_horoscope/presentation/screens/auth/welcome/welcome_scre
 import 'package:adithya_horoscope/presentation/screens/home/home_screen.dart';
 import 'package:adithya_horoscope/presentation/screens/horoscope/add/add_horoscope_screen.dart';
 import 'package:adithya_horoscope/presentation/screens/horoscope/saved/saved_horoscope_screen.dart';
+import 'package:adithya_horoscope/presentation/screens/horoscope/view/view_horoscope_screen.dart';
 import 'package:adithya_horoscope/presentation/screens/profile/profile_screen.dart';
 import 'package:adithya_horoscope/presentation/screens/setting/settings_screen.dart';
 import 'package:adithya_horoscope/presentation/screens/splash/splash_screen.dart';
@@ -29,7 +30,7 @@ class RouteConfig {
 
     switch (routeSettings.name) {
       case RouteConstants.splashPath:
-        return HomeScreen();
+        return SplashScreen();
 
       case RouteConstants.welcomePath:
         return WelcomeScreen();
@@ -60,6 +61,9 @@ class RouteConfig {
 
       case RouteConstants.successPath:
         return SuccessScreen();
+
+      case RouteConstants.viewHoroScopePath:
+        return ViewHoroScopeScreen();
 
       default:
         return SplashScreen();
