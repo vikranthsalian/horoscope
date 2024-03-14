@@ -24,7 +24,7 @@ configureFlavour() async {
   await MetaHiveConfig().initConfig();
 
   await MetaJsonConfig().initFlavor(jsonPath: "assets/master-flavor.json");
-
+  // 13.3318078,74.7264917
   MetaDio().setDio();
 }
 

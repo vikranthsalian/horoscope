@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 import 'package:adithya_horoscope/core/constants/color_constants.dart';
-import 'package:adithya_horoscope/domain/model/planet_model.dart';
+import 'package:adithya_horoscope/domain/model/shadvarga_model.dart';
 import 'package:adithya_horoscope/presentation/widgets/column_view.dart';
 import 'package:adithya_horoscope/presentation/widgets/row_view.dart';
 import 'package:adithya_horoscope/presentation/widgets/style.dart';
@@ -9,18 +9,12 @@ import 'package:adithya_horoscope/presentation/widgets/text_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class PlanetInfoScreen extends StatelessWidget {
-  List<PlanetModel> list;
-  PlanetInfoScreen({required this.list});
+class ShadvargaScreen extends StatelessWidget {
+  ShadvargaScreen({required this.list});
+
+  List<ShadVargaModel> list = [];
+  List<String> headers = ["graha", "dre", "hor", "nav", "tri", "dwa", "ksh"];
   var padding = EdgeInsets.symmetric(horizontal: 8.w);
-
-  List<String> headers = [
-    "planet",
-    "longitude",
-    "nakshathra",
-    "pada",
-  ];
-
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -29,7 +23,6 @@ class PlanetInfoScreen extends StatelessWidget {
         MetaRowView(
             children: headers.asMap().entries.map((e) {
           return Expanded(
-            flex: e.key == 3 ? 1 : 2,
             child: Container(
               child: MetaTextView(
                 text: e.value,
@@ -54,63 +47,18 @@ class PlanetInfoScreen extends StatelessWidget {
                 padding: EdgeInsets.symmetric(vertical: 10.h),
                 child: MetaRowView(children: [
                   Expanded(
-                      flex: 2, child: rowText(list[i].planet!, enabled: true)),
-                  Expanded(flex: 2, child: superScriptText(list[i].longitude!)),
-                  Expanded(flex: 2, child: rowText(list[i].nakshathra!)),
-                  Expanded(flex: 1, child: rowText(list[i].pada!)),
+                      child: rowText(list[i].graha!.toString(), enabled: true)),
+                  Expanded(child: Container(child: rowText(list[i].dre!))),
+                  Expanded(child: Container(child: rowText(list[i].hor!))),
+                  Expanded(child: Container(child: rowText(list[i].nav!))),
+                  Expanded(child: Container(child: rowText(list[i].tri!))),
+                  Expanded(child: Container(child: rowText(list[i].dwa!))),
+                  Expanded(child: Container(child: rowText(list[i].ksh!))),
                 ]),
               );
             })
       ]),
     );
-  }
-
-  getView(title, text) {
-    return Container(
-        margin: EdgeInsets.symmetric(vertical: 7.h),
-        child: MetaRowView(
-          children: [
-            Expanded(
-              flex: 2,
-              child: Container(
-                padding: padding,
-                alignment: Alignment.centerLeft,
-                child: MetaTextView(
-                  text: title,
-                  textStyle: MetaStyle(
-                      fontSize: 12,
-                      fontColor: MetaColors().primaryColor,
-                      fontWeight: FontWeight.w100),
-                ),
-              ),
-            ),
-            Container(
-              padding: padding,
-              alignment: Alignment.centerLeft,
-              child: MetaTextView(
-                text: " : ",
-                textStyle: MetaStyle(
-                    fontSize: 12,
-                    fontColor: MetaColors.color3F3F3F,
-                    fontWeight: FontWeight.w100),
-              ),
-            ),
-            Expanded(
-              flex: 3,
-              child: Container(
-                padding: padding,
-                alignment: Alignment.centerLeft,
-                child: MetaTextView(
-                  text: text,
-                  textStyle: MetaStyle(
-                      fontSize: 12,
-                      fontColor: MetaColors.color3F3F3F,
-                      fontWeight: FontWeight.w100),
-                ),
-              ),
-            ),
-          ],
-        ));
   }
 
   Widget superScriptText(String e, {bool enabled = false}) {
@@ -161,7 +109,7 @@ class PlanetInfoScreen extends StatelessWidget {
     );
   }
 
-  rowText(String e, {bool enabled = false}) {
+  Widget rowText(String e, {bool enabled = false}) {
     return Container(
       child: MetaTextView(
         text: e,

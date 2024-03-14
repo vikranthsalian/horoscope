@@ -1,14 +1,21 @@
 import 'package:adithya_horoscope/core/constants/color_constants.dart';
 import 'package:adithya_horoscope/core/constants/flavour_constants.dart';
 import 'package:adithya_horoscope/core/constants/route_constants.dart';
+import 'package:adithya_horoscope/core/utils/calculate.dart';
 import 'package:adithya_horoscope/core/utils/show_alert.dart';
-import 'package:adithya_horoscope/domain/model/planet_model.dart';
 import 'package:adithya_horoscope/presentation/components/app_bar.dart';
+import 'package:adithya_horoscope/presentation/screens/horoscope/view/tabs/ashtakavarga_screen.dart';
 import 'package:adithya_horoscope/presentation/screens/horoscope/view/tabs/basic_details_screen.dart';
 import 'package:adithya_horoscope/presentation/screens/horoscope/view/tabs/bhava_kundli_screen.dart';
+import 'package:adithya_horoscope/presentation/screens/horoscope/view/tabs/bhava_sandhi_screen.dart';
+import 'package:adithya_horoscope/presentation/screens/horoscope/view/tabs/dhasha_bhukthi_screen.dart';
+import 'package:adithya_horoscope/presentation/screens/horoscope/view/tabs/dhoomadi_screen.dart';
 import 'package:adithya_horoscope/presentation/screens/horoscope/view/tabs/navamsha_kundli_screen.dart';
+import 'package:adithya_horoscope/presentation/screens/horoscope/view/tabs/panchanga_screen.dart';
 import 'package:adithya_horoscope/presentation/screens/horoscope/view/tabs/planet_info_screen.dart';
 import 'package:adithya_horoscope/presentation/screens/horoscope/view/tabs/rashi_kundli_screen.dart';
+import 'package:adithya_horoscope/presentation/screens/horoscope/view/tabs/shadvarga_screen.dart';
+import 'package:adithya_horoscope/presentation/screens/horoscope/view/tabs/trisphutadi_screen.dart';
 import 'package:adithya_horoscope/presentation/screens/horoscope/view/view_horoscope_form_bloc.dart';
 import 'package:adithya_horoscope/presentation/widgets/icon.dart';
 import 'package:adithya_horoscope/presentation/widgets/style.dart';
@@ -130,31 +137,118 @@ class ViewHoroScopeScreen extends StatelessWidget {
                             height: 30.h,
                           ),
                           Expanded(
-                            child: Container(
-                                child: BlocBuilder<SelectFieldBloc,
-                                        SelectFieldBlocState>(
-                                    bloc: formBloc.feature,
-                                    builder: (context, state) {
-                                      if (state.value == 0) {
-                                        return BasicDetailsScreen();
-                                      }
-                                      if (state.value == 1) {
-                                        return getPlanetInfoDetails(formBloc);
-                                      }
-                                      if (state.value == 2) {
-                                        return getRashiKundliDetails();
-                                      }
-                                      if (state.value == 3) {
-                                        return getNavamshaKundliDetails();
-                                      }
-                                      if (state.value == 4) {
-                                        return getBhavaKundliDetails();
-                                      }
+                            child: BlocBuilder<BooleanFieldBloc,
+                                    BooleanFieldBlocState>(
+                                bloc: formBloc.showLoading,
+                                builder: (context, state) {
+                                  if (state.value) {
+                                    return Center(
+                                        child: CircularProgressIndicator());
+                                  }
 
-                                      return Container(
-                                        child: BasicDetailsScreen(),
-                                      );
-                                    })),
+                                  return Container(
+                                      child: BlocBuilder<SelectFieldBloc,
+                                              SelectFieldBlocState>(
+                                          bloc: formBloc.feature,
+                                          builder: (context, state) {
+                                            if (state.value == 0) {
+                                              return BasicDetailsScreen(
+                                                  horoscopeModel: formBloc
+                                                      .dataModel.value!);
+                                            }
+                                            if (state.value == 1) {
+                                              return getPlanetInfoDetails(
+                                                  formBloc);
+                                            }
+                                            if (state.value == 2) {
+                                              return RashiKundliScreen(
+                                                  listKundli:
+                                                      formBloc.kundliList,
+                                                  list: formBloc
+                                                      .dataModel
+                                                      .value!
+                                                      .rasiKundliValues!);
+                                            }
+                                            if (state.value == 3) {
+                                              return NavamshaKundliScreen(
+                                                  listKundli:
+                                                      formBloc.kundliList,
+                                                  list: HoroScopeUtils()
+                                                      .getMetaNavamsaKundliValues(
+                                                          formBloc.dataModel
+                                                              .value!));
+                                            }
+                                            if (state.value == 4) {
+                                              return BhavaKundliScreen(
+                                                  listKundli:
+                                                      formBloc.kundliList,
+                                                  list: HoroScopeUtils()
+                                                      .getMetaBhavaKundliValues(
+                                                          formBloc.dataModel
+                                                              .value!));
+                                            }
+                                            if (state.value == 5) {
+                                              return BhavaSandhiScreen(
+                                                  lagnaValue: formBloc.dataModel
+                                                      .value!.lagnaValue!,
+                                                  dasamaValue: formBloc
+                                                      .dataModel
+                                                      .value!
+                                                      .dasamaValue!);
+                                            }
+
+                                            if (state.value == 6) {
+                                              return PanchangaScreen(
+                                                  list: HoroScopeUtils()
+                                                      .getMetaPanchangaValues(
+                                                          formBloc.dataModel
+                                                              .value!));
+                                            }
+                                            if (state.value == 7) {
+                                              return DhashaBhukthiScreen(
+                                                  list: HoroScopeUtils()
+                                                      .getMeta9DasaBhuktiValues(
+                                                          formBloc.dataModel
+                                                              .value!));
+                                            }
+
+                                            if (state.value == 8) {
+                                              return ShadvargaScreen(
+                                                  list: HoroScopeUtils()
+                                                      .getMetaShadvargaValues(
+                                                          formBloc.dataModel
+                                                              .value!));
+                                            }
+
+                                            if (state.value == 9) {
+                                              return AshtakavaragaScreen(
+                                                  list: HoroScopeUtils()
+                                                      .getMetaAshtakaVargaValues(
+                                                          formBloc.dataModel
+                                                              .value!));
+                                            }
+                                            if (state.value == 10) {
+                                              return TrisphutadiScreen(
+                                                  list: HoroScopeUtils()
+                                                      .getMetaTrisphutadiValues(
+                                                          formBloc.dataModel
+                                                              .value!));
+                                            }
+                                            if (state.value == 11) {
+                                              return DhoomadiScreen(
+                                                  list: HoroScopeUtils()
+                                                      .getMetaDhoomadiValues(
+                                                          formBloc
+                                                              .dataModel
+                                                              .value!
+                                                              .raviValue));
+                                            }
+
+                                            return BasicDetailsScreen(
+                                                horoscopeModel:
+                                                    formBloc.dataModel.value!);
+                                          }));
+                                }),
                           )
                         ],
                       ),
@@ -166,72 +260,7 @@ class ViewHoroScopeScreen extends StatelessWidget {
   }
 
   getPlanetInfoDetails(ViewHoroScopeFormBloc formBloc) {
-    List<PlanetModel> list = [
-      PlanetModel(
-          planet: "Lagn",
-          longitude: "13 24 N",
-          nakshathra: "Bharani",
-          pada: "2"),
-      PlanetModel(
-          planet: "Ravi",
-          longitude: "13 24 N",
-          nakshathra: "Shravana",
-          pada: "2"),
-      PlanetModel(
-          planet: "Chan",
-          longitude: "13 24 N",
-          nakshathra: "Ashlesha",
-          pada: "2"),
-      PlanetModel(
-          planet: "Kuja",
-          longitude: "13 24 N",
-          nakshathra: "P.Ashadha",
-          pada: "2"),
-      PlanetModel(
-          planet: "Buda",
-          longitude: "13 24 N",
-          nakshathra: "Ashwini",
-          pada: "2"),
-      PlanetModel(
-          planet: "Guru", longitude: "13 24 N", nakshathra: "Moola", pada: "2"),
-      PlanetModel(
-          planet: "Sukr",
-          longitude: "13 24 N",
-          nakshathra: "Shatabhisha",
-          pada: "2"),
-      PlanetModel(
-          planet: "Sani",
-          longitude: "13 24 N",
-          nakshathra: "Revathi",
-          pada: "2"),
-      PlanetModel(
-          planet: "Rahu",
-          longitude: "13 24 N",
-          nakshathra: "Revathi",
-          pada: "2"),
-      PlanetModel(
-          planet: "Ketu",
-          longitude: "13 24 N",
-          nakshathra: "Chitra",
-          pada: "2"),
-      PlanetModel(
-          planet: "Mand",
-          longitude: "13 24 N",
-          nakshathra: "Shatabhisha",
-          pada: "2"),
-    ];
-    return PlanetInfoScreen(list: list);
-  }
-
-  getRashiKundliDetails() {
-    return RashiKundliScreen();
-  }
-
-  getNavamshaKundliDetails() {
-    return NavamshaKundliScreen();
-  }
-
-  getBhavaKundliDetails() {
-    return BhavaKundliScreen();
+    return PlanetInfoScreen(
+        list: formBloc.dataModel.value!.grahaSputhaValues ?? []);
   }
 }

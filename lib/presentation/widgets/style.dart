@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -8,6 +10,7 @@ class MetaStyle {
   final TextDecoration textDecoration;
   final TextOverflow overflow;
   final String? fontFamily;
+  final List<FontFeature>? fontFeatures;
   const MetaStyle({
     required this.fontSize,
     required this.fontColor,
@@ -15,6 +18,7 @@ class MetaStyle {
     this.textDecoration = TextDecoration.none,
     this.overflow = TextOverflow.visible,
     this.fontFamily = 'Poppins',
+    this.fontFeatures = const [],
   });
 
   TextStyle getStyle() {
@@ -22,6 +26,7 @@ class MetaStyle {
         fontSize: fontSize.sp,
         color: fontColor,
         overflow: overflow,
+        fontFeatures: fontFeatures,
         fontWeight: fontWeight,
         decoration: textDecoration,
         fontFamily: fontFamily);

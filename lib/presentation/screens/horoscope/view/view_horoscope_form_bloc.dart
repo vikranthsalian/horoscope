@@ -1,46 +1,57 @@
 import 'dart:async';
 
-import 'package:adithya_horoscope/core/injector/injector.dart';
-import 'package:adithya_horoscope/domain/model/response.dart';
-import 'package:adithya_horoscope/domain/usecase/auth_usecase.dart';
+import 'package:adithya_horoscope/core/utils/calculate.dart';
+import 'package:adithya_horoscope/domain/model/horoscope_model.dart';
+import 'package:adithya_horoscope/domain/model/kundli_model.dart';
+import 'package:adithya_horoscope/domain/model/user.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 
 class ViewHoroScopeFormBloc extends FormBloc<String, String> {
   final feature = SelectFieldBloc(initialValue: 0);
+  List<KundliModel> kundliList = [
+    KundliModel(id: 11, data: []),
+    KundliModel(id: 0, data: []),
+    KundliModel(id: 1, data: []),
+    KundliModel(id: 2, data: []),
+    KundliModel(id: 10, data: []),
+    KundliModel(id: 99, data: []),
+    KundliModel(id: 99, data: []),
+    KundliModel(id: 3, data: []),
+    KundliModel(id: 9, data: []),
+    KundliModel(id: 99, data: []),
+    KundliModel(id: 99, data: []),
+    KundliModel(id: 4, data: []),
+    KundliModel(id: 8, data: []),
+    KundliModel(id: 7, data: []),
+    KundliModel(id: 6, data: []),
+    KundliModel(id: 5, data: []),
+  ];
 
-  final toggle = BooleanFieldBloc<bool>(initialValue: false);
-  final dataModel = SelectFieldBloc<MetaResponse, String>();
+  final showLoading = BooleanFieldBloc<bool>(initialValue: true);
+  final dataModel = SelectFieldBloc<HoroscopeModel, String>();
 
   ViewHoroScopeFormBloc() : super(autoValidate: true, isLoading: true) {
     addFieldBlocs(fieldBlocs: [feature]);
   }
 
-  static String? emptyValidator(dynamic value) {
-    if (value.isEmpty) {
-      return "field_cannot_be_empty";
-    }
-    return null;
-  }
-
-  static String? mobileValidator(dynamic value) {
-    if (value.isEmpty || value.length < 10) {
-      return 'invalid_phone_number';
-    }
-    return null;
-  }
-
-  static String? emailValidator(dynamic value) {
-    if (value == null ||
-        value.isEmpty ||
-        !value.contains('@') ||
-        !value.contains('.')) {
-      return 'invalid_email_address';
-    }
-    return null;
-  }
-
   @override
-  FutureOr<void> onLoading() async {}
+  FutureOr<void> onLoading() async {
+    showLoading.updateValue(true);
+    User user = User(
+        name: "Vikranth",
+        place: "Mangalore",
+        // latitude: 12.8666667,
+        // longitude: 74.88333333333334,
+        latitude: 13.33333611,
+        longitude: 74.75000278,
+        time: "12:45",
+        date: "11-03-1995");
+    HoroscopeModel model = await HoroScopeUtils().calculate(user);
+    print("bak");
+    dataModel.updateValue(model);
+    showLoading.updateValue(false);
+    emitLoaded();
+  }
 
   @override
   FutureOr<void> onSubmitting() async {
@@ -49,13 +60,13 @@ class ViewHoroScopeFormBloc extends FormBloc<String, String> {
       // "password": tfPassword.value
     };
 
-    MetaResponse? response =
-        await Injector.resolve<AuthUseCase>().createMembership(data);
-    if (response.isSuccess!) {
-      dataModel.updateValue(response);
-      emitSuccess(canSubmitAgain: false);
-    } else {
-      emitSuccess(canSubmitAgain: false, successResponse: "Please try again.");
-    }
+    // MetaResponse? response =
+    //     await Injector.resolve<AuthUseCase>().createMembership(data);
+    // if (response.isSuccess!) {
+    //   dataModel.updateValue(response);
+    //   emitSuccess(canSubmitAgain: false);
+    // } else {
+    //   emitSuccess(canSubmitAgain: false, successResponse: "Please try again.");
+    // }
   }
 }

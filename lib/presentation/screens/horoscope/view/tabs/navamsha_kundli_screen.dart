@@ -1,6 +1,8 @@
 import 'package:adithya_horoscope/core/constants/asset_constants.dart';
 import 'package:adithya_horoscope/core/constants/color_constants.dart';
 import 'package:adithya_horoscope/core/constants/flavour_constants.dart';
+import 'package:adithya_horoscope/domain/model/kundli_model.dart';
+import 'package:adithya_horoscope/presentation/components/kundli.dart';
 import 'package:adithya_horoscope/presentation/widgets/column_view.dart';
 import 'package:adithya_horoscope/presentation/widgets/row_view.dart';
 import 'package:adithya_horoscope/presentation/widgets/style.dart';
@@ -10,52 +12,44 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class NavamshaKundliScreen extends StatelessWidget {
-  var padding = EdgeInsets.symmetric(horizontal: 20.w);
+  List<Map<String, int>> list;
+  List<KundliModel> listKundli;
+  NavamshaKundliScreen({required this.list, required this.listKundli});
+  var paddingW = EdgeInsets.symmetric(horizontal: 20.w);
+  List<String> formatedKValues = [];
+  List<KundliModel> newList = [];
+
   @override
   Widget build(BuildContext context) {
+    print("---------------------South Kundli---------------------------");
+    for (var entry in list.asMap().entries) {
+      Map<String, dynamic> planetName = entry.value;
+
+      print(planetName);
+
+      String mapperID = planetName.values.first.toString();
+      String mapperKey = planetName.keys.first.toString();
+
+      int? index;
+      for (var (i, e) in listKundli.indexed) {
+        if (e.id.toString() == mapperID) {
+          index = i;
+        }
+      }
+
+      if (index != null) {
+        listKundli[index].data!.add(mapperKey);
+      }
+    }
+
     return Container(
-      padding: padding,
+      padding: paddingW,
       child:
           MetaColumnView(mainAxisAlignment: MainAxisAlignment.start, children: [
-        getView("name", "Satoro Gojo"),
-        getView("date_of_birth", "11/Mar/1995"),
-        getView("nakshatra", "Ashlesha"),
-        SizedBox(height: 20.h),
         Stack(
           alignment: Alignment.center,
           children: [
-            Container(
-              color: Colors.black,
-              padding: EdgeInsets.all(0.5.r),
-              child: GridView.count(
-                  crossAxisCount: 4,
-                  shrinkWrap: true,
-                  childAspectRatio: 1.0,
-                  padding: EdgeInsets.zero,
-                  physics: NeverScrollableScrollPhysics(),
-                  mainAxisSpacing: 0.5.r,
-                  crossAxisSpacing: 0.5.r,
-                  children: <String>[
-                    '1',
-                    '2',
-                    '3',
-                    '4',
-                    '5',
-                    '6',
-                    '7',
-                    '8',
-                    '9',
-                    '10',
-                    '11',
-                    '12',
-                    '13',
-                    '14',
-                    '15',
-                    '16',
-                  ].map((String url) {
-                    return GridTile(child: Container(color: Colors.white));
-                  }).toList()),
-            ),
+            KundliWidget(list: listKundli),
             Container(
               color: MetaColors.whiteColor,
               width: 150.w,
@@ -78,7 +72,7 @@ class NavamshaKundliScreen extends StatelessWidget {
             Expanded(
               flex: 3,
               child: Container(
-                padding: padding,
+                padding: paddingW,
                 alignment: Alignment.centerLeft,
                 child: MetaTextView(
                   text: title,
@@ -90,7 +84,7 @@ class NavamshaKundliScreen extends StatelessWidget {
               ),
             ),
             Container(
-              padding: padding,
+              padding: paddingW,
               alignment: Alignment.centerLeft,
               child: MetaTextView(
                 text: " : ",
@@ -103,7 +97,7 @@ class NavamshaKundliScreen extends StatelessWidget {
             Expanded(
               flex: 3,
               child: Container(
-                padding: padding,
+                padding: paddingW,
                 alignment: Alignment.centerLeft,
                 child: MetaTextView(
                   text: text,
