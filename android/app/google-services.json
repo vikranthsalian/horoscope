@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "455277033456",
+    "firebase_url": "https://astro-33b94-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "astro-33b94",
+    "storage_bucket": "astro-33b94.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:455277033456:android:48db5bbd9535dad5c6cf35",
+        "android_client_info": {
+          "package_name": "creative.thief.adithya_horoscope"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "455277033456-6f7jfftjkdlik9ko66q7htger7ijcgic.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "creative.thief.adithya_horoscope",
+            "certificate_hash": "0427f1f671e6e4e3c7ecdea6f886a16369cf8725"
+          }
+        },
+        {
+          "client_id": "455277033456-i3ejjiokn2831ccdanmb1ldeu2munl3n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAf-4bAnJye1Kthg5bMTnDd9Tzp-myMeMk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "455277033456-i3ejjiokn2831ccdanmb1ldeu2munl3n.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "455277033456-cb6mes3n4r94nkvofc9sl3u2nq1moecl.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "creative.thief.adithyaHoroscope"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
