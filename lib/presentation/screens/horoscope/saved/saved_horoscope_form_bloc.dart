@@ -1,71 +1,50 @@
 import 'dart:async';
 
-import 'package:adithya_horoscope/core/injector/injector.dart';
-import 'package:adithya_horoscope/domain/model/response.dart';
-import 'package:adithya_horoscope/domain/usecase/auth_usecase.dart';
+import 'package:adithya_horoscope/core/app/navigator_key.dart';
+import 'package:adithya_horoscope/data/cubits/login/login_cubit.dart';
+import 'package:adithya_horoscope/data/datasources/user.dart';
+import 'package:adithya_horoscope/domain/model/user.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 
 class SavedHoroScopeFormBloc extends FormBloc<String, String> {
-  final tfFName = TextFieldBloc(validators: [emptyValidator], initialValue: "");
-  final tfDOB = TextFieldBloc(validators: [emptyValidator], initialValue: "");
-  final tfBT = TextFieldBloc(validators: [emptyValidator], initialValue: "");
-  final tfBLoc = TextFieldBloc(validators: [emptyValidator], initialValue: "");
-  final timezone =
-      SelectFieldBloc(validators: [emptyValidator], initialValue: "+5.30");
-  final latitude =
-      SelectFieldBloc(validators: [emptyValidator], initialValue: "12° 23 N");
-  final longitude =
-      SelectFieldBloc(validators: [emptyValidator], initialValue: "12° 23 N");
+  final isLoading = BooleanFieldBloc(initialValue: true);
+  final dataModel = SelectFieldBloc<List<User>, String>();
 
-  final dataModel = SelectFieldBloc<MetaResponse, String>();
-
-  SavedHoroScopeFormBloc() : super(autoValidate: true) {
-    addFieldBlocs(fieldBlocs: [
-      tfFName,
-      tfBT,
-      tfDOB,
-      tfBLoc,
-    ]);
+  SavedHoroScopeFormBloc() : super(autoValidate: true, isLoading: true) {
+    addFieldBlocs(fieldBlocs: []);
   }
 
-  static String? emptyValidator(dynamic value) {
-    if (value.isEmpty) {
-      return "field_cannot_be_empty";
-    }
-    return null;
-  }
+  @override
+  FutureOr<void> onLoading() async {
+    UserData userData = globalContext.read<LoginCubit>().getLoginResponse();
+    DatabaseReference ref = FirebaseDatabase.instance.ref('horoscope_details');
+    List<User> list = [];
+    emitLoaded();
+    ref.onValue.listen((DatabaseEvent event) {
+      isLoading.updateValue(true);
+      Map<dynamic, dynamic>? receivedData =
+          event.snapshot.value as Map<dynamic, dynamic>?;
 
-  static String? mobileValidator(dynamic value) {
-    if (value.isEmpty || value.length < 10) {
-      return 'invalid_phone_number';
-    }
-    return null;
-  }
-
-  static String? emailValidator(dynamic value) {
-    if (value == null ||
-        value.isEmpty ||
-        !value.contains('@') ||
-        !value.contains('.')) {
-      return 'invalid_email_address';
-    }
-    return null;
+      if (receivedData != null) {
+        list.clear(); // Clear the previous list before updating
+        receivedData.forEach((key, value) {
+          print(value);
+          Map<String, dynamic> data = value.cast<String, dynamic>();
+          if (data['userID'].toString() == userData.id) {
+            list.add(User.fromJson(data));
+          }
+        });
+        print("list.length");
+        print(list.length);
+        dataModel.updateValue(list);
+        isLoading.updateValue(false);
+      }
+    });
   }
 
   @override
   FutureOr<void> onSubmitting() async {
-    Map<String, dynamic> data = {
-      // "email": tfPassword.value,
-      // "password": tfPassword.value
-    };
-
-    MetaResponse? response =
-        await Injector.resolve<AuthUseCase>().createMembership(data);
-    if (response.isSuccess!) {
-      dataModel.updateValue(response);
-      emitSuccess(canSubmitAgain: false);
-    } else {
-      emitSuccess(canSubmitAgain: false, successResponse: "Please try again.");
-    }
+    emitSuccess(canSubmitAgain: false);
   }
 }

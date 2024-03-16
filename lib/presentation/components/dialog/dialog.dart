@@ -8,6 +8,9 @@ class MetaDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Dialog(
+        backgroundColor: Colors.white,
+        surfaceTintColor: Colors.white,
+        insetPadding: EdgeInsets.symmetric(horizontal: 20.w),
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(10.r))),
         child: Container(

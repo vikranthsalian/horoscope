@@ -3,6 +3,8 @@ import 'package:adithya_horoscope/core/constants/color_constants.dart';
 import 'package:adithya_horoscope/core/constants/flavour_constants.dart';
 import 'package:adithya_horoscope/core/constants/route_constants.dart';
 import 'package:adithya_horoscope/core/utils/show_alert.dart';
+import 'package:adithya_horoscope/data/cubits/login/login_cubit.dart';
+import 'package:adithya_horoscope/data/datasources/user.dart';
 import 'package:adithya_horoscope/presentation/components/app_bar.dart';
 import 'package:adithya_horoscope/presentation/screens/profile/profile_form_bloc.dart';
 import 'package:adithya_horoscope/presentation/widgets/column_view.dart';
@@ -19,9 +21,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ProfileScreen extends StatelessWidget {
   var padding = EdgeInsets.symmetric(horizontal: 26.w);
-
+  UserData? data;
   @override
   Widget build(BuildContext context) {
+    data = context.read<LoginCubit>().getLoginResponse();
+
     return SafeArea(
       bottom: false,
       child: Scaffold(
@@ -33,6 +37,10 @@ class ProfileScreen extends StatelessWidget {
               child: Builder(builder: (context) {
                 ProfileFormBloc formBloc =
                     BlocProvider.of<ProfileFormBloc>(context);
+
+                formBloc.tfFName.updateValue(data!.name ?? "");
+                formBloc.tfPhNo.updateValue(data!.email ?? "");
+                formBloc.tfFName.updateValue(data!.name ?? "");
 
                 return FormBlocListener<ProfileFormBloc, String, String>(
                     onSubmissionFailed: (context, state) {
@@ -88,8 +96,7 @@ class ProfileScreen extends StatelessWidget {
                                       borderRadius:
                                           BorderRadius.circular(100.r),
                                       child: MetaImageNetwork(
-                                        path:
-                                            "http://m.gettywallpapers.com/wp-content/uploads/2023/06/Dark-Balck-Profile-Pic.jpg",
+                                        path: data!.profilePic ?? "",
                                       ))),
                               Positioned(
                                   bottom: 10,
@@ -162,8 +169,8 @@ class ProfileScreen extends StatelessWidget {
                           Container(
                             padding: padding,
                             child: MetaBlocTextField(
-                              labelText: "phone_number",
-                              hintText: "phone_number",
+                              labelText: "email_address",
+                              hintText: "email_address",
                               textFieldBloc: formBloc.tfPhNo,
                               inputType: TextInputType.text,
                               enabled: false,

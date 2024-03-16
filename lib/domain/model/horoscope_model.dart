@@ -1,9 +1,9 @@
 import 'package:adithya_horoscope/core/utils/calculate.dart';
 import 'package:adithya_horoscope/domain/model/planet_model.dart';
+import 'package:intl/intl.dart';
 
 class HoroscopeModel {
   String? name;
-  DateTime? dateTime;
   String? dob;
   String? place;
   String? tob;
@@ -39,6 +39,11 @@ class HoroscopeModel {
   List<Map<String, int>>? rasiKundliValues;
   List<PlanetModel>? grahaSputhaValues;
 
+  DateTime get getDateTime {
+    DateTime dateTime = DateFormat("dd-MM-yyyy").parse(dob!);
+    return dateTime;
+  }
+
   String get getLongitude {
     return HoroScopeUtils().getMetaDecimalToDegree(longitude!);
   }
@@ -56,14 +61,13 @@ class HoroscopeModel {
   }
 
   String get getTimezone {
-    return dateTime!.timeZoneOffset.inHours.toString() +
+    return getDateTime.timeZoneOffset.inHours.toString() +
         "." +
-        dateTime!.timeZoneOffset.abs().inMinutes.toString();
+        getDateTime.timeZoneOffset.abs().inMinutes.toString();
   }
 
   HoroscopeModel(
       {required this.name,
-      required this.dateTime,
       required this.lagnaPlace,
       required this.dob,
       required this.tiz,
@@ -98,4 +102,47 @@ class HoroscopeModel {
       required this.mandiValue,
       required this.rasiKundliValues,
       required this.grahaSputhaValues});
+
+  // Map<String, dynamic> toJson() {
+  //   final Map<String, dynamic> data ={};
+  //   data['name'] = name;
+  //   data['lagnaPlace'] = lagnaPlace;
+  //   data['dob'] = dob;
+  //   data['tiz'] = tiz;
+  //   data['tob'] = tob;
+  //   data['longitude'] =longitude ;
+  //   data['latitude'] = ;
+  //   data['place'] = ;
+  //   data['kalidin'] = ;
+  //   data['khandashesh'] = ;
+  //   data['khandashesh_1hr'] = ;
+  //   data['ayanams'] = ;
+  //   data['raviValue'] = ;
+  //   data['chandraValue'] = ;
+  //   data['kujaValue'] = ;
+  //   data['kujaValue_1hr'] = ;
+  //   data['budhaValue'] = ;
+  //   data['budhaValue_1hr'] = ;
+  //   data['guruValue'] = ;
+  //   data['guruValue_1hr'] = ;
+  //   data['sukraValue'] = ;
+  //   data['sukraValue_1hr'] = ;
+  //   data['saniValue'] = ;
+  //   data['saniValue_1hr'] = ;
+  //   data['rahuValue'] = ;
+  //   data['kt'] = ;
+  //   data['ketuValue'] = ;
+  //   data['sunriseValue'] = ;
+  //   data['sunsetValue'] = ;
+  //   data['dinamanaValue'] = ;
+  //   data['lagnaValue'] = ;
+  //   data['dasamaValue'] = ;
+  //   data['mandiValue'] = ;
+  //   data['rasiKundliValues'] = ;
+  //   data['grahaSputhaValues'] = ;
+  //   if (err != null) {
+  //     data['err'] = err!.map((v) => v.toJson()).toList();
+  //   }
+  //   return data;
+  // }
 }

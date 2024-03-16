@@ -1,7 +1,10 @@
 class User {
+  String? uniqueID = "";
+  String? userID = "";
   String? code = "";
   String? name = "";
   String? date = "";
+  String? createdData = "";
   String? time = "";
   String? place = "";
   double? timezone = 0;
@@ -11,8 +14,11 @@ class User {
 
   User(
       {this.code,
+      this.userID,
       this.name,
+      this.uniqueID,
       this.date,
+      this.createdData,
       this.time,
       this.place,
       this.timezone,
@@ -25,6 +31,38 @@ class User {
   //   this.name = name;
   //   this.selected = selected;
   // }
+
+  User.fromJson(Map<String, dynamic> json) {
+    userID = json['userID'];
+    uniqueID = json['uniqueID'];
+    code = json['code'];
+    name = json['name'];
+    date = json['date'];
+    createdData = json['createdData'];
+    place = json['place'];
+    time = json['time'];
+    timezone = json['timezone'];
+    latitude = json['latitude'];
+    longitude = json['longitude'];
+    selected = json['selected'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = {};
+    data['userID'] = userID;
+    data['uniqueID'] = uniqueID;
+    data['code'] = code;
+    data['name'] = name;
+    data['time'] = time;
+    data['createdData'] = createdData;
+    data['date'] = date;
+    data['place'] = place;
+    data['timezone'] = timezone;
+    data['latitude'] = latitude;
+    data['longitude'] = longitude;
+    data['selected'] = selected;
+    return data;
+  }
 
   /**
    * @return the latitude

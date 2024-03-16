@@ -17,22 +17,21 @@ class UserDataAdapter extends TypeAdapter<UserData> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return UserData(
-      id: fields[0] as int?,
+      id: fields[0] as String?,
       name: fields[1] as String?,
       email: fields[2] as String?,
       mobile: fields[3] as String?,
       profilePic: fields[4] as String?,
       regDate: fields[5] as String?,
       lastLogin: fields[6] as String?,
-      verifiedAt: fields[7] as String?,
-      status: fields[8] as int?,
+      status: fields[7] as int?,
     );
   }
 
   @override
   void write(BinaryWriter writer, UserData obj) {
     writer
-      ..writeByte(9)
+      ..writeByte(8)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -48,8 +47,6 @@ class UserDataAdapter extends TypeAdapter<UserData> {
       ..writeByte(6)
       ..write(obj.lastLogin)
       ..writeByte(7)
-      ..write(obj.verifiedAt)
-      ..writeByte(8)
       ..write(obj.status);
   }
 

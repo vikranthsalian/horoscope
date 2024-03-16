@@ -1,7 +1,10 @@
 import 'package:adithya_horoscope/core/constants/asset_constants.dart';
 import 'package:adithya_horoscope/core/constants/color_constants.dart';
 import 'package:adithya_horoscope/core/constants/flavour_constants.dart';
+import 'package:adithya_horoscope/core/utils/calculate.dart';
+import 'package:adithya_horoscope/domain/model/horoscope_model.dart';
 import 'package:adithya_horoscope/domain/model/kundli_model.dart';
+import 'package:adithya_horoscope/presentation/components/app_bar.dart';
 import 'package:adithya_horoscope/presentation/components/kundli.dart';
 import 'package:adithya_horoscope/presentation/widgets/column_view.dart';
 import 'package:adithya_horoscope/presentation/widgets/row_view.dart';
@@ -12,17 +15,34 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class NavamshaKundliScreen extends StatelessWidget {
-  List<Map<String, int>> list;
-  List<KundliModel> listKundli;
-  NavamshaKundliScreen({required this.list, required this.listKundli});
+  HoroscopeModel model;
+  bool isScreen;
+  NavamshaKundliScreen({required this.isScreen, required this.model});
   var paddingW = EdgeInsets.symmetric(horizontal: 20.w);
-  List<String> formatedKValues = [];
-  List<KundliModel> newList = [];
+  List<KundliModel> listKundli = [
+    KundliModel(id: 11, data: []),
+    KundliModel(id: 0, data: []),
+    KundliModel(id: 1, data: []),
+    KundliModel(id: 2, data: []),
+    KundliModel(id: 10, data: []),
+    KundliModel(id: 99, data: []),
+    KundliModel(id: 99, data: []),
+    KundliModel(id: 3, data: []),
+    KundliModel(id: 9, data: []),
+    KundliModel(id: 99, data: []),
+    KundliModel(id: 99, data: []),
+    KundliModel(id: 4, data: []),
+    KundliModel(id: 8, data: []),
+    KundliModel(id: 7, data: []),
+    KundliModel(id: 6, data: []),
+    KundliModel(id: 5, data: []),
+  ];
 
   @override
   Widget build(BuildContext context) {
     print("---------------------South Kundli---------------------------");
-    for (var entry in list.asMap().entries) {
+    for (var entry
+        in HoroScopeUtils().getMetaNavamsaKundliValues(model).asMap().entries) {
       Map<String, dynamic> planetName = entry.value;
 
       print(planetName);
@@ -42,6 +62,21 @@ class NavamshaKundliScreen extends StatelessWidget {
       }
     }
 
+    if (isScreen) {
+      return SafeArea(
+          child: Scaffold(
+              appBar: MetaAppBar(
+                title: "navamsha_kundli",
+              ),
+              body: Container(
+                margin: EdgeInsets.only(top: 10.h),
+                child: getBody(),
+              )));
+    }
+    return getBody();
+  }
+
+  getBody() {
     return Container(
       padding: paddingW,
       child:

@@ -1,8 +1,12 @@
+import 'dart:math';
+
 import 'package:adithya_horoscope/core/constants/asset_constants.dart';
 import 'package:adithya_horoscope/core/constants/color_constants.dart';
 import 'package:adithya_horoscope/core/constants/flavour_constants.dart';
 import 'package:adithya_horoscope/core/constants/route_constants.dart';
+import 'package:adithya_horoscope/core/utils/date_time.dart';
 import 'package:adithya_horoscope/core/utils/show_alert.dart';
+import 'package:adithya_horoscope/domain/model/user.dart';
 import 'package:adithya_horoscope/presentation/components/app_bar.dart';
 import 'package:adithya_horoscope/presentation/screens/horoscope/add/add_horoscope_form_bloc.dart';
 import 'package:adithya_horoscope/presentation/widgets/column_view.dart';
@@ -18,7 +22,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AddHoroScopeScreen extends StatelessWidget {
   var padding = EdgeInsets.symmetric(horizontal: 26.w);
-
+  AddHoroScopeFormBloc? formBloc;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -34,7 +38,7 @@ class AddHoroScopeScreen extends StatelessWidget {
                 child: MetaIcon(
                     icon: Icons.settings,
                     onIconPressed: () {
-                      Navigator.pushNamed(context, RouteConstants.settingsPath);
+                      // Navigator.pushNamed(context, RouteConstants.settingsPath);
                     },
                     size: 15,
                     color: MetaColors.color3F3F3F),
@@ -69,8 +73,7 @@ class AddHoroScopeScreen extends StatelessWidget {
                           child: customButtons(AssetConstants.nowIcon, "now")),
                       InkWell(
                           onTap: () {
-                            Navigator.pushNamed(
-                                context, RouteConstants.viewHoroScopePath);
+                            formBloc!.submit();
                           },
                           child: customButtons(
                               AssetConstants.proceedIcon, "proceed")),
@@ -92,17 +95,26 @@ class AddHoroScopeScreen extends StatelessWidget {
             child: BlocProvider(
               create: (context) => AddHoroScopeFormBloc(),
               child: Builder(builder: (context) {
-                AddHoroScopeFormBloc formBloc =
-                    BlocProvider.of<AddHoroScopeFormBloc>(context);
+                formBloc = BlocProvider.of<AddHoroScopeFormBloc>(context);
 
                 return FormBlocListener<AddHoroScopeFormBloc, String, String>(
                     onSubmissionFailed: (context, state) {
                       print("Error is.......$state");
                     },
                     onSuccess: (context, state) {
-                      formBloc.clear();
-                      // SignUpResponse? modelResponse = formBloc.dataModel.value;
-                      //  Navigator.pop(context,(true,modelResponse!.email));
+                      Navigator.pushNamed(
+                          context, RouteConstants.viewHoroScopePath,
+                          arguments: {
+                            "user": User(
+                                uniqueID: generateRandom(),
+                                name: formBloc!.tfFName.value,
+                                place: formBloc!.tfBLoc.value,
+                                latitude: formBloc!.position.value!.latitude,
+                                longitude: formBloc!.position.value!.longitude,
+                                time: formBloc!.tfBT.value,
+                                createdData: DateTime.now().toString(),
+                                date: formBloc!.tfDOB.value)
+                          });
                     },
                     onFailure: (context, state) {
                       MetaAlert.showSnackbar(
@@ -146,7 +158,7 @@ class AddHoroScopeScreen extends StatelessWidget {
                             child: MetaBlocTextField(
                               labelText: "full_name",
                               hintText: "enter_full_name",
-                              textFieldBloc: formBloc.tfFName,
+                              textFieldBloc: formBloc!.tfFName,
                             ),
                           ),
                           SizedBox(
@@ -154,11 +166,23 @@ class AddHoroScopeScreen extends StatelessWidget {
                           ),
                           Container(
                             padding: padding,
-                            child: MetaBlocTextField(
-                              labelText: "date_of_birth",
-                              hintText: "choose_date_of_birth",
-                              textFieldBloc: formBloc.tfDOB,
-                              inputType: TextInputType.text,
+                            child: InkWell(
+                              splashColor: Colors.transparent,
+                              highlightColor: Colors.transparent,
+                              onTap: () {
+                                MetaDateTime().setDateTime(onSelected: (date) {
+                                  if (date != null) {
+                                    formBloc!.tfDOB.updateValue(date);
+                                  }
+                                });
+                              },
+                              child: MetaBlocTextField(
+                                enabled: false,
+                                labelText: "date_of_birth",
+                                hintText: "choose_date_of_birth",
+                                textFieldBloc: formBloc!.tfDOB,
+                                inputType: TextInputType.text,
+                              ),
                             ),
                           ),
                           SizedBox(
@@ -166,11 +190,24 @@ class AddHoroScopeScreen extends StatelessWidget {
                           ),
                           Container(
                             padding: padding,
-                            child: MetaBlocTextField(
-                              labelText: "birth_time",
-                              hintText: "choose_birth_time",
-                              textFieldBloc: formBloc.tfBT,
-                              inputType: TextInputType.text,
+                            child: InkWell(
+                              splashColor: Colors.transparent,
+                              highlightColor: Colors.transparent,
+                              onTap: () {
+                                MetaDateTime().showTTimePicker(
+                                    onSelected: (time) {
+                                  if (time != null) {
+                                    formBloc!.tfBT.updateValue(time);
+                                  }
+                                });
+                              },
+                              child: MetaBlocTextField(
+                                enabled: false,
+                                labelText: "birth_time",
+                                hintText: "choose_birth_time",
+                                textFieldBloc: formBloc!.tfBT,
+                                inputType: TextInputType.text,
+                              ),
                             ),
                           ),
                           SizedBox(
@@ -180,8 +217,8 @@ class AddHoroScopeScreen extends StatelessWidget {
                             padding: padding,
                             child: MetaBlocTextField(
                               labelText: "birth_location",
-                              hintText: "choose_birth_location",
-                              textFieldBloc: formBloc.tfBLoc,
+                              hintText: "enter_birth_location",
+                              textFieldBloc: formBloc!.tfBLoc,
                               inputType: TextInputType.text,
                             ),
                           ),
@@ -189,7 +226,7 @@ class AddHoroScopeScreen extends StatelessWidget {
                             height: 10.h,
                           ),
                           BlocBuilder<SelectFieldBloc, SelectFieldBlocState>(
-                              bloc: formBloc.timezone,
+                              bloc: formBloc!.timezone,
                               builder: (ctx, state) {
                                 return Container(
                                     child: MetaRowView(
@@ -241,7 +278,7 @@ class AddHoroScopeScreen extends StatelessWidget {
                             height: 10.h,
                           ),
                           BlocBuilder<SelectFieldBloc, SelectFieldBlocState>(
-                              bloc: formBloc.latitude,
+                              bloc: formBloc!.latitude,
                               builder: (ctx, state) {
                                 return Container(
                                     child: MetaRowView(
@@ -293,7 +330,7 @@ class AddHoroScopeScreen extends StatelessWidget {
                             height: 10.h,
                           ),
                           BlocBuilder<SelectFieldBloc, SelectFieldBlocState>(
-                              bloc: formBloc.longitude,
+                              bloc: formBloc!.longitude,
                               builder: (ctx, state) {
                                 return Container(
                                     child: MetaRowView(
@@ -351,6 +388,15 @@ class AddHoroScopeScreen extends StatelessWidget {
             ),
           )),
     );
+  }
+
+  generateRandom() {
+    Random random = Random();
+    String number = '';
+    for (int i = 0; i < 10; i++) {
+      number = number + random.nextInt(9).toString();
+    }
+    return number;
   }
 
   customButtons(String nowIcon, String text) {

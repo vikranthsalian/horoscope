@@ -5,11 +5,11 @@ import 'package:adithya_horoscope/domain/model/response.dart';
 
 class AuthRepo extends AuthAbstract {
   @override
-  Future<UserModel> login(data) async {
+  Future<UserData> login(data) async {
     var response = await AuthNetwork().loginRequest(data);
-    UserModel model = UserModel(isSuccess: false);
+    UserData model = UserData();
     try {
-      model = UserModel.fromJson(response);
+      model = UserData.fromJson(response);
     } catch (e) {
       print(e);
     }
@@ -29,11 +29,11 @@ class AuthRepo extends AuthAbstract {
   }
 
   @override
-  Future<UserModel> updateProfilePic(data) async {
+  Future<UserData> updateProfilePic(data) async {
     var response = await AuthNetwork().updateProfilePic(data);
-    UserModel model = UserModel(isSuccess: false);
+    UserData model = UserData();
     try {
-      model = UserModel.fromJson(response);
+      model = UserData.fromJson(response);
     } catch (e) {
       print(e);
     }
@@ -41,11 +41,11 @@ class AuthRepo extends AuthAbstract {
   }
 
   @override
-  Future<UserModel> getProfile(data) async {
+  Future<UserData> getProfile(data) async {
     var response = await AuthNetwork().getProfile(data);
-    UserModel model = UserModel(isSuccess: false);
+    UserData model = UserData();
     try {
-      model = UserModel.fromJson(response);
+      model = UserData.fromJson(response);
     } catch (e) {
       print(e);
     }

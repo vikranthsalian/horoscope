@@ -23,7 +23,6 @@ class MetaDialogList extends StatelessWidget {
   Widget build(BuildContext context) {
     return MetaDialog(
         child: Container(
-      height: 250.h,
       child: MetaColumnView(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
@@ -47,40 +46,39 @@ class MetaDialogList extends StatelessWidget {
                   ),
                 ],
               )),
-          Expanded(
-            child: Container(
-              color: MetaColors.whiteColor,
-              child: ListView.separated(
-                shrinkWrap: true,
-                padding: EdgeInsets.zero,
-                itemCount: list.length,
-                itemBuilder: (context, i) {
-                  return InkWell(
-                      onTap: () {
-                        onSelected!(list[i]);
-                        Navigator.pop(context);
-                      },
-                      child: Container(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: 10.h, vertical: 6.h),
-                        child: MetaTextView(
-                          textAlign: TextAlign.center,
-                          text: list[i].name ?? "",
-                          textStyle: MetaStyle(
-                              fontSize: 12,
-                              fontColor: selected == list[i].id
-                                  ? MetaColors().primaryColor
-                                  : MetaColors.greyColor,
-                              fontWeight: FontWeight.w500),
-                        ),
-                      ));
-                },
-                separatorBuilder: (BuildContext context, int index) {
-                  return Divider();
-                },
-              ),
+          Container(
+            color: MetaColors.whiteColor,
+            child: ListView.separated(
+              shrinkWrap: true,
+              padding: EdgeInsets.zero,
+              itemCount: list.length,
+              itemBuilder: (context, i) {
+                return InkWell(
+                    onTap: () {
+                      onSelected!(list[i]);
+                      Navigator.pop(context);
+                    },
+                    child: Container(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 10.h, vertical: 9.h),
+                      child: MetaTextView(
+                        textAlign: TextAlign.center,
+                        text: list[i].name ?? "",
+                        textStyle: MetaStyle(
+                            fontSize: 12,
+                            fontColor: selected == list[i].id
+                                ? MetaColors().primaryColor
+                                : MetaColors.greyColor,
+                            fontWeight: FontWeight.w500),
+                      ),
+                    ));
+              },
+              separatorBuilder: (BuildContext context, int index) {
+                return Container(height: 7);
+              },
             ),
           ),
+          Container(height: 12.h),
           Container(
             height: 35.h,
             child: MetaButton(

@@ -23,7 +23,7 @@ class MetaAppBar extends StatelessWidget implements PreferredSizeWidget {
       height: height.h,
       alignment: Alignment.bottomLeft,
       color: MetaColors.whiteColor,
-      padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
+      padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
       child: Stack(
         alignment: Alignment.center,
         children: [
@@ -35,6 +35,7 @@ class MetaAppBar extends StatelessWidget implements PreferredSizeWidget {
                         ? Icons.close
                         : Icons.arrow_back_ios_new_outlined,
                     onIconPressed: () {
+                      print("sdasdasda");
                       if (leadingAction != null) {
                         leadingAction!();
                       } else {

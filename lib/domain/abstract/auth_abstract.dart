@@ -2,11 +2,11 @@ import 'package:adithya_horoscope/data/datasources/user.dart';
 import 'package:adithya_horoscope/domain/model/response.dart';
 
 abstract class AuthAbstract {
-  Future<UserModel> login(data);
+  Future<UserData> login(data);
 
-  Future<UserModel> getProfile(data);
+  Future<UserData> getProfile(data);
 
-  Future<UserModel> updateProfilePic(data);
+  Future<UserData> updateProfilePic(data);
 
   Future<MetaResponse> updateUser(data);
 

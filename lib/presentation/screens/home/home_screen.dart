@@ -1,7 +1,13 @@
+import 'dart:math';
+
 import 'package:adithya_horoscope/core/constants/asset_constants.dart';
 import 'package:adithya_horoscope/core/constants/color_constants.dart';
 import 'package:adithya_horoscope/core/constants/flavour_constants.dart';
 import 'package:adithya_horoscope/core/constants/route_constants.dart';
+import 'package:adithya_horoscope/core/ext/timeofday_ext.dart';
+import 'package:adithya_horoscope/core/utils/calculate.dart';
+import 'package:adithya_horoscope/domain/model/horoscope_model.dart';
+import 'package:adithya_horoscope/domain/model/user.dart';
 import 'package:adithya_horoscope/presentation/widgets/button.dart';
 import 'package:adithya_horoscope/presentation/widgets/column_view.dart';
 import 'package:adithya_horoscope/presentation/widgets/row_view.dart';
@@ -10,6 +16,7 @@ import 'package:adithya_horoscope/presentation/widgets/svg_view.dart';
 import 'package:adithya_horoscope/presentation/widgets/text_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl/intl.dart';
 
 class HomeScreen extends StatelessWidget {
   var padding = EdgeInsets.symmetric(horizontal: 26.w);
@@ -164,8 +171,33 @@ class HomeScreen extends StatelessWidget {
                                 fontWeight: FontWeight.w100,
                                 fontSize: 20),
                             onTap: () async {
-                              Navigator.of(context).pushReplacementNamed(
-                                  RouteConstants.loginPath);
+                              DateTime dateTime = DateTime.now();
+                              print("dateTime");
+
+                              String _date =
+                                  DateFormat('dd-MM-yyyy').format(dateTime);
+                              TimeOfDay timeOfDay = TimeOfDay.now();
+
+                              HoroscopeModel model = await HoroScopeUtils()
+                                  .calculate(User(
+                                      uniqueID: generateRandom(),
+                                      name: "",
+                                      place: "UDUPI,KAR,IND",
+                                      latitude: 0,
+                                      longitude: 0,
+                                      timezone: 0,
+                                      time: timeOfDay.toStringFormat,
+                                      createdData: DateTime.now().toString(),
+                                      date: _date));
+
+                              print(model.rasiKundliValues);
+
+                              Navigator.of(context).pushNamed(
+                                  RouteConstants.rashiKundliPath,
+                                  arguments: {
+                                    "isScreen": true,
+                                    "model": model,
+                                  });
                             },
                             text: "prashna",
                           ),
@@ -178,5 +210,14 @@ class HomeScreen extends StatelessWidget {
             ),
           ],
         ));
+  }
+
+  generateRandom() {
+    Random random = Random();
+    String number = '';
+    for (int i = 0; i < 10; i++) {
+      number = number + random.nextInt(9).toString();
+    }
+    return number;
   }
 }

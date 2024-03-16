@@ -1,7 +1,10 @@
 import 'dart:ui';
 
 import 'package:adithya_horoscope/core/constants/color_constants.dart';
+import 'package:adithya_horoscope/core/constants/route_constants.dart';
+import 'package:adithya_horoscope/domain/model/horoscope_model.dart';
 import 'package:adithya_horoscope/domain/model/planet_model.dart';
+import 'package:adithya_horoscope/presentation/components/app_bar.dart';
 import 'package:adithya_horoscope/presentation/widgets/column_view.dart';
 import 'package:adithya_horoscope/presentation/widgets/row_view.dart';
 import 'package:adithya_horoscope/presentation/widgets/style.dart';
@@ -11,7 +14,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class PlanetInfoScreen extends StatelessWidget {
   List<PlanetModel> list;
-  PlanetInfoScreen({required this.list});
+  HoroscopeModel model;
+  bool isScreen;
+  PlanetInfoScreen(
+      {required this.list, required this.isScreen, required this.model});
   var padding = EdgeInsets.symmetric(horizontal: 8.w);
 
   List<String> headers = [
@@ -23,6 +29,42 @@ class PlanetInfoScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (isScreen) {
+      return SafeArea(
+          child: Scaffold(
+              appBar: MetaAppBar(
+                  title: "planet_info",
+                  action: InkWell(
+                    onTap: () {
+                      Navigator.of(context).pushNamed(
+                          RouteConstants.navamshaKundliPath,
+                          arguments: {
+                            "isScreen": true,
+                            "model": model,
+                          });
+                    },
+                    child: Container(
+                      alignment: Alignment.centerRight,
+                      height: 40.w,
+                      width: 100.w,
+                      child: MetaTextView(
+                        text: "navamasha_kundli",
+                        textStyle: MetaStyle(
+                            fontSize: 9,
+                            fontColor: MetaColors().primaryColor,
+                            fontWeight: FontWeight.w100),
+                      ),
+                    ),
+                  )),
+              body: Container(
+                margin: EdgeInsets.only(top: 10.h),
+                child: getBody(),
+              )));
+    }
+    return getBody();
+  }
+
+  getBody() {
     return SingleChildScrollView(
       child:
           MetaColumnView(mainAxisAlignment: MainAxisAlignment.start, children: [

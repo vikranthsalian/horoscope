@@ -140,7 +140,6 @@ class HoroScopeUtils {
     HoroscopeModel horoscopeModel = HoroscopeModel(
         name: mUser.name,
         lagnaPlace: lagnaPlace,
-        dateTime: dateTime,
         tob: mUser.time,
         dob: mUser.date,
         tiz: mUser.timezone,
@@ -2215,8 +2214,8 @@ class HoroScopeUtils {
   List<(String, String)> getMeta9DasaBhuktiValues(HoroscopeModel hm) {
     //ShistaDasa(hm.chandraValue!); //First calclate  Bal_Dasa to find 9 das
     (double, int) datas = betaShistaDasa(hm.chandraValue!);
-    return GetMeta9Dasa(hm.dateTime!.day, hm.dateTime!.month, hm.dateTime!.year,
-        datas.$1, datas.$2);
+    return GetMeta9Dasa(hm.getDateTime.day, hm.getDateTime.month,
+        hm.getDateTime.year, datas.$1, datas.$2);
   }
 
   /*Calculate and return value for Dasa-Bhukti Module */

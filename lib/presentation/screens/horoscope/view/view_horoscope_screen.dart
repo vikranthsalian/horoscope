@@ -25,8 +25,9 @@ import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ViewHoroScopeScreen extends StatelessWidget {
+  Map<String, dynamic> data;
+  ViewHoroScopeScreen({required this.data});
   var padding = EdgeInsets.symmetric(horizontal: 8.w);
-  int d = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -54,6 +55,8 @@ class ViewHoroScopeScreen extends StatelessWidget {
               child: Builder(builder: (context) {
                 ViewHoroScopeFormBloc formBloc =
                     BlocProvider.of<ViewHoroScopeFormBloc>(context);
+
+                formBloc.inputModel.updateValue(data['user']);
 
                 return FormBlocListener<ViewHoroScopeFormBloc, String, String>(
                     onSubmissionFailed: (context, state) {
@@ -153,6 +156,7 @@ class ViewHoroScopeScreen extends StatelessWidget {
                                           builder: (context, state) {
                                             if (state.value == 0) {
                                               return BasicDetailsScreen(
+                                                  userModel: data['user'],
                                                   horoscopeModel: formBloc
                                                       .dataModel.value!);
                                             }
@@ -162,30 +166,19 @@ class ViewHoroScopeScreen extends StatelessWidget {
                                             }
                                             if (state.value == 2) {
                                               return RashiKundliScreen(
-                                                  listKundli:
-                                                      formBloc.kundliList,
-                                                  list: formBloc
-                                                      .dataModel
-                                                      .value!
-                                                      .rasiKundliValues!);
+                                                  model: formBloc
+                                                      .dataModel.value!);
                                             }
                                             if (state.value == 3) {
                                               return NavamshaKundliScreen(
-                                                  listKundli:
-                                                      formBloc.kundliList,
-                                                  list: HoroScopeUtils()
-                                                      .getMetaNavamsaKundliValues(
-                                                          formBloc.dataModel
-                                                              .value!));
+                                                  isScreen: false,
+                                                  model: formBloc
+                                                      .dataModel.value!);
                                             }
                                             if (state.value == 4) {
                                               return BhavaKundliScreen(
-                                                  listKundli:
-                                                      formBloc.kundliList,
-                                                  list: HoroScopeUtils()
-                                                      .getMetaBhavaKundliValues(
-                                                          formBloc.dataModel
-                                                              .value!));
+                                                  model: formBloc
+                                                      .dataModel.value!);
                                             }
                                             if (state.value == 5) {
                                               return BhavaSandhiScreen(
@@ -245,6 +238,7 @@ class ViewHoroScopeScreen extends StatelessWidget {
                                             }
 
                                             return BasicDetailsScreen(
+                                                userModel: data['user'],
                                                 horoscopeModel:
                                                     formBloc.dataModel.value!);
                                           }));
@@ -261,6 +255,8 @@ class ViewHoroScopeScreen extends StatelessWidget {
 
   getPlanetInfoDetails(ViewHoroScopeFormBloc formBloc) {
     return PlanetInfoScreen(
+        model: formBloc.dataModel.value!,
+        isScreen: false,
         list: formBloc.dataModel.value!.grahaSputhaValues ?? []);
   }
 }

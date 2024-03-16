@@ -10,11 +10,11 @@ class AuthUseCase {
   Future<MetaResponse> createMembership(data) =>
       authAbstract.createMembership(data);
 
-  Future<UserModel> userLogin(data) => authAbstract.login(data);
+  Future<UserData> userLogin(data) => authAbstract.login(data);
 
-  Future<UserModel> getProfile(data) => authAbstract.getProfile(data);
+  Future<UserData> getProfile(data) => authAbstract.getProfile(data);
 
-  Future<UserModel> updateProfilePic(data) =>
+  Future<UserData> updateProfilePic(data) =>
       authAbstract.updateProfilePic(data);
 
   Future<MetaResponse> updateUser(data) => authAbstract.updateUser(data);

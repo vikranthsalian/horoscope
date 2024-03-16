@@ -1,5 +1,6 @@
 import 'package:adithya_horoscope/core/app/navigator_key.dart';
 import 'package:adithya_horoscope/core/constants/color_constants.dart';
+import 'package:adithya_horoscope/core/ext/timeofday_ext.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
@@ -77,6 +78,35 @@ class MetaDateTime {
   TimeOfDay stringToTimeOfDay(String tod) {
     final format = DateFormat.jm(); //"6:00 AM"
     return TimeOfDay.fromDateTime(format.parse(tod));
+  }
+
+  showTTimePicker({Function? onSelected}) async {
+    TimeOfDay? picked = await showTimePicker(
+      context: globalContext,
+      initialTime: TimeOfDay.now(),
+      builder: (BuildContext context, Widget? child) {
+        return MediaQuery(
+            data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
+            child: Theme(
+              data: Theme.of(context).copyWith(
+                colorScheme: ColorScheme.light(
+                  primary: MetaColors().primaryColor, // <-- SEE HERE
+                  onPrimary: Colors.white, // <-- SEE HERE
+                  onSurface: Colors.black, // <-- SEE HERE
+                ),
+                textButtonTheme: TextButtonThemeData(
+                  style: TextButton.styleFrom(
+                    foregroundColor: Colors.black, // button text color
+                  ),
+                ),
+              ),
+              child: child!,
+            ));
+      },
+    );
+    if (picked != null) {
+      onSelected!(picked.toStringFormat);
+    }
   }
 
   setDateTime({Function? onSelected}) async {

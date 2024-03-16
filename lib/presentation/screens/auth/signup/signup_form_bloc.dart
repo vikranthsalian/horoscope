@@ -1,8 +1,6 @@
 import 'dart:async';
 
-import 'package:adithya_horoscope/core/injector/injector.dart';
 import 'package:adithya_horoscope/domain/model/response.dart';
-import 'package:adithya_horoscope/domain/usecase/auth_usecase.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 
 class SignupFormBloc extends FormBloc<String, String> {
@@ -53,14 +51,5 @@ class SignupFormBloc extends FormBloc<String, String> {
       "email": tfPassword.value,
       "password": tfPassword.value
     };
-
-    MetaResponse? response =
-        await Injector.resolve<AuthUseCase>().createMembership(data);
-    if (response.isSuccess!) {
-      dataModel.updateValue(response);
-      emitSuccess(canSubmitAgain: false);
-    } else {
-      emitSuccess(canSubmitAgain: false, successResponse: "Please try again.");
-    }
   }
 }

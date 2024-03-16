@@ -2,9 +2,9 @@ import 'package:adithya_horoscope/core/constants/asset_constants.dart';
 import 'package:adithya_horoscope/core/constants/color_constants.dart';
 import 'package:adithya_horoscope/core/constants/flavour_constants.dart';
 import 'package:adithya_horoscope/core/constants/route_constants.dart';
-import 'package:adithya_horoscope/core/service/common_service.dart';
 import 'package:adithya_horoscope/data/cubits/login/login_cubit.dart';
 import 'package:adithya_horoscope/data/datasources/user.dart';
+import 'package:adithya_horoscope/presentation/components/google_button.dart';
 import 'package:adithya_horoscope/presentation/screens/auth/login/login_form_bloc.dart';
 import 'package:adithya_horoscope/presentation/widgets/button.dart';
 import 'package:adithya_horoscope/presentation/widgets/column_view.dart';
@@ -57,8 +57,6 @@ class _LoginScreenState extends State<LoginScreen> {
                     UserData? modelResponse = formBloc.dataModel.value;
                     formBloc.clear();
                     context.read<LoginCubit>().setLoginResponse(modelResponse!);
-
-                    await CommonService().getConfigData({});
 
                     Navigator.pushReplacementNamed(
                         context, RouteConstants.navPath);
@@ -125,19 +123,18 @@ class _LoginScreenState extends State<LoginScreen> {
                     Align(
                       alignment: Alignment.bottomCenter,
                       child: Container(
-                        height: 200.h,
+                        height: 300.h,
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.only(
-                              topRight: Radius.circular(30.r),
-                              topLeft: Radius.circular(30.r)),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Color(0x54000000),
-                              spreadRadius: 4,
-                              blurRadius: 20,
-                            ),
-                          ],
-                        ),
+                            borderRadius: BorderRadius.only(
+                                topRight: Radius.circular(30.r),
+                                topLeft: Radius.circular(30.r)),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Color(0x54000000),
+                                spreadRadius: 4,
+                                blurRadius: 20,
+                              )
+                            ]),
                         child: ClipRRect(
                           borderRadius: BorderRadius.only(
                               topRight: Radius.circular(30.r),
@@ -152,7 +149,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   child: MetaTextView(
                                     text: "welcome_to_title",
                                     textStyle: MetaStyle(
-                                        fontSize: 22,
+                                        fontSize: 20,
                                         fontColor: MetaColors.color3F3F3F,
                                         fontWeight: FontWeight.w100),
                                   ),
@@ -187,6 +184,20 @@ class _LoginScreenState extends State<LoginScreen> {
                                     text: "login",
                                   ),
                                 ),
+                                SizedBox(
+                                  height: 10.h,
+                                ),
+                                MetaTextView(
+                                  text: "or",
+                                  textStyle: MetaStyle(
+                                      fontSize: 20,
+                                      fontColor: MetaColors.color3F3F3F,
+                                      fontWeight: FontWeight.w100),
+                                ),
+                                SizedBox(
+                                  height: 2.h,
+                                ),
+                                GoogleSignInButton()
                               ],
                             ),
                           ),

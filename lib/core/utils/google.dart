@@ -1,8 +1,14 @@
-import 'package:adithya_horoscope/core/injector/injector.dart';
-import 'package:adithya_horoscope/domain/model/response.dart';
-import 'package:adithya_horoscope/domain/usecase/auth_usecase.dart';
+import 'package:adithya_horoscope/core/app/navigator_key.dart';
+import 'package:adithya_horoscope/core/config/hive_config.dart';
+import 'package:adithya_horoscope/core/constants/route_constants.dart';
+import 'package:adithya_horoscope/core/constants/string_constants.dart';
+import 'package:adithya_horoscope/data/cubits/login/login_cubit.dart';
+import 'package:adithya_horoscope/data/datasources/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class Google {
@@ -10,6 +16,7 @@ class Google {
   List<String> scopes = <String>[
     'email',
     'https://www.googleapis.com/auth/contacts.readonly',
+    "https://www.googleapis.com/auth/userinfo.profile"
   ];
 
   GoogleSignIn _googleSignIn = GoogleSignIn(
@@ -34,34 +41,48 @@ class Google {
       );
       await _auth.signInWithCredential(credential);
       print("GOOGLE USER : ==========>");
-      String? token = googleSignInAuthentication.idToken;
-      print(googleUser?.displayName);
-      print(googleUser?.email);
-      print(googleUser?.photoUrl);
+      String id = "", name = "", email = "", pic = "";
 
-      Map<String, dynamic> payload = {
-        "name": googleUser?.displayName,
-        "email": googleUser?.email,
-        "password": googleUser?.id,
-        "gender": "Male",
-        "username": googleUser?.displayName,
+      id = googleUser?.id ?? "";
+      name = googleUser?.displayName ?? "";
+      email = googleUser?.email ?? "";
+      pic = googleUser?.photoUrl ?? "";
+
+      DatabaseReference ref = FirebaseDatabase.instance.ref("users/$id");
+
+      Map<String, dynamic> data = {
+        "id": id,
+        "name": name,
+        "email": email,
         "mobile": "",
-        "profile_pic": googleUser?.photoUrl,
-        "platform": "GOOGLE",
-        "nationality": "KOREAN",
-        "address": "--"
+        "photoUrl": pic,
+        "last_login": DateTime.now().toString(),
       };
-      MetaResponse response =
-          await Injector.resolve<AuthUseCase>().createMembership(payload);
 
-      if (response.isSuccess!) {
-        login(googleUser?.email, googleUser?.id);
+      final snapshot = await ref.get();
+
+      if (!snapshot.exists) {
+        data['status'] = 1;
+        data['plan_details'] = "basic";
+        data['reg_date'] = DateTime.now().toString();
+
+        await ref.set(data).then((_) {
+          print(" Data saved successfully!");
+        }).catchError((error) {
+          print(error);
+        });
       } else {
-        print("do login===========>");
-        if (response.statusCode == 302) {
-          login(googleUser?.email, googleUser?.id);
-        }
+        await ref.update(data).then((_) {
+          print(" Data saved successfully!");
+        }).catchError((error) {
+          print(error);
+        });
       }
+      MetaHiveConfig().putHive(StringConstants.keepLoggedIn, true);
+      MetaHiveConfig().putHive(StringConstants.userData, data);
+      UserData model = UserData.fromJson(data);
+      globalContext.read<LoginCubit>().setLoginResponse(model);
+      Navigator.pushNamed(globalContext, RouteConstants.homePath);
     } catch (error) {
       print(error);
     }
@@ -170,53 +191,5 @@ class Google {
       //           },
       //         ));
     }
-  }
-}
-
-class Google2 {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-  final GoogleSignIn _googleSignIn = GoogleSignIn();
-  googleSignIn() async {
-    // UserModel? user;
-    try {
-      GoogleSignInAccount? googleUser =
-          await _googleSignIn.signIn().catchError((onError) {
-        print("Error $onError");
-      });
-
-      GoogleSignInAuthentication? googleSignInAuthentication =
-          await googleUser?.authentication;
-
-      final AuthCredential credential = GoogleAuthProvider.credential(
-        accessToken: googleSignInAuthentication!.accessToken,
-        idToken: googleSignInAuthentication.idToken,
-      );
-      await _auth.signInWithCredential(credential);
-      print("GOOGLE USER : ==========>");
-      String? token = googleSignInAuthentication.idToken;
-      print(googleUser?.displayName);
-      print(googleUser?.email);
-      print(googleUser?.photoUrl);
-      var now = DateTime.now();
-      // user = UserModel(
-      //     displayName: googleUser?.displayName,
-      //     email: googleUser?.email,
-      //     photoUrl: googleUser?.photoUrl,
-      //     id: googleUser?.id,
-      //     token: token,
-      //     loginType: 'GOOGLE',
-      //     status: 'ENABLED',
-      //     created_at: '',
-      //     last_login: now.toString());
-      //print("GOOGLE USER : ==========>${user.displayName}");
-    } catch (e) {
-      return e.toString();
-    }
-    return "user";
-  }
-
-  googleLogout() async {
-    await _googleSignIn.signOut();
-    await _auth.signOut();
   }
 }

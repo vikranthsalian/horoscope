@@ -7,11 +7,8 @@ import 'package:adithya_horoscope/core/constants/color_constants.dart';
 import 'package:adithya_horoscope/core/constants/flavour_constants.dart';
 import 'package:adithya_horoscope/core/constants/route_constants.dart';
 import 'package:adithya_horoscope/core/constants/string_constants.dart';
-import 'package:adithya_horoscope/core/injector/injector.dart';
-import 'package:adithya_horoscope/core/service/common_service.dart';
 import 'package:adithya_horoscope/data/cubits/login/login_cubit.dart';
 import 'package:adithya_horoscope/data/datasources/user.dart';
-import 'package:adithya_horoscope/domain/usecase/auth_usecase.dart';
 import 'package:adithya_horoscope/presentation/widgets/column_view.dart';
 import 'package:adithya_horoscope/presentation/widgets/style.dart';
 import 'package:adithya_horoscope/presentation/widgets/svg_view.dart';
@@ -32,18 +29,23 @@ class SplashScreenState extends State<SplashScreen> {
 
     Timer(const Duration(seconds: 3), () async {
       if (MetaHiveConfig().getHive(StringConstants.keepLoggedIn) ?? false) {
-        String userId =
-            MetaHiveConfig().getHive(StringConstants.userId).toString();
-        Map<String, dynamic> mapData = {"userId": userId.toString()};
-        UserModel? response =
-            await Injector.resolve<AuthUseCase>().getProfile(mapData);
-        UserData userData = response.data!;
+        // if (true) {
+        // Map<String, dynamic> data = {
+        //   "id": "111729427255211603009",
+        //   "name": "Vikranth Salian",
+        //   "email": "vikkysalian@gmail.com",
+        //   "mobile": "",
+        //   "photoUrl":
+        //       "https://lh3.googleusercontent.com/a/ACg8ocI1cwI9HA9eevOjSvmNpnazCK6DB0e6H_Y7_zuxXPKHGYA",
+        //   "last_login": "2024-03-16 10:26:23.818986"
+        // };
+
+        Map<String, dynamic> data = Map<String, dynamic>.from(
+            MetaHiveConfig().getHive(StringConstants.userData));
+        UserData userData = UserData.fromJson(data);
         globalContext.read<LoginCubit>().setLoginResponse(userData);
-
-        await CommonService().getConfigData({});
-
         Navigator.of(globalContext)
-            .pushReplacementNamed(RouteConstants.navPath);
+            .pushReplacementNamed(RouteConstants.homePath);
       } else {
         Navigator.of(globalContext)
             .pushReplacementNamed(RouteConstants.welcomePath);

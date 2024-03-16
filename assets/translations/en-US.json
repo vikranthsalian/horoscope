@@ -1,6 +1,6 @@
 {
   "appName": "adithya_horoscope",
-  "language": "English",
+  "language": "Language",
   "check": "Check",
   "networkConnectionError": "Network Connection Error",
   "networkConnectionErrorMessage": "There is no network connection.Please check the network status.",
