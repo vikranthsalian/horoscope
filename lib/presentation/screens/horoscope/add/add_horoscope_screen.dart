@@ -213,13 +213,20 @@ class AddHoroScopeScreen extends StatelessWidget {
                           SizedBox(
                             height: 10.h,
                           ),
-                          Container(
-                            padding: padding,
-                            child: MetaBlocTextField(
-                              labelText: "birth_location",
-                              hintText: "enter_birth_location",
-                              textFieldBloc: formBloc!.tfBLoc,
-                              inputType: TextInputType.text,
+                          InkWell(
+                            onTap: () {
+                              Navigator.pushNamed(
+                                  context, RouteConstants.locationPickerPath);
+                            },
+                            child: Container(
+                              padding: padding,
+                              child: MetaBlocTextField(
+                                enabled: false,
+                                labelText: "birth_location",
+                                hintText: "enter_birth_location",
+                                textFieldBloc: formBloc!.tfBLoc,
+                                inputType: TextInputType.text,
+                              ),
                             ),
                           ),
                           SizedBox(

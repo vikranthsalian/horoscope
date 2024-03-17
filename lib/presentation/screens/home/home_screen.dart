@@ -23,193 +23,195 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        backgroundColor: MetaColors.whiteColor,
-        body: Stack(
-          children: [
-            Align(
-              alignment: Alignment.topCenter,
-              child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 10.w),
-                child:
-                    MetaColumnView(mainAxisSize: MainAxisSize.min, children: [
-                  SizedBox(
-                    height: 60.h,
-                  ),
-                  MetaRowView(children: [
-                    InkWell(
-                      onTap: () {
-                        Navigator.pushNamed(
-                            context, RouteConstants.profilePath);
-                      },
-                      child: Container(
-                        height: 20,
-                        width: 20,
-                        child: MetaSVGView(
-                            svgName: AssetConstants.profileIcon,
-                            basePath: MetaFlavourConstants.flavorPath),
-                      ),
+    return SafeArea(
+      child: Scaffold(
+          backgroundColor: MetaColors.whiteColor,
+          body: Stack(
+            children: [
+              Align(
+                alignment: Alignment.topCenter,
+                child: Container(
+                  padding: EdgeInsets.symmetric(horizontal: 10.w),
+                  child:
+                      MetaColumnView(mainAxisSize: MainAxisSize.min, children: [
+                    SizedBox(
+                      height: 10.h,
                     ),
-                    Expanded(
-                      child: Container(
-                        alignment: Alignment.centerRight,
-                        child: MetaColumnView(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                alignment: Alignment.centerRight,
-                                child: MetaTextView(
-                                  text: "Dheemahi",
-                                  textStyle: MetaStyle(
-                                      fontSize: 16,
-                                      fontColor: MetaColors.color3F3F3F,
-                                      fontWeight: FontWeight.w100),
+                    MetaRowView(children: [
+                      InkWell(
+                        onTap: () {
+                          Navigator.pushNamed(
+                              context, RouteConstants.profilePath);
+                        },
+                        child: Container(
+                          height: 20,
+                          width: 20,
+                          child: MetaSVGView(
+                              svgName: AssetConstants.profileIcon,
+                              basePath: MetaFlavourConstants.flavorPath),
+                        ),
+                      ),
+                      Expanded(
+                        child: Container(
+                          alignment: Alignment.centerRight,
+                          child: MetaColumnView(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                  alignment: Alignment.centerRight,
+                                  child: MetaTextView(
+                                    text: "AMPWORK",
+                                    textStyle: MetaStyle(
+                                        fontSize: 16,
+                                        fontColor: MetaColors.color3F3F3F,
+                                        fontWeight: FontWeight.w100),
+                                  ),
                                 ),
-                              ),
-                              Container(
-                                alignment: Alignment.centerRight,
-                                child: MetaTextView(
-                                  text: "Apps for life",
-                                  textStyle: MetaStyle(
-                                      fontSize: 10,
-                                      fontColor: MetaColors.color3F3F3F,
-                                      fontWeight: FontWeight.w100),
+                                Container(
+                                  alignment: Alignment.centerRight,
+                                  child: MetaTextView(
+                                    text: "We AMPlify You",
+                                    textStyle: MetaStyle(
+                                        fontSize: 10,
+                                        fontColor: MetaColors.color3F3F3F,
+                                        fontWeight: FontWeight.w100),
+                                  ),
                                 ),
-                              ),
-                            ]),
+                              ]),
+                        ),
+                      ),
+                    ]),
+                    Container(
+                      height: MediaQuery.sizeOf(context).height * 0.4,
+                      child: MetaSVGView(
+                          svgName: AssetConstants.logoSVG,
+                          basePath: MetaFlavourConstants.flavorPath),
+                    ),
+                    SizedBox(
+                      height: 20.h,
+                    ),
+                    Container(
+                      alignment: Alignment.center,
+                      child: MetaTextView(
+                        text: "Aditya",
+                        textStyle: MetaStyle(
+                            fontSize: 28,
+                            fontColor: MetaColors().primaryColor,
+                            fontWeight: FontWeight.w100),
                       ),
                     ),
                   ]),
-                  Container(
-                    height: MediaQuery.sizeOf(context).height * 0.4,
-                    child: MetaSVGView(
-                        svgName: AssetConstants.logoSVG,
-                        basePath: MetaFlavourConstants.flavorPath),
-                  ),
-                  SizedBox(
-                    height: 20.h,
-                  ),
-                  Container(
-                    alignment: Alignment.center,
-                    child: MetaTextView(
-                      text: "Aditya",
-                      textStyle: MetaStyle(
-                          fontSize: 28,
-                          fontColor: MetaColors().primaryColor,
-                          fontWeight: FontWeight.w100),
-                    ),
-                  ),
-                ]),
-              ),
-            ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Container(
-                height: 200.h,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                      topRight: Radius.circular(30.r),
-                      topLeft: Radius.circular(30.r)),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Color(0x54000000),
-                      spreadRadius: 4,
-                      blurRadius: 20,
-                    ),
-                  ],
                 ),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.only(
-                      topRight: Radius.circular(30.r),
-                      topLeft: Radius.circular(30.r)),
-                  child: Container(
-                    color: Colors.white,
-                    child: MetaColumnView(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        Container(
-                          alignment: Alignment.center,
-                          child: MetaTextView(
-                            text: "choose_option_to_continue",
-                            textStyle: MetaStyle(
-                                fontSize: 16,
-                                fontColor: MetaColors().primaryColor,
-                                fontWeight: FontWeight.w100),
+              ),
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Container(
+                  height: 200.h,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                        topRight: Radius.circular(30.r),
+                        topLeft: Radius.circular(30.r)),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Color(0x54000000),
+                        spreadRadius: 4,
+                        blurRadius: 20,
+                      ),
+                    ],
+                  ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.only(
+                        topRight: Radius.circular(30.r),
+                        topLeft: Radius.circular(30.r)),
+                    child: Container(
+                      color: Colors.white,
+                      child: MetaColumnView(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Container(
+                            alignment: Alignment.center,
+                            child: MetaTextView(
+                              text: "choose_option_to_continue",
+                              textStyle: MetaStyle(
+                                  fontSize: 16,
+                                  fontColor: MetaColors().primaryColor,
+                                  fontWeight: FontWeight.w100),
+                            ),
                           ),
-                        ),
-                        SizedBox(height: 20.h),
-                        Container(
-                          height: 40.h,
-                          padding: padding,
-                          child: MetaButton(
-                            radius: 12,
-                            bgColor: MetaColors().primaryColor,
-                            textStyle: const MetaStyle(
-                                fontColor: MetaColors.whiteColor,
-                                fontWeight: FontWeight.w100,
-                                fontSize: 20),
-                            onTap: () async {
-                              Navigator.of(context)
-                                  .pushNamed(RouteConstants.addHoroScopePath);
-                            },
-                            text: "horoscope",
+                          SizedBox(height: 20.h),
+                          Container(
+                            height: 40.h,
+                            padding: padding,
+                            child: MetaButton(
+                              radius: 12,
+                              bgColor: MetaColors().primaryColor,
+                              textStyle: const MetaStyle(
+                                  fontColor: MetaColors.whiteColor,
+                                  fontWeight: FontWeight.w100,
+                                  fontSize: 20),
+                              onTap: () async {
+                                Navigator.of(context)
+                                    .pushNamed(RouteConstants.addHoroScopePath);
+                              },
+                              text: "horoscope",
+                            ),
                           ),
-                        ),
-                        SizedBox(
-                          height: 15.h,
-                        ),
-                        Container(
-                          height: 40.h,
-                          padding: padding,
-                          child: MetaButton(
-                            radius: 12,
-                            borderSide:
-                                BorderSide(color: MetaColors().primaryColor),
-                            bgColor: MetaColors.whiteColor,
-                            textStyle: const MetaStyle(
-                                fontColor: MetaColors.blackColor,
-                                fontWeight: FontWeight.w100,
-                                fontSize: 20),
-                            onTap: () async {
-                              DateTime dateTime = DateTime.now();
-                              print("dateTime");
-
-                              String _date =
-                                  DateFormat('dd-MM-yyyy').format(dateTime);
-                              TimeOfDay timeOfDay = TimeOfDay.now();
-
-                              HoroscopeModel model = await HoroScopeUtils()
-                                  .calculate(User(
-                                      uniqueID: generateRandom(),
-                                      name: "",
-                                      place: "UDUPI,KAR,IND",
-                                      latitude: 0,
-                                      longitude: 0,
-                                      timezone: 0,
-                                      time: timeOfDay.toStringFormat,
-                                      createdData: DateTime.now().toString(),
-                                      date: _date));
-
-                              print(model.rasiKundliValues);
-
-                              Navigator.of(context).pushNamed(
-                                  RouteConstants.rashiKundliPath,
-                                  arguments: {
-                                    "isScreen": true,
-                                    "model": model,
-                                  });
-                            },
-                            text: "prashna",
+                          SizedBox(
+                            height: 15.h,
                           ),
-                        ),
-                      ],
+                          Container(
+                            height: 40.h,
+                            padding: padding,
+                            child: MetaButton(
+                              radius: 12,
+                              borderSide:
+                                  BorderSide(color: MetaColors().primaryColor),
+                              bgColor: MetaColors.whiteColor,
+                              textStyle: const MetaStyle(
+                                  fontColor: MetaColors.blackColor,
+                                  fontWeight: FontWeight.w100,
+                                  fontSize: 20),
+                              onTap: () async {
+                                DateTime dateTime = DateTime.now();
+                                print("dateTime");
+
+                                String _date =
+                                    DateFormat('dd-MM-yyyy').format(dateTime);
+                                TimeOfDay timeOfDay = TimeOfDay.now();
+
+                                HoroscopeModel model = await HoroScopeUtils()
+                                    .calculate(User(
+                                        uniqueID: generateRandom(),
+                                        name: "",
+                                        place: "UDUPI,KAR,IND",
+                                        latitude: 0,
+                                        longitude: 0,
+                                        timezone: 0,
+                                        time: timeOfDay.toStringFormat,
+                                        createdData: DateTime.now().toString(),
+                                        date: _date));
+
+                                print(model.rasiKundliValues);
+
+                                Navigator.of(context).pushNamed(
+                                    RouteConstants.rashiKundliPath,
+                                    arguments: {
+                                      "isScreen": true,
+                                      "model": model,
+                                    });
+                              },
+                              text: "prashna",
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
-          ],
-        ));
+            ],
+          )),
+    );
   }
 
   generateRandom() {

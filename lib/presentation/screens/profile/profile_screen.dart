@@ -8,7 +8,6 @@ import 'package:adithya_horoscope/data/datasources/user.dart';
 import 'package:adithya_horoscope/presentation/components/app_bar.dart';
 import 'package:adithya_horoscope/presentation/screens/profile/profile_form_bloc.dart';
 import 'package:adithya_horoscope/presentation/widgets/column_view.dart';
-import 'package:adithya_horoscope/presentation/widgets/icon.dart';
 import 'package:adithya_horoscope/presentation/widgets/image_view.dart';
 import 'package:adithya_horoscope/presentation/widgets/row_view.dart';
 import 'package:adithya_horoscope/presentation/widgets/style.dart';
@@ -22,6 +21,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class ProfileScreen extends StatelessWidget {
   var padding = EdgeInsets.symmetric(horizontal: 26.w);
   UserData? data;
+  bool isPremium = false;
   @override
   Widget build(BuildContext context) {
     data = context.read<LoginCubit>().getLoginResponse();
@@ -74,16 +74,19 @@ class ProfileScreen extends StatelessWidget {
                                       fontWeight: FontWeight.w100),
                                 ),
                               ),
-                              SizedBox(
-                                width: 10.w,
-                              ),
-                              Container(
-                                height: 20,
-                                width: 20,
-                                child: MetaSVGView(
-                                    svgName: AssetConstants.premiumIcon,
-                                    basePath: MetaFlavourConstants.flavorPath),
-                              ),
+                              if (data!.isPremium)
+                                SizedBox(
+                                  width: 10.w,
+                                ),
+                              if (data!.isPremium)
+                                Container(
+                                  height: 20.r,
+                                  width: 20.r,
+                                  child: MetaSVGView(
+                                      svgName: AssetConstants.premiumIcon,
+                                      basePath:
+                                          MetaFlavourConstants.flavorPath),
+                                ),
                             ],
                           ),
                           SizedBox(height: 20.h),
@@ -98,44 +101,44 @@ class ProfileScreen extends StatelessWidget {
                                       child: MetaImageNetwork(
                                         path: data!.profilePic ?? "",
                                       ))),
-                              Positioned(
-                                  bottom: 10,
-                                  right: 0,
-                                  child: Container(
-                                      width: 25.w,
-                                      height: 25.w,
-                                      decoration: BoxDecoration(
-                                          border: Border.all(
-                                              color: MetaColors.color3F3F3F),
-                                          borderRadius:
-                                              BorderRadius.circular(100.r),
-                                          color: MetaColors.whiteColor),
-                                      child: MetaIcon(
-                                        onIconPressed: () {
-                                          // showDialog(
-                                          //     context: globalContext,
-                                          //     builder: (_) {
-                                          //       return   MetaDialogUpload(
-                                          //           list: [
-                                          //             DialogListModel(
-                                          //                 id: 1,
-                                          //                 name: "GALLERY"),
-                                          //             DialogListModel(
-                                          //                 id: 2,
-                                          //                 name: "CAMERA"),
-                                          //           ],
-                                          //           onSelected: (XFile file,
-                                          //               type, index) {
-                                          //             onSelect!(file);
-                                          //           });
-                                          //     }
-                                          //
-                                          // );
-                                        },
-                                        icon: Icons.camera_alt,
-                                        color: MetaColors.color3F3F3F,
-                                        size: 15,
-                                      ))),
+                              // Positioned(
+                              //     bottom: 10,
+                              //     right: 0,
+                              //     child: Container(
+                              //         width: 25.w,
+                              //         height: 25.w,
+                              //         decoration: BoxDecoration(
+                              //             border: Border.all(
+                              //                 color: MetaColors.color3F3F3F),
+                              //             borderRadius:
+                              //                 BorderRadius.circular(100.r),
+                              //             color: MetaColors.whiteColor),
+                              //         child: MetaIcon(
+                              //           onIconPressed: () {
+                              //             // showDialog(
+                              //             //     context: globalContext,
+                              //             //     builder: (_) {
+                              //             //       return   MetaDialogUpload(
+                              //             //           list: [
+                              //             //             DialogListModel(
+                              //             //                 id: 1,
+                              //             //                 name: "GALLERY"),
+                              //             //             DialogListModel(
+                              //             //                 id: 2,
+                              //             //                 name: "CAMERA"),
+                              //             //           ],
+                              //             //           onSelected: (XFile file,
+                              //             //               type, index) {
+                              //             //             onSelect!(file);
+                              //             //           });
+                              //             //     }
+                              //             //
+                              //             // );
+                              //           },
+                              //           icon: Icons.camera_alt,
+                              //           color: MetaColors.color3F3F3F,
+                              //           size: 15,
+                              //         ))),
                             ],
                           ),
                           SizedBox(
@@ -191,7 +194,7 @@ class ProfileScreen extends StatelessWidget {
                             ),
                           ),
                           SizedBox(
-                            height: 20.h,
+                            height: 15.h,
                           ),
                           Container(
                             padding: padding,
@@ -205,25 +208,68 @@ class ProfileScreen extends StatelessWidget {
                             ),
                           ),
                           SizedBox(
-                            height: 20.h,
+                            height: 15.h,
                           ),
-                          InkWell(
-                            onTap: () {
-                              Navigator.pushNamed(
-                                  context, RouteConstants.premiumPlanPath);
-                            },
-                            child: Container(
-                              padding: padding,
-                              alignment: Alignment.centerLeft,
-                              child: MetaTextView(
-                                text: "upgrade_to_membership",
-                                textStyle: MetaStyle(
-                                    fontSize: 16,
-                                    fontColor: MetaColors().primaryColor,
-                                    fontWeight: FontWeight.w400),
-                              ),
-                            ),
-                          ),
+                          !data!.isPremium
+                              ? InkWell(
+                                  onTap: () {
+                                    Navigator.pushNamed(context,
+                                        RouteConstants.premiumPlanPath);
+                                  },
+                                  child: Container(
+                                    padding: padding,
+                                    alignment: Alignment.centerLeft,
+                                    child: MetaTextView(
+                                      text: "upgrade_to_membership",
+                                      textStyle: MetaStyle(
+                                          fontSize: 16,
+                                          fontColor: MetaColors().primaryColor,
+                                          fontWeight: FontWeight.w400),
+                                    ),
+                                  ),
+                                )
+                              : InkWell(
+                                  onTap: () {
+                                    Navigator.pushNamed(context,
+                                        RouteConstants.premiumPlanPath);
+                                  },
+                                  child: Container(
+                                    padding: padding,
+                                    alignment: Alignment.centerLeft,
+                                    child: MetaRowView(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        MetaTextView(
+                                          text: "premium_plan",
+                                          textStyle: MetaStyle(
+                                              fontSize: 16,
+                                              fontColor: MetaColors.color3F3F3F,
+                                              fontWeight: FontWeight.w400),
+                                        ),
+                                        MetaTextView(
+                                          text: " : ",
+                                          textStyle: MetaStyle(
+                                              fontSize: 16,
+                                              fontColor:
+                                                  MetaColors().primaryColor,
+                                              fontWeight: FontWeight.w400),
+                                        ),
+                                        Expanded(
+                                          child: MetaTextView(
+                                            text: "100 Days Remaining",
+                                            textAlign: TextAlign.end,
+                                            textStyle: MetaStyle(
+                                                fontSize: 12,
+                                                fontColor:
+                                                    MetaColors().primaryColor,
+                                                fontWeight: FontWeight.w400),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
                           SizedBox(
                             height: 30.h,
                           ),

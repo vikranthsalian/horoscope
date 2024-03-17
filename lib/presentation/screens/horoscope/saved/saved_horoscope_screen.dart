@@ -141,8 +141,8 @@ class SavedHoroScopeScreen extends StatelessWidget {
                                               contentPadding: EdgeInsets.zero,
                                               trailing: Container(
                                                 alignment: Alignment.topCenter,
-                                                height: 40.w,
-                                                width: 20.w,
+                                                height: 80.w,
+                                                width: 40.w,
                                                 child: onclick(list[index]),
                                               ),
                                               title: MetaTextView(
@@ -184,12 +184,13 @@ class SavedHoroScopeScreen extends StatelessWidget {
     return Align(
       child: PopupMenuButton(
         color: MetaColors.color3F3F3F,
-        elevation: 0,
-        icon: MetaIcon(
-            onIconPressed: () {},
-            icon: Icons.more_vert,
-            size: 15,
-            color: MetaColors.color3F3F3F),
+        icon: AbsorbPointer(
+          child: MetaIcon(
+              onIconPressed: () {},
+              icon: Icons.more_vert,
+              size: 15,
+              color: MetaColors.color3F3F3F),
+        ),
         onSelected: (data) {
           if (data == "1") {
             Navigator.pushNamed(globalContext, RouteConstants.viewHoroScopePath,

@@ -81,7 +81,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               Container(
                                 alignment: Alignment.centerRight,
                                 child: MetaTextView(
-                                  text: "Dheemahi",
+                                  text: "AMPWORK",
                                   textStyle: MetaStyle(
                                       fontSize: 16,
                                       fontColor: MetaColors.color3F3F3F,
@@ -91,7 +91,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               Container(
                                 alignment: Alignment.centerRight,
                                 child: MetaTextView(
-                                  text: "Apps for life",
+                                  text: "We AMPlify You",
                                   textStyle: MetaStyle(
                                       fontSize: 10,
                                       fontColor: MetaColors.color3F3F3F,

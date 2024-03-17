@@ -40,6 +40,8 @@ class SplashScreenState extends State<SplashScreen> {
         //   "last_login": "2024-03-16 10:26:23.818986"
         // };
 
+        print(MetaHiveConfig().getHive(StringConstants.userData));
+
         Map<String, dynamic> data = Map<String, dynamic>.from(
             MetaHiveConfig().getHive(StringConstants.userData));
         UserData userData = UserData.fromJson(data);
@@ -81,7 +83,7 @@ class SplashScreenState extends State<SplashScreen> {
                 Container(
                   alignment: Alignment.center,
                   child: MetaTextView(
-                    text: "Dheemahi",
+                    text: "AMPWORK",
                     textStyle: MetaStyle(
                         fontSize: 16,
                         fontColor: MetaColors.color3F3F3F,
@@ -91,7 +93,7 @@ class SplashScreenState extends State<SplashScreen> {
                 Container(
                   alignment: Alignment.center,
                   child: MetaTextView(
-                    text: "Apps for life",
+                    text: "We AMPlify You",
                     textStyle: MetaStyle(
                         fontSize: 10,
                         fontColor: MetaColors.color3F3F3F,

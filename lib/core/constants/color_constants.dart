@@ -16,6 +16,7 @@ class MetaColors {
   static const color848484 = Color(0xFF848484);
   static const color6E8 = Color(0xFFFFF6E8);
   static const colorDE7 = Color(0xFFFFEDE7);
+  static const colorBrown = Color(0xFFffe4b5);
   static const colorEE8 = Color(0xFFFFFEE8);
   static const transparentColor = Color(0x00000000);
   static const shadeColor = Color(0x8000000);

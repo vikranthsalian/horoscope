@@ -9,6 +9,7 @@ class MetaFlavourConstants {
   static String appLogo = FlavorConfig.instance.variables["appLogo"];
   static String appIcon = FlavorConfig.instance.variables["appIcon"];
   static String logo = FlavorConfig.instance.variables["logo"];
+  static int planPrice = FlavorConfig.instance.variables["planPrice"];
   static String flavourTag = FlavorConfig.instance.variables["flavor"];
   static String assets = FlavorConfig.instance.variables["assetPath"];
   static String instagram = FlavorConfig.instance.variables["instagram"];

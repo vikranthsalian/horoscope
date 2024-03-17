@@ -1,5 +1,6 @@
 import 'package:adithya_horoscope/core/constants/route_constants.dart';
 import 'package:adithya_horoscope/core/utils/print.dart';
+import 'package:adithya_horoscope/presentation/components/google_map.dart';
 import 'package:adithya_horoscope/presentation/screens/auth/login/login_screen.dart';
 import 'package:adithya_horoscope/presentation/screens/auth/signup/signup_screen.dart';
 import 'package:adithya_horoscope/presentation/screens/auth/welcome/welcome_screen.dart';
@@ -64,6 +65,9 @@ class RouteConfig {
 
       case RouteConstants.successPath:
         return SuccessScreen();
+
+      case RouteConstants.locationPickerPath:
+        return MetaLocationPicker();
 
       case RouteConstants.rashiKundliPath:
         args as Map<String, dynamic>;

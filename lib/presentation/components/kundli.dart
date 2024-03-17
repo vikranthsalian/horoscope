@@ -12,7 +12,7 @@ class KundliWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: Colors.black,
-      padding: EdgeInsets.all(0.5.r),
+      // padding: EdgeInsets.all(0.5.r),
       child: GridView.count(
           crossAxisCount: 4,
           shrinkWrap: true,
@@ -20,18 +20,18 @@ class KundliWidget extends StatelessWidget {
           padding: EdgeInsets.zero,
           physics: NeverScrollableScrollPhysics(),
           mainAxisSpacing: 0.5.r,
-          crossAxisSpacing: 0.5.r,
+          crossAxisSpacing: 0.75.r,
           children: list.map((KundliModel data) {
             return GridTile(
                 child: Container(
               alignment: Alignment.center,
-              color: Colors.white,
+              color: MetaColors.whiteColor,
               child: MetaTextView(
                 text: data.data!.join(","),
                 textStyle: MetaStyle(
                     fontSize: 12,
                     fontColor: MetaColors().primaryColor,
-                    fontWeight: FontWeight.w100),
+                    fontWeight: FontWeight.w400),
               ),
             ));
           }).toList()),

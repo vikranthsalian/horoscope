@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:adithya_horoscope/core/constants/asset_constants.dart';
-import 'package:adithya_horoscope/core/constants/flavour_constants.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -66,30 +65,13 @@ class MetaImageNetwork extends StatelessWidget {
         ),
       ),
       errorWidget: (context, url, error) {
-        return ClipRRect(
-            borderRadius: BorderRadius.circular(radius.r),
-            child: Container(
-              width: 100.w,
-              height: 100.w,
-              child: MetaImageView(
-                imageName: AssetConstants.logo,
-                basePath: MetaFlavourConstants.flavorPath,
-                fit: BoxFit.scaleDown,
-              ),
-            ));
+        return const Center(
+          child: CircularProgressIndicator(),
+        );
       },
       placeholder: (context, url) {
-        return ClipRRect(
-          borderRadius: BorderRadius.circular(radius.r),
-          child: Container(
-            width: 100.w,
-            height: 100.w,
-            child: MetaImageView(
-              imageName: AssetConstants.logo,
-              basePath: MetaFlavourConstants.flavorPath,
-              fit: BoxFit.scaleDown,
-            ),
-          ),
+        return const Center(
+          child: CircularProgressIndicator(),
         );
       },
     );

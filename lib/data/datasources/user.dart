@@ -73,6 +73,8 @@ class UserData extends HiveObject {
   String? lastLogin;
   @HiveField(7)
   int? status;
+  @HiveField(8)
+  String? planDetails;
 
   UserData({
     this.id,
@@ -83,7 +85,15 @@ class UserData extends HiveObject {
     this.regDate,
     this.lastLogin,
     this.status,
+    this.planDetails,
   });
+
+  bool get isPremium {
+    if (planDetails == "premium") {
+      return true;
+    }
+    return false;
+  }
 
   UserData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -94,6 +104,7 @@ class UserData extends HiveObject {
     regDate = json['reg_date'];
     lastLogin = json['last_login'];
     status = json['status'];
+    planDetails = json['plan_details'];
   }
 
   Map<String, dynamic> toJson() {
@@ -106,6 +117,7 @@ class UserData extends HiveObject {
     data['reg_date'] = regDate;
     data['last_login'] = lastLogin;
     data['status'] = status;
+    data['plan_details'] = planDetails;
     return data;
   }
 }

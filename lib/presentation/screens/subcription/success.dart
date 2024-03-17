@@ -44,8 +44,7 @@ class SuccessScreen extends StatelessWidget {
                         fontWeight: FontWeight.w100,
                         fontSize: 16),
                     onTap: () async {
-                      Navigator.of(context)
-                          .pushNamed(RouteConstants.successPath);
+                      Navigator.of(context).pushNamed(RouteConstants.homePath);
                     },
                     text: "continue",
                   ),

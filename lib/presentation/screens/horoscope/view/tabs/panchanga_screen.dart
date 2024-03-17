@@ -9,10 +9,11 @@ class PanchangaScreen extends StatelessWidget {
   PanchangaScreen({required this.list});
 
   List<(String, String)> list = [];
-  var padding = EdgeInsets.symmetric(horizontal: 8.w);
+  var padding = EdgeInsets.symmetric(horizontal: 26.w);
   @override
   Widget build(BuildContext context) {
     return Container(
+        padding: padding,
         child: ListView.builder(
             shrinkWrap: true,
             padding: EdgeInsets.zero,
@@ -35,6 +36,7 @@ class PanchangaScreen extends StatelessWidget {
     return Container(
       child: MetaTextView(
         text: e,
+        textAlign: TextAlign.start,
         textStyle: MetaStyle(
             fontSize: 12,
             fontColor:

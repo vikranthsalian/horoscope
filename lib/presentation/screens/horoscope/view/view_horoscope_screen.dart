@@ -1,8 +1,12 @@
+import 'package:adithya_horoscope/core/app/navigator_key.dart';
+import 'package:adithya_horoscope/core/constants/asset_constants.dart';
 import 'package:adithya_horoscope/core/constants/color_constants.dart';
 import 'package:adithya_horoscope/core/constants/flavour_constants.dart';
 import 'package:adithya_horoscope/core/constants/route_constants.dart';
 import 'package:adithya_horoscope/core/utils/calculate.dart';
 import 'package:adithya_horoscope/core/utils/show_alert.dart';
+import 'package:adithya_horoscope/data/cubits/login/login_cubit.dart';
+import 'package:adithya_horoscope/data/datasources/user.dart';
 import 'package:adithya_horoscope/presentation/components/app_bar.dart';
 import 'package:adithya_horoscope/presentation/screens/horoscope/view/tabs/ashtakavarga_screen.dart';
 import 'package:adithya_horoscope/presentation/screens/horoscope/view/tabs/basic_details_screen.dart';
@@ -17,8 +21,12 @@ import 'package:adithya_horoscope/presentation/screens/horoscope/view/tabs/rashi
 import 'package:adithya_horoscope/presentation/screens/horoscope/view/tabs/shadvarga_screen.dart';
 import 'package:adithya_horoscope/presentation/screens/horoscope/view/tabs/trisphutadi_screen.dart';
 import 'package:adithya_horoscope/presentation/screens/horoscope/view/view_horoscope_form_bloc.dart';
+import 'package:adithya_horoscope/presentation/widgets/button.dart';
+import 'package:adithya_horoscope/presentation/widgets/column_view.dart';
 import 'package:adithya_horoscope/presentation/widgets/icon.dart';
+import 'package:adithya_horoscope/presentation/widgets/row_view.dart';
 import 'package:adithya_horoscope/presentation/widgets/style.dart';
+import 'package:adithya_horoscope/presentation/widgets/svg_view.dart';
 import 'package:adithya_horoscope/presentation/widgets/text_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
@@ -29,12 +37,20 @@ class ViewHoroScopeScreen extends StatelessWidget {
   ViewHoroScopeScreen({required this.data});
   var padding = EdgeInsets.symmetric(horizontal: 8.w);
 
+  UserData? userData;
+  bool isLocked = true;
   @override
   Widget build(BuildContext context) {
+    userData = context.read<LoginCubit>().getLoginResponse();
+
+    if (userData!.planDetails == "premium") {
+      isLocked = false;
+    }
+
     return SafeArea(
       bottom: false,
       child: Scaffold(
-          backgroundColor: MetaColors.whiteColor,
+          backgroundColor: MetaColors().primaryColor.withOpacity(0.2),
           appBar: MetaAppBar(
               title: MetaFlavourConstants.appTitle,
               action: Container(
@@ -120,14 +136,42 @@ class ViewHoroScopeScreen extends StatelessWidget {
                                                             .primaryColor
                                                         : MetaColors
                                                             .colord7d7d7)),
-                                            child: MetaTextView(
-                                              text: data,
-                                              textStyle: MetaStyle(
-                                                  fontSize: 12,
-                                                  fontColor: index == value
-                                                      ? MetaColors.whiteColor
-                                                      : MetaColors.blackColor,
-                                                  fontWeight: FontWeight.w400),
+                                            child: MetaRowView(
+                                              children: [
+                                                if (index > 3)
+                                                  isLocked
+                                                      ? Container(
+                                                          width: 13.w,
+                                                          height: 13.w,
+                                                          child: MetaSVGView(
+                                                              svgName:
+                                                                  AssetConstants
+                                                                      .lockIcon,
+                                                              activeColor: index !=
+                                                                      value
+                                                                  ? MetaColors()
+                                                                      .primaryColor
+                                                                  : MetaColors
+                                                                      .whiteColor,
+                                                              basePath:
+                                                                  MetaFlavourConstants
+                                                                      .flavorPath),
+                                                        )
+                                                      : SizedBox.shrink(),
+                                                SizedBox(width: 5.w),
+                                                MetaTextView(
+                                                  text: data,
+                                                  textStyle: MetaStyle(
+                                                      fontSize: 12,
+                                                      fontColor: index == value
+                                                          ? MetaColors
+                                                              .whiteColor
+                                                          : MetaColors
+                                                              .blackColor,
+                                                      fontWeight:
+                                                          FontWeight.w400),
+                                                ),
+                                              ],
                                             ),
                                           ),
                                         ),
@@ -161,26 +205,43 @@ class ViewHoroScopeScreen extends StatelessWidget {
                                                       .dataModel.value!);
                                             }
                                             if (state.value == 1) {
-                                              return getPlanetInfoDetails(
-                                                  formBloc);
-                                            }
-                                            if (state.value == 2) {
                                               return RashiKundliScreen(
                                                   model: formBloc
                                                       .dataModel.value!);
                                             }
-                                            if (state.value == 3) {
+                                            if (state.value == 2) {
                                               return NavamshaKundliScreen(
                                                   isScreen: false,
                                                   model: formBloc
                                                       .dataModel.value!);
                                             }
-                                            if (state.value == 4) {
+
+                                            if (state.value == 3) {
+                                              return PanchangaScreen(
+                                                  list: HoroScopeUtils()
+                                                      .getMetaPanchangaValues(
+                                                          formBloc.dataModel
+                                                              .value!));
+                                            }
+
+                                            if (state.value == 4 && !isLocked) {
+                                              return PlanetInfoScreen(
+                                                  model:
+                                                      formBloc.dataModel.value!,
+                                                  isScreen: false,
+                                                  list: formBloc
+                                                          .dataModel
+                                                          .value!
+                                                          .grahaSputhaValues ??
+                                                      []);
+                                            }
+
+                                            if (state.value == 5 && !isLocked) {
                                               return BhavaKundliScreen(
                                                   model: formBloc
                                                       .dataModel.value!);
                                             }
-                                            if (state.value == 5) {
+                                            if (state.value == 6 && !isLocked) {
                                               return BhavaSandhiScreen(
                                                   lagnaValue: formBloc.dataModel
                                                       .value!.lagnaValue!,
@@ -190,14 +251,7 @@ class ViewHoroScopeScreen extends StatelessWidget {
                                                       .dasamaValue!);
                                             }
 
-                                            if (state.value == 6) {
-                                              return PanchangaScreen(
-                                                  list: HoroScopeUtils()
-                                                      .getMetaPanchangaValues(
-                                                          formBloc.dataModel
-                                                              .value!));
-                                            }
-                                            if (state.value == 7) {
+                                            if (state.value == 7 && !isLocked) {
                                               return DhashaBhukthiScreen(
                                                   list: HoroScopeUtils()
                                                       .getMeta9DasaBhuktiValues(
@@ -205,7 +259,7 @@ class ViewHoroScopeScreen extends StatelessWidget {
                                                               .value!));
                                             }
 
-                                            if (state.value == 8) {
+                                            if (state.value == 8 && !isLocked) {
                                               return ShadvargaScreen(
                                                   list: HoroScopeUtils()
                                                       .getMetaShadvargaValues(
@@ -213,21 +267,23 @@ class ViewHoroScopeScreen extends StatelessWidget {
                                                               .value!));
                                             }
 
-                                            if (state.value == 9) {
+                                            if (state.value == 9 && !isLocked) {
                                               return AshtakavaragaScreen(
                                                   list: HoroScopeUtils()
                                                       .getMetaAshtakaVargaValues(
                                                           formBloc.dataModel
                                                               .value!));
                                             }
-                                            if (state.value == 10) {
+                                            if (state.value == 10 &&
+                                                !isLocked) {
                                               return TrisphutadiScreen(
                                                   list: HoroScopeUtils()
                                                       .getMetaTrisphutadiValues(
                                                           formBloc.dataModel
                                                               .value!));
                                             }
-                                            if (state.value == 11) {
+                                            if (state.value == 11 &&
+                                                !isLocked) {
                                               return DhoomadiScreen(
                                                   list: HoroScopeUtils()
                                                       .getMetaDhoomadiValues(
@@ -237,10 +293,7 @@ class ViewHoroScopeScreen extends StatelessWidget {
                                                               .raviValue));
                                             }
 
-                                            return BasicDetailsScreen(
-                                                userModel: data['user'],
-                                                horoscopeModel:
-                                                    formBloc.dataModel.value!);
+                                            return getUserBlockedView();
                                           }));
                                 }),
                           )
@@ -258,5 +311,82 @@ class ViewHoroScopeScreen extends StatelessWidget {
         model: formBloc.dataModel.value!,
         isScreen: false,
         list: formBloc.dataModel.value!.grahaSputhaValues ?? []);
+  }
+
+  getUserBlockedView() {
+    return Container(
+      child: MetaColumnView(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Container(
+            height: MediaQuery.sizeOf(globalContext).height * 0.35,
+            child: MetaSVGView(
+                svgName: AssetConstants.logoGrey,
+                basePath: MetaFlavourConstants.flavorPath),
+          ),
+          SizedBox(
+            height: 20.h,
+          ),
+          Container(
+            alignment: Alignment.center,
+            child: MetaTextView(
+              text: MetaFlavourConstants.appTitle,
+              textStyle: MetaStyle(
+                  fontSize: 22,
+                  fontColor: MetaColors().primaryColor,
+                  fontWeight: FontWeight.w100),
+            ),
+          ),
+          SizedBox(
+            height: 10.h,
+          ),
+          Container(
+            alignment: Alignment.center,
+            child: MetaTextView(
+              text: "premium_membership_only",
+              textStyle: MetaStyle(
+                  fontSize: 16,
+                  fontColor: MetaColors.color3c3c3c,
+                  fontWeight: FontWeight.w400),
+            ),
+          ),
+          SizedBox(
+            height: 10.h,
+          ),
+          Container(
+            alignment: Alignment.center,
+            child: MetaTextView(
+              text: '''Above option has been locked.
+Subscribe to Aditya premium for more 
+view option''',
+              textStyle: MetaStyle(
+                  fontSize: 14,
+                  fontColor: MetaColors.color3c3c3c,
+                  fontWeight: FontWeight.w100),
+            ),
+          ),
+          SizedBox(
+            height: 20.h,
+          ),
+          Container(
+            height: 40.h,
+            margin: EdgeInsets.symmetric(horizontal: 40.w),
+            child: MetaButton(
+              radius: 12,
+              bgColor: MetaColors().primaryColor,
+              textStyle: const MetaStyle(
+                  fontColor: MetaColors.whiteColor,
+                  fontWeight: FontWeight.w100,
+                  fontSize: 20),
+              onTap: () async {
+                Navigator.pushNamed(
+                    globalContext, RouteConstants.premiumPlanPath);
+              },
+              text: "subscribe",
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }

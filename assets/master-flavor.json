@@ -25,17 +25,18 @@
   "instagram": "",
   "linkedin": "",
   "appTheme": {
-    "primaryColor": "0XFFE58719",
+    "primaryColor": "0XFF964B00",
     "secondaryColor": "0XFFFFFFFF"
   },
+  "planPrice": 499,
   "features": [
     "basic_details",
-    "planet_info",
     "rashi_kundli",
     "navamsha_kundli",
+    "pachanga",
+    "planet_info",
     "bhava_kundli",
     "bhava_sandhi",
-    "pachanga",
     "dasha-bhukti",
     "shadvarga",
     "ashtakavarga",

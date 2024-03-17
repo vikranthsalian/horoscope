@@ -1,8 +1,15 @@
+import 'dart:math';
+
+import 'package:adithya_horoscope/core/app/navigator_key.dart';
+import 'package:adithya_horoscope/core/config/hive_config.dart';
 import 'package:adithya_horoscope/core/constants/asset_constants.dart';
 import 'package:adithya_horoscope/core/constants/color_constants.dart';
 import 'package:adithya_horoscope/core/constants/flavour_constants.dart';
 import 'package:adithya_horoscope/core/constants/route_constants.dart';
+import 'package:adithya_horoscope/core/constants/string_constants.dart';
 import 'package:adithya_horoscope/core/utils/show_alert.dart';
+import 'package:adithya_horoscope/data/cubits/login/login_cubit.dart';
+import 'package:adithya_horoscope/data/datasources/user.dart';
 import 'package:adithya_horoscope/presentation/components/app_bar.dart';
 import 'package:adithya_horoscope/presentation/screens/profile/profile_form_bloc.dart';
 import 'package:adithya_horoscope/presentation/widgets/button.dart';
@@ -11,9 +18,11 @@ import 'package:adithya_horoscope/presentation/widgets/style.dart';
 import 'package:adithya_horoscope/presentation/widgets/svg_view.dart';
 import 'package:adithya_horoscope/presentation/widgets/text_view.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:razorpay_flutter/razorpay_flutter.dart';
 
 class PremiumPlanScreen extends StatelessWidget {
   var padding = EdgeInsets.symmetric(horizontal: 26.w);
@@ -26,6 +35,7 @@ class PremiumPlanScreen extends StatelessWidget {
           backgroundColor: MetaColors.whiteColor,
           appBar: MetaAppBar(title: MetaFlavourConstants.appTitle),
           bottomNavigationBar: Container(
+            margin: EdgeInsets.only(bottom: 20.h),
             height: 40.h,
             padding: padding,
             child: MetaButton(
@@ -36,7 +46,7 @@ class PremiumPlanScreen extends StatelessWidget {
                   fontWeight: FontWeight.w100,
                   fontSize: 16),
               onTap: () async {
-                Navigator.of(context).pushNamed(RouteConstants.successPath);
+                makePayment();
               },
               text: "annual" + " " + amount.toString() + " / " + "year".tr(),
             ),
@@ -167,5 +177,115 @@ class PremiumPlanScreen extends StatelessWidget {
             ),
           )),
     );
+  }
+
+  makePayment() async {
+    Razorpay razorpay = Razorpay();
+    var options = {
+      'key': 'rzp_test_1DP5mmOlF5G5ag',
+      'amount': MetaFlavourConstants.planPrice * 100,
+      'name': MetaFlavourConstants.appTitle,
+      'description': 'Subscription Plan',
+      'retry': {'enabled': true, 'max_count': 1},
+      'send_sms_hash': true,
+      'prefill': {'contact': '8888888888', 'email': 'test@razorpay.com'},
+      'external': {
+        'wallets': ['paytm']
+      }
+    };
+    razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, handlePaymentErrorResponse);
+    razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, handlePaymentSuccessResponse);
+    razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET, handleExternalWalletSelected);
+    razorpay.open(options);
+  }
+
+  void handlePaymentErrorResponse(PaymentFailureResponse response) {
+    print(
+        "${response.code}\nDescription: ${response.message}\nMetadata:${response.error.toString()}");
+    /*
+    * PaymentFailureResponse contains three values:
+    * 1. Error Code
+    * 2. Error Description
+    * 3. Metadata
+    * */
+    // showAlertDialog(context, "Payment Failed",
+    //     "Code: ${response.code}\nDescription: ${response.message}\nMetadata:${response.error.toString()}");
+  }
+
+  void handlePaymentSuccessResponse(PaymentSuccessResponse response) async {
+    /*
+    * Payment Success Response contains three values:
+    * 1. Order ID
+    * 2. Payment ID
+    * 3. Signature
+    * */
+
+    UserData userData = globalContext.read<LoginCubit>().getLoginResponse();
+    DatabaseReference ref =
+        FirebaseDatabase.instance.ref("users/${userData.id}");
+
+    String startDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
+    String id = "$startDate-${generateRandom()}";
+
+    String endDate = DateFormat('dd-MM-yyyy')
+        .format(DateTime.now().add(Duration(days: 365)));
+
+    DatabaseReference refPayment =
+        FirebaseDatabase.instance.ref("payment_details/$id");
+
+    Map<String, dynamic> planData = {
+      "user_id": userData.id,
+      "order_id": response.orderId,
+      "plan_id": id,
+      "plan_price": MetaFlavourConstants.planPrice,
+      "payment_id": response.paymentId,
+      "signature": response.signature,
+      "start_date": startDate,
+      "end_date": endDate,
+    };
+    print(planData);
+
+    await refPayment.set(planData).then((_) {
+      print(" Data saved successfully!");
+    }).catchError((error) {
+      print(error);
+    });
+
+    Map<String, dynamic> data = {
+      "plan_details": "premium",
+      "plan_id": id,
+    };
+
+    await ref.update(data).then((_) {
+      print(" Data saved successfully!");
+    }).catchError((error) {
+      print(error);
+    });
+
+    userData.planDetails = "premium";
+    MetaHiveConfig().putHive(StringConstants.userData, userData.toJson());
+
+    UserData model = UserData.fromJson(userData.toJson());
+    globalContext.read<LoginCubit>().setLoginResponse(model);
+
+    Navigator.of(globalContext).pushNamed(RouteConstants.successPath);
+    print(response.data.toString());
+    // showAlertDialog(
+    //     context, "Payment Successful", "Payment ID: ${response.paymentId}");
+  }
+
+  void handleExternalWalletSelected(ExternalWalletResponse response) {
+    print(response.walletName);
+    // showAlertDialog(
+    //     context, "External Wallet Selected", "${response.walletName}");
+  }
+
+  generateRandom() {
+    Random random = Random();
+    String number = '';
+    for (int i = 0; i < 10; i++) {
+      number = number + random.nextInt(9).toString();
+    }
+    return number;
   }
 }

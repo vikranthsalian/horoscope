@@ -9,10 +9,12 @@ import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 import 'package:geolocator/geolocator.dart';
 
 class AddHoroScopeFormBloc extends FormBloc<String, String> {
-  final tfFName = TextFieldBloc(validators: [emptyValidator], initialValue: "");
+  final tfFName =
+      TextFieldBloc(validators: [emptyValidator], initialValue: "Vikranth");
   final tfDOB = TextFieldBloc(validators: [emptyValidator], initialValue: "");
   final tfBT = TextFieldBloc(validators: [emptyValidator], initialValue: "");
-  final tfBLoc = TextFieldBloc(validators: [emptyValidator], initialValue: "");
+  final tfBLoc =
+      TextFieldBloc(validators: [emptyValidator], initialValue: "Mangalore");
   final timezone =
       SelectFieldBloc(validators: [emptyValidator], initialValue: "0.00");
   final latitude =

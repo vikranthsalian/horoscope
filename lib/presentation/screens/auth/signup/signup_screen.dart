@@ -155,7 +155,7 @@ class SignUpScreen extends StatelessWidget {
                           Container(
                             alignment: Alignment.center,
                             child: MetaTextView(
-                              text: "Dheemahi",
+                              text: "AMPWORK",
                               textStyle: MetaStyle(
                                   fontSize: 16,
                                   fontColor: MetaColors.color3F3F3F,
@@ -165,7 +165,7 @@ class SignUpScreen extends StatelessWidget {
                           Container(
                             alignment: Alignment.center,
                             child: MetaTextView(
-                              text: "Apps for life",
+                              text: "We AMPlify You",
                               textStyle: MetaStyle(
                                   fontSize: 10,
                                   fontColor: MetaColors.color3F3F3F,

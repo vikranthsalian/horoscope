@@ -25,7 +25,7 @@ class SavedHoroScopeFormBloc extends FormBloc<String, String> {
       isLoading.updateValue(true);
       Map<dynamic, dynamic>? receivedData =
           event.snapshot.value as Map<dynamic, dynamic>?;
-
+      print(userData.id);
       if (receivedData != null) {
         list.clear(); // Clear the previous list before updating
         receivedData.forEach((key, value) {
