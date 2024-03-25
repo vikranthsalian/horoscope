@@ -1,23 +1,34 @@
+import 'dart:io';
+import 'dart:typed_data';
+
 import 'package:adithya_horoscope/core/constants/asset_constants.dart';
 import 'package:adithya_horoscope/core/constants/color_constants.dart';
 import 'package:adithya_horoscope/core/constants/flavour_constants.dart';
 import 'package:adithya_horoscope/core/constants/route_constants.dart';
+import 'package:adithya_horoscope/core/utils/calculate.dart';
+import 'package:adithya_horoscope/data/cubits/kundliType/kundli_type_cubit.dart';
 import 'package:adithya_horoscope/domain/model/horoscope_model.dart';
 import 'package:adithya_horoscope/domain/model/kundli_model.dart';
 import 'package:adithya_horoscope/presentation/components/app_bar.dart';
 import 'package:adithya_horoscope/presentation/components/kundli.dart';
+import 'package:adithya_horoscope/presentation/components/north_kundli.dart';
 import 'package:adithya_horoscope/presentation/widgets/column_view.dart';
 import 'package:adithya_horoscope/presentation/widgets/row_view.dart';
 import 'package:adithya_horoscope/presentation/widgets/style.dart';
 import 'package:adithya_horoscope/presentation/widgets/svg_view.dart';
 import 'package:adithya_horoscope/presentation/widgets/text_view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:screenshot/screenshot.dart';
 
 class RashiKundliScreen extends StatelessWidget {
   HoroscopeModel model;
+  ScreenshotController? screenshotController;
   bool isScreen;
-  RashiKundliScreen({this.isScreen = false, required this.model});
+  RashiKundliScreen(
+      {this.isScreen = false, required this.model, this.screenshotController});
 
   var paddingW = EdgeInsets.symmetric(horizontal: 20.w);
   List<KundliModel> listKundli = [
@@ -39,13 +50,31 @@ class RashiKundliScreen extends StatelessWidget {
     KundliModel(id: 5, data: []),
   ];
 
+  int kundliType = 0;
+
+  NorthKundliModel kundli = NorthKundliModel(
+      id1: [],
+      id2: [],
+      id3: [],
+      id4: [],
+      id5: [],
+      id6: [],
+      id7: [],
+      id8: [],
+      id9: [],
+      id10: [],
+      id11: [],
+      id12: []);
+
   @override
   Widget build(BuildContext context) {
+    kundliType = context.read<KundliTypeCubit>().getKundliType();
     print("---------------------South Kundli---------------------------");
-    print(listKundli);
+    //print(kundliType);
     for (var entry in model.rasiKundliValues!.asMap().entries) {
       Map<String, dynamic> planetName = entry.value;
-
+      print(planetName);
+      northMapper(planetName);
       String mapperID = planetName.values.first.toString();
       String mapperKey = planetName.keys.first.toString();
 
@@ -96,26 +125,60 @@ class RashiKundliScreen extends StatelessWidget {
 
   getBody() {
     return Container(
-      padding: paddingW,
       child:
           MetaColumnView(mainAxisAlignment: MainAxisAlignment.start, children: [
-        getView("name", model.name),
-        getView("date_of_birth", model.dob),
-        getView("nakshatra", model.name),
-        SizedBox(height: 20.h),
-        Stack(
-          alignment: Alignment.center,
-          children: [
-            KundliWidget(list: listKundli),
-            Container(
-              color: MetaColors.whiteColor,
-              width: 150.w,
-              height: 150.w,
-              child: MetaSVGView(
-                  svgName: AssetConstants.logoOnySVG,
-                  basePath: MetaFlavourConstants.flavorPath),
+        Container(
+          padding: paddingW,
+          child: MetaColumnView(children: [
+            getView("name", model.name),
+            getView("date_of_birth", model.dob),
+            getView("nakshatra",
+                HoroScopeUtils().getMetaNakshatra(model.chandraValue!)),
+          ]),
+        ),
+        SizedBox(height: 10.h),
+        Screenshot(
+          controller: screenshotController!,
+          child: Container(
+            padding: !isScreen ? paddingW : EdgeInsets.symmetric(horizontal: 0),
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                kundliType == 0
+                    ? KundliWidget(list: listKundli)
+                    : NorthKundliWidget(kundli: kundli),
+                if (kundliType == 0)
+                  InkWell(
+                    onTap: () async {
+                      await screenshotController!
+                          .capture(delay: const Duration(milliseconds: 10))
+                          .then((Uint8List? image) async {
+                        print("screenshotController");
+                        print(image);
+                        if (image != null) {
+                          String fileName =
+                              DateTime.now().microsecondsSinceEpoch.toString();
+                          final directory =
+                              await getApplicationDocumentsDirectory();
+                          File file =
+                              await File('${directory.path}/${fileName}.png');
+                          await file.writeAsBytes(image);
+                          return file;
+                        }
+                      });
+                    },
+                    child: Container(
+                      color: MetaColors.whiteColor,
+                      width: 150.w,
+                      height: 150.w,
+                      child: MetaSVGView(
+                          svgName: AssetConstants.logoOnySVG,
+                          basePath: MetaFlavourConstants.flavorPath),
+                    ),
+                  ),
+              ],
             ),
-          ],
+          ),
         )
       ]),
     );
@@ -129,7 +192,7 @@ class RashiKundliScreen extends StatelessWidget {
             Expanded(
               flex: 3,
               child: Container(
-                padding: paddingW,
+                //   padding: paddingW,
                 alignment: Alignment.centerLeft,
                 child: MetaTextView(
                   text: title,
@@ -141,7 +204,7 @@ class RashiKundliScreen extends StatelessWidget {
               ),
             ),
             Container(
-              padding: paddingW,
+              // padding: paddingW,
               alignment: Alignment.centerLeft,
               child: MetaTextView(
                 text: " : ",
@@ -167,5 +230,53 @@ class RashiKundliScreen extends StatelessWidget {
             ),
           ],
         ));
+  }
+
+  void northMapper(Map<String, dynamic> planetName) {
+    String mapperID = planetName.values.first.toString();
+    String mapperKey = planetName.keys.first.toString();
+
+    if (mapperID == "1") {
+      kundli.id7!.add(mapperKey);
+    }
+    if (mapperID == "2") {
+      kundli.id8!.add(mapperKey);
+    }
+    if (mapperID == "3") {
+      kundli.id9!.add(mapperKey);
+    }
+    if (mapperID == "4") {
+      kundli.id10!.add(mapperKey);
+    }
+    if (mapperID == "5") {
+      kundli.id11!.add(mapperKey);
+    }
+    if (mapperID == "6") {
+      if (mapperKey != "Lg") {
+        kundli.id12!.add(mapperKey);
+      }
+    }
+    if (mapperID == "7") {
+      kundli.id1!.add(mapperKey);
+    }
+    if (mapperID == "8") {
+      kundli.id2!.add(mapperKey);
+    }
+    if (mapperID == "9") {
+      kundli.id3!.add(mapperKey);
+    }
+    if (mapperID == "10") {
+      kundli.id4!.add(mapperKey);
+    }
+    if (mapperID == "11") {
+      kundli.id5!.add(mapperKey);
+    }
+    if (mapperID == "12") {
+      kundli.id6!.add(mapperKey);
+    }
+
+    if (mapperID == "0") {
+      kundli.id6!.add(mapperKey);
+    }
   }
 }

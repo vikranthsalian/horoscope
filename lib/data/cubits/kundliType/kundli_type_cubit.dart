@@ -9,12 +9,12 @@ class KundliTypeCubit extends Cubit<KundliTypeState> {
   KundliTypeCubit() : super(KundliTypeSet(kundliType: 0));
 
   int getKundliType() {
-    int language = 0;
+    int kundliType = 0;
     if (state is KundliTypeSet) {
       final current = state as KundliTypeSet;
       return current.kundliType;
     }
-    return language;
+    return kundliType;
   }
 
   setKundliType(int type) {

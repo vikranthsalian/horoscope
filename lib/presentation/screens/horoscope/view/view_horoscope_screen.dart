@@ -31,6 +31,7 @@ import 'package:adithya_horoscope/presentation/widgets/text_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:screenshot/screenshot.dart';
 
 class ViewHoroScopeScreen extends StatelessWidget {
   Map<String, dynamic> data;
@@ -39,6 +40,9 @@ class ViewHoroScopeScreen extends StatelessWidget {
 
   UserData? userData;
   bool isLocked = true;
+  ScreenshotController ctr1 = ScreenshotController();
+  ScreenshotController ctr2 = ScreenshotController();
+  ScreenshotController ctr3 = ScreenshotController();
   @override
   Widget build(BuildContext context) {
     userData = context.read<LoginCubit>().getLoginResponse();
@@ -90,7 +94,7 @@ class ViewHoroScopeScreen extends StatelessWidget {
                       );
                     },
                     child: Container(
-                      child: Column(
+                      child: MetaColumnView(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           SizedBox(height: 10.h),
@@ -200,18 +204,25 @@ class ViewHoroScopeScreen extends StatelessWidget {
                                           builder: (context, state) {
                                             if (state.value == 0) {
                                               return BasicDetailsScreen(
+                                                  controllers: {
+                                                    "ctr1": ctr1,
+                                                    "ctr2": ctr2,
+                                                    "ctr3": ctr3,
+                                                  },
                                                   userModel: data['user'],
                                                   horoscopeModel: formBloc
                                                       .dataModel.value!);
                                             }
                                             if (state.value == 1) {
                                               return RashiKundliScreen(
+                                                  screenshotController: ctr1,
                                                   model: formBloc
                                                       .dataModel.value!);
                                             }
                                             if (state.value == 2) {
                                               return NavamshaKundliScreen(
                                                   isScreen: false,
+                                                  screenshotController: ctr1,
                                                   model: formBloc
                                                       .dataModel.value!);
                                             }
@@ -238,6 +249,7 @@ class ViewHoroScopeScreen extends StatelessWidget {
 
                                             if (state.value == 5 && !isLocked) {
                                               return BhavaKundliScreen(
+                                                  screenshotController: ctr1,
                                                   model: formBloc
                                                       .dataModel.value!);
                                             }
@@ -304,13 +316,6 @@ class ViewHoroScopeScreen extends StatelessWidget {
             ),
           )),
     );
-  }
-
-  getPlanetInfoDetails(ViewHoroScopeFormBloc formBloc) {
-    return PlanetInfoScreen(
-        model: formBloc.dataModel.value!,
-        isScreen: false,
-        list: formBloc.dataModel.value!.grahaSputhaValues ?? []);
   }
 
   getUserBlockedView() {

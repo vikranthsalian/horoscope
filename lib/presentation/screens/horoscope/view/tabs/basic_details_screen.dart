@@ -5,6 +5,7 @@ import 'package:adithya_horoscope/core/constants/color_constants.dart';
 import 'package:adithya_horoscope/core/constants/flavour_constants.dart';
 import 'package:adithya_horoscope/core/constants/route_constants.dart';
 import 'package:adithya_horoscope/core/utils/calculate.dart';
+import 'package:adithya_horoscope/core/utils/pdf.dart';
 import 'package:adithya_horoscope/core/utils/show_alert.dart';
 import 'package:adithya_horoscope/data/cubits/login/login_cubit.dart';
 import 'package:adithya_horoscope/data/datasources/user.dart';
@@ -24,7 +25,11 @@ class BasicDetailsScreen extends StatelessWidget {
   var padding = EdgeInsets.symmetric(horizontal: 8.w);
   HoroscopeModel horoscopeModel;
   User userModel;
-  BasicDetailsScreen({required this.horoscopeModel, required this.userModel});
+  Map controllers;
+  BasicDetailsScreen(
+      {required this.horoscopeModel,
+      required this.userModel,
+      required this.controllers});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -96,8 +101,9 @@ class BasicDetailsScreen extends StatelessWidget {
                                         AssetConstants.proceedIcon, "save")),
                                 InkWell(
                                     onTap: () {
-                                      Navigator.pushNamed(context,
-                                          RouteConstants.savedHoroScopePath);
+                                      //_saveNetworkImage();
+                                      MetaPdf()
+                                          .write(horoscopeModel, controllers);
                                     },
                                     child: customButtons(
                                         AssetConstants.historyIcon,
