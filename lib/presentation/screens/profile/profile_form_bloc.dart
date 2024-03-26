@@ -1,22 +1,33 @@
 import 'dart:async';
+import 'dart:convert';
 
-import 'package:adithya_horoscope/core/injector/injector.dart';
+import 'package:adithya_horoscope/core/config/hive_config.dart';
+import 'package:adithya_horoscope/core/constants/string_constants.dart';
+import 'package:adithya_horoscope/data/datasources/user.dart';
+import 'package:adithya_horoscope/domain/model/cities_model.dart';
 import 'package:adithya_horoscope/domain/model/response.dart';
-import 'package:adithya_horoscope/domain/usecase/auth_usecase.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 
 class ProfileFormBloc extends FormBloc<String, String> {
   final tfFName = TextFieldBloc(validators: [emptyValidator], initialValue: "");
   final tfDOB = TextFieldBloc(validators: [emptyValidator], initialValue: "");
   final tfPhNo = TextFieldBloc(validators: [emptyValidator], initialValue: "");
+  final location =
+      TextFieldBloc(validators: [emptyValidator], initialValue: "udipi");
 
   final dataModel = SelectFieldBloc<MetaResponse, String>();
+  final user = SelectFieldBloc<UserData, String>();
+  final days = SelectFieldBloc<String, String>();
+  final isLoading = BooleanFieldBloc(initialValue: false);
 
-  ProfileFormBloc() : super(autoValidate: true) {
+  ProfileFormBloc() : super(autoValidate: true, isLoading: true) {
     addFieldBlocs(fieldBlocs: [
       tfFName,
       tfPhNo,
       tfDOB,
+      location,
+      days,
     ]);
   }
 
@@ -45,19 +56,65 @@ class ProfileFormBloc extends FormBloc<String, String> {
   }
 
   @override
-  FutureOr<void> onSubmitting() async {
-    Map<String, dynamic> data = {
-      // "email": tfPassword.value,
-      // "password": tfPassword.value
-    };
+  FutureOr<void> onLoading() async {
+    print(user.value!.planDetails);
+    print(user.value!.planID);
 
-    MetaResponse? response =
-        await Injector.resolve<AuthUseCase>().createMembership(data);
-    if (response.isSuccess!) {
-      dataModel.updateValue(response);
-      emitSuccess(canSubmitAgain: false);
-    } else {
-      emitSuccess(canSubmitAgain: false, successResponse: "Please try again.");
+    try {
+      Map<String,dynamic>? cityData = MetaHiveConfig().getHive(StringConstants.cityData);
+      print(cityData);
+      if (cityData != null) {
+        CitiesModel model = CitiesModel.fromJson(cityData);
+
+        location.updateValue(model.city!);
+      }
+    }catch(e){
+      print(e);
     }
+
+    if (user.value!.planDetails == "premium") {
+      DatabaseReference pref = FirebaseDatabase.instance
+          .ref("payment_details/${user.value!.planID}");
+
+      final snapshot = await pref.get();
+      Map<dynamic, dynamic>? paymentData =
+          snapshot.value as Map<dynamic, dynamic>?;
+
+      DateTime cdateTime = DateTime.now();
+      DateTime endDate =
+          DateFormat("dd-MM-yyyy").parse(paymentData!['end_date']);
+
+      var diff = endDate.difference(cdateTime).inDays;
+      if (diff < 1) {
+        DatabaseReference ref =
+            FirebaseDatabase.instance.ref("users/${user.value!.id}");
+        await ref.update({
+          "plan_details": "basic",
+          "plan_id": "",
+        }).then((_) {
+          print(" Data saved successfully!");
+        }).catchError((error) {
+          print(error);
+        });
+
+        final sp = await ref.get();
+        Map<dynamic, dynamic>? finalData = sp.value as Map<dynamic, dynamic>?;
+        Map<String, dynamic> allData = finalData!.cast<String, dynamic>();
+
+        print("allData");
+        print(allData);
+
+        MetaHiveConfig().putHive(StringConstants.userData, allData);
+      } else {
+        print("plan actice");
+        isLoading.updateValue(true);
+        days.updateValue(diff.toString());
+        isLoading.updateValue(false);
+      }
+    }
+    emitLoaded();
   }
+
+  @override
+  FutureOr<void> onSubmitting() async {}
 }

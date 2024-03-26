@@ -1,11 +1,14 @@
 import 'dart:math';
 
+import 'package:adithya_horoscope/core/config/hive_config.dart';
 import 'package:adithya_horoscope/core/constants/asset_constants.dart';
 import 'package:adithya_horoscope/core/constants/color_constants.dart';
 import 'package:adithya_horoscope/core/constants/flavour_constants.dart';
 import 'package:adithya_horoscope/core/constants/route_constants.dart';
+import 'package:adithya_horoscope/core/constants/string_constants.dart';
 import 'package:adithya_horoscope/core/ext/timeofday_ext.dart';
 import 'package:adithya_horoscope/core/utils/calculate.dart';
+import 'package:adithya_horoscope/domain/model/cities_model.dart';
 import 'package:adithya_horoscope/domain/model/horoscope_model.dart';
 import 'package:adithya_horoscope/domain/model/user.dart';
 import 'package:adithya_horoscope/presentation/widgets/button.dart';
@@ -179,14 +182,50 @@ class HomeScreen extends StatelessWidget {
                                     DateFormat('dd-MM-yyyy').format(dateTime);
                                 TimeOfDay timeOfDay = TimeOfDay.now();
 
+                                Map<String, dynamic>? cityData =
+                                    MetaHiveConfig()
+                                        .getHive(StringConstants.cityData);
+                                CitiesModel cityModel = CitiesModel();
+                                if (cityData == null || cityData.isEmpty) {
+                                  cityModel = CitiesModel(
+                                      city: "udipi",
+                                      latDeg: 13,
+                                      latMin: 20,
+                                      latDir: "N",
+                                      longDeg: 74,
+                                      longMin: 45,
+                                      longDir: "E",
+                                      tZoneHour: 5,
+                                      tZoneMin: 30);
+                                } else {
+                                  cityModel = CitiesModel.fromJson(cityData);
+                                }
+                                print("cityModel.city");
+                                print(cityModel.city);
+                                double lat =
+                                    HoroScopeUtils().getMetaDegreeToDecimal(
+                                  double.parse(cityModel.latDeg.toString()),
+                                  double.parse(cityModel.latMin.toString()),
+                                  double.parse("00"),
+                                );
+                                double long =
+                                    HoroScopeUtils().getMetaDegreeToDecimal(
+                                  double.parse(cityModel.longDeg.toString()),
+                                  double.parse(cityModel.longMin.toString()),
+                                  double.parse("00"),
+                                );
+                                double tm = double.parse(
+                                        (cityModel.tZoneHour * 60).toString()) +
+                                    double.parse(cityModel.tZoneMin.toString());
+
                                 HoroscopeModel model = await HoroScopeUtils()
                                     .calculate(User(
                                         uniqueID: generateRandom(),
                                         name: "",
-                                        place: "UDUPI,KAR,IND",
-                                        latitude: 0,
-                                        longitude: 0,
-                                        timezone: 0,
+                                        place: cityModel.city,
+                                        latitude: lat,
+                                        longitude: long,
+                                        timezone: tm,
                                         time: timeOfDay.toStringFormat,
                                         createdData: DateTime.now().toString(),
                                         date: _date));

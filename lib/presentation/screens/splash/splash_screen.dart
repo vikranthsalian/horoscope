@@ -29,17 +29,6 @@ class SplashScreenState extends State<SplashScreen> {
 
     Timer(const Duration(seconds: 3), () async {
       if (MetaHiveConfig().getHive(StringConstants.keepLoggedIn) ?? false) {
-        // if (true) {
-        // Map<String, dynamic> data = {
-        //   "id": "111729427255211603009",
-        //   "name": "Vikranth Salian",
-        //   "email": "vikkysalian@gmail.com",
-        //   "mobile": "",
-        //   "photoUrl":
-        //       "https://lh3.googleusercontent.com/a/ACg8ocI1cwI9HA9eevOjSvmNpnazCK6DB0e6H_Y7_zuxXPKHGYA",
-        //   "last_login": "2024-03-16 10:26:23.818986"
-        // };
-
         print(MetaHiveConfig().getHive(StringConstants.userData));
 
         Map<String, dynamic> data = Map<String, dynamic>.from(

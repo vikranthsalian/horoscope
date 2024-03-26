@@ -253,25 +253,4 @@ class User {
   void setSelected(bool selected) {
     this.selected = selected;
   }
-
-  void setAllValues(
-      String code,
-      String name,
-      String date,
-      String time,
-      String place,
-      double timezone,
-      double latitude,
-      double longitude,
-      bool selected) {
-    this.code = code;
-    this.name = name;
-    this.date = date;
-    this.time = time;
-    this.place = place;
-    this.timezone = timezone;
-    this.latitude = latitude;
-    this.longitude = longitude;
-    this.selected = selected;
-  }
 }

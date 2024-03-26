@@ -21,7 +21,6 @@ class AshtakavaragaScreen extends StatelessWidget {
     "sn",
     "sarv"
   ];
-  var padding = EdgeInsets.symmetric(horizontal: 8.w);
   @override
   Widget build(BuildContext context) {
     return Container(

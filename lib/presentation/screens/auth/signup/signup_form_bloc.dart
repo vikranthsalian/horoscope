@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:adithya_horoscope/domain/model/response.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 
 class SignupFormBloc extends FormBloc<String, String> {
@@ -47,9 +48,29 @@ class SignupFormBloc extends FormBloc<String, String> {
 
   @override
   FutureOr<void> onSubmitting() async {
-    Map<String, dynamic> data = {
-      "email": tfPassword.value,
-      "password": tfPassword.value
-    };
+    // Map<String, dynamic> data = {
+    //   "email": tfPassword.value,
+    //   "password": tfPassword.value
+    // };
+
+    var acs = ActionCodeSettings(
+        // URL you want to redirect back to. The domain (www.example.com) for this
+        // URL must be whitelisted in the Firebase Console.
+        url: 'https://www.example.com/finishSignUp?cartId=1234',
+        // This must be true
+        handleCodeInApp: true,
+        iOSBundleId: 'com.example.ios',
+        androidPackageName: 'creative.thief.adithya_horoscope',
+        // installIfNotAvailable
+        androidInstallApp: true,
+        // minimumVersion
+        androidMinimumVersion: '12');
+
+    var emailAuth = 'vikkysalian@gmail.com';
+    FirebaseAuth.instance
+        .sendSignInLinkToEmail(email: emailAuth, actionCodeSettings: acs)
+        .catchError(
+            (onError) => print('Error sending email verification $onError'))
+        .then((value) => print('Successfully sent email verification'));
   }
 }

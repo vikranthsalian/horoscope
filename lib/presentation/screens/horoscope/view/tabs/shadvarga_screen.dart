@@ -17,47 +17,58 @@ class ShadvargaScreen extends StatelessWidget {
   var padding = EdgeInsets.symmetric(horizontal: 8.w);
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child:
-          MetaColumnView(mainAxisAlignment: MainAxisAlignment.start, children: [
-        MetaRowView(
-            children: headers.asMap().entries.map((e) {
-          return Expanded(
-            child: Container(
-              child: MetaTextView(
-                text: e.value,
-                textStyle: MetaStyle(
-                    fontSize: 12,
-                    fontColor: MetaColors.color3F3F3F,
-                    fontWeight: FontWeight.w400),
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 20.w),
+      child: SingleChildScrollView(
+        child: MetaColumnView(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              MetaRowView(
+                  children: headers.asMap().entries.map((e) {
+                return Expanded(
+                  child: Container(
+                    child: MetaTextView(
+                      text: e.value,
+                      textStyle: MetaStyle(
+                          fontSize: 12,
+                          fontColor: MetaColors.color3F3F3F,
+                          fontWeight: FontWeight.w400),
+                    ),
+                  ),
+                );
+              }).toList()),
+              SizedBox(
+                height: 10.h,
               ),
-            ),
-          );
-        }).toList()),
-        SizedBox(
-          height: 10.h,
-        ),
-        ListView.builder(
-            shrinkWrap: true,
-            padding: EdgeInsets.zero,
-            scrollDirection: Axis.vertical,
-            itemCount: list.length,
-            itemBuilder: (ctx, i) {
-              return Container(
-                padding: EdgeInsets.symmetric(vertical: 10.h),
-                child: MetaRowView(children: [
-                  Expanded(
-                      child: rowText(list[i].graha!.toString(), enabled: true)),
-                  Expanded(child: Container(child: rowText(list[i].dre!))),
-                  Expanded(child: Container(child: rowText(list[i].hor!))),
-                  Expanded(child: Container(child: rowText(list[i].nav!))),
-                  Expanded(child: Container(child: rowText(list[i].tri!))),
-                  Expanded(child: Container(child: rowText(list[i].dwa!))),
-                  Expanded(child: Container(child: rowText(list[i].ksh!))),
-                ]),
-              );
-            })
-      ]),
+              ListView.builder(
+                  shrinkWrap: true,
+                  padding: EdgeInsets.zero,
+                  scrollDirection: Axis.vertical,
+                  itemCount: list.length,
+                  itemBuilder: (ctx, i) {
+                    return Container(
+                      padding: EdgeInsets.symmetric(vertical: 10.h),
+                      child: MetaRowView(children: [
+                        Expanded(
+                            child: rowText(list[i].graha!.toString(),
+                                enabled: true)),
+                        Expanded(
+                            child: Container(child: rowText(list[i].dre!))),
+                        Expanded(
+                            child: Container(child: rowText(list[i].hor!))),
+                        Expanded(
+                            child: Container(child: rowText(list[i].nav!))),
+                        Expanded(
+                            child: Container(child: rowText(list[i].tri!))),
+                        Expanded(
+                            child: Container(child: rowText(list[i].dwa!))),
+                        Expanded(
+                            child: Container(child: rowText(list[i].ksh!))),
+                      ]),
+                    );
+                  })
+            ]),
+      ),
     );
   }
 

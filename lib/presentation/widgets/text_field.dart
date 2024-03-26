@@ -115,7 +115,7 @@ class MetaTextField extends StatelessWidget {
               hintText: hintText,
               hintStyle: hintStyle,
               filled: true,
-              fillColor: backgroundColor,
+              fillColor: Colors.white,
               errorStyle: Theme.of(context)
                   .textTheme
                   .caption

@@ -1,11 +1,15 @@
+import 'package:adithya_horoscope/core/config/hive_config.dart';
 import 'package:adithya_horoscope/core/constants/asset_constants.dart';
 import 'package:adithya_horoscope/core/constants/color_constants.dart';
 import 'package:adithya_horoscope/core/constants/flavour_constants.dart';
 import 'package:adithya_horoscope/core/constants/route_constants.dart';
+import 'package:adithya_horoscope/core/constants/string_constants.dart';
 import 'package:adithya_horoscope/core/utils/show_alert.dart';
 import 'package:adithya_horoscope/data/cubits/login/login_cubit.dart';
 import 'package:adithya_horoscope/data/datasources/user.dart';
+import 'package:adithya_horoscope/domain/model/cities_model.dart';
 import 'package:adithya_horoscope/presentation/components/app_bar.dart';
+import 'package:adithya_horoscope/presentation/components/dialog/city_list_dialog.dart';
 import 'package:adithya_horoscope/presentation/screens/profile/profile_form_bloc.dart';
 import 'package:adithya_horoscope/presentation/widgets/column_view.dart';
 import 'package:adithya_horoscope/presentation/widgets/image_view.dart';
@@ -17,6 +21,7 @@ import 'package:adithya_horoscope/presentation/widgets/text_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class ProfileScreen extends StatelessWidget {
   var padding = EdgeInsets.symmetric(horizontal: 26.w);
@@ -38,6 +43,8 @@ class ProfileScreen extends StatelessWidget {
                 ProfileFormBloc formBloc =
                     BlocProvider.of<ProfileFormBloc>(context);
 
+                formBloc.user.updateValue(data);
+
                 formBloc.tfFName.updateValue(data!.name ?? "");
                 formBloc.tfPhNo.updateValue(data!.email ?? "");
                 formBloc.tfFName.updateValue(data!.name ?? "");
@@ -46,11 +53,7 @@ class ProfileScreen extends StatelessWidget {
                     onSubmissionFailed: (context, state) {
                       print("Error is.......$state");
                     },
-                    onSuccess: (context, state) {
-                      formBloc.clear();
-                      // SignUpResponse? modelResponse = formBloc.dataModel.value;
-                      //  Navigator.pop(context,(true,modelResponse!.email));
-                    },
+                    onSuccess: (context, state) {},
                     onFailure: (context, state) {
                       MetaAlert.showSnackbar(
                         error: true,
@@ -156,16 +159,43 @@ class ProfileScreen extends StatelessWidget {
                           SizedBox(
                             height: 10.h,
                           ),
-                          Container(
-                            padding: padding,
-                            child: MetaBlocTextField(
-                              labelText: "date_of_birth",
-                              hintText: "date_of_birth",
-                              textFieldBloc: formBloc.tfDOB,
-                              inputType: TextInputType.text,
-                              enabled: false,
+                          InkWell(
+                            onTap: () {
+                              showDialog(
+                                  context: context,
+                                  builder: (_) => MetaCityDialogList(
+                                        selected: formBloc.location.value,
+                                        onSelected: (CitiesModel value) {
+                                          formBloc.location
+                                              .updateValue(value.city!);
+
+                                          MetaHiveConfig().putHive(
+                                              StringConstants.cityData,
+                                              value.toJson());
+                                        },
+                                      ));
+                            },
+                            child: Container(
+                              padding: padding,
+                              child: MetaBlocTextField(
+                                enabled: false,
+                                labelText: "location",
+                                hintText: "enter_location",
+                                textFieldBloc: formBloc!.location,
+                                inputType: TextInputType.text,
+                              ),
                             ),
                           ),
+                          // Container(
+                          //   padding: padding,
+                          //   child: MetaBlocTextField(
+                          //     labelText: "date_of_birth",
+                          //     hintText: "date_of_birth",
+                          //     textFieldBloc: formBloc.tfDOB,
+                          //     inputType: TextInputType.text,
+                          //     enabled: false,
+                          //   ),
+                          // ),
                           SizedBox(
                             height: 10.h,
                           ),
@@ -228,60 +258,84 @@ class ProfileScreen extends StatelessWidget {
                                     ),
                                   ),
                                 )
-                              : InkWell(
+                              : GestureDetector(
                                   onTap: () {
-                                    Navigator.pushNamed(context,
-                                        RouteConstants.premiumPlanPath);
+                                    if (!data!.isPremium) {
+                                      Navigator.pushNamed(context,
+                                          RouteConstants.premiumPlanPath);
+                                    }
                                   },
-                                  child: Container(
-                                    padding: padding,
-                                    alignment: Alignment.centerLeft,
-                                    child: MetaRowView(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: [
-                                        MetaTextView(
-                                          text: "premium_plan",
-                                          textStyle: MetaStyle(
-                                              fontSize: 16,
-                                              fontColor: MetaColors.color3F3F3F,
-                                              fontWeight: FontWeight.w400),
-                                        ),
-                                        MetaTextView(
-                                          text: " : ",
-                                          textStyle: MetaStyle(
-                                              fontSize: 16,
-                                              fontColor:
-                                                  MetaColors().primaryColor,
-                                              fontWeight: FontWeight.w400),
-                                        ),
-                                        Expanded(
-                                          child: MetaTextView(
-                                            text: "100 Days Remaining",
-                                            textAlign: TextAlign.end,
-                                            textStyle: MetaStyle(
-                                                fontSize: 12,
-                                                fontColor:
-                                                    MetaColors().primaryColor,
-                                                fontWeight: FontWeight.w400),
+                                  child: BlocBuilder(
+                                      bloc: formBloc.isLoading,
+                                      builder: (context, state) {
+                                        return Container(
+                                          padding: padding,
+                                          alignment: Alignment.centerLeft,
+                                          child: MetaRowView(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            children: [
+                                              MetaTextView(
+                                                text: "premium_plan",
+                                                textStyle: MetaStyle(
+                                                    fontSize: 16,
+                                                    fontColor:
+                                                        MetaColors.color3F3F3F,
+                                                    fontWeight:
+                                                        FontWeight.w400),
+                                              ),
+                                              MetaTextView(
+                                                text: " : ",
+                                                textStyle: MetaStyle(
+                                                    fontSize: 16,
+                                                    fontColor: MetaColors()
+                                                        .primaryColor,
+                                                    fontWeight:
+                                                        FontWeight.w400),
+                                              ),
+                                              Expanded(
+                                                child: MetaTextView(
+                                                  text: formBloc.days.value
+                                                          .toString() +
+                                                      " " +
+                                                      "days_remaining",
+                                                  textAlign: TextAlign.end,
+                                                  textStyle: MetaStyle(
+                                                      fontSize: 12,
+                                                      fontColor: MetaColors()
+                                                          .primaryColor,
+                                                      fontWeight:
+                                                          FontWeight.w400),
+                                                ),
+                                              ),
+                                            ],
                                           ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
+                                        );
+                                      }),
                                 ),
                           SizedBox(
                             height: 30.h,
                           ),
-                          Container(
-                            padding: padding,
-                            alignment: Alignment.centerLeft,
-                            child: MetaTextView(
-                              text: "sign_out",
-                              textStyle: MetaStyle(
-                                  fontSize: 15,
-                                  fontColor: MetaColors.color3F3F3F,
-                                  fontWeight: FontWeight.w400),
+                          GestureDetector(
+                            onTap: () {
+                              MetaHiveConfig()
+                                  .putHive(StringConstants.keepLoggedIn, false);
+                              MetaHiveConfig()
+                                  .putHive(StringConstants.userData, "");
+                              GoogleSignIn().signOut();
+                              Navigator.pushNamedAndRemoveUntil(context,
+                                  RouteConstants.loginPath, (route) => false);
+                            },
+                            child: Container(
+                              padding: padding,
+                              alignment: Alignment.centerLeft,
+                              child: MetaTextView(
+                                text: "sign_out",
+                                textStyle: MetaStyle(
+                                    fontSize: 15,
+                                    fontColor: MetaColors.color3F3F3F,
+                                    fontWeight: FontWeight.w400),
+                              ),
                             ),
                           ),
                         ],

@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:adithya_horoscope/core/utils/calculate.dart';
+import 'package:adithya_horoscope/core/utils/show_alert.dart';
 import 'package:adithya_horoscope/domain/model/bhava_sandhi_model.dart';
 import 'package:adithya_horoscope/domain/model/horoscope_model.dart';
 import 'package:adithya_horoscope/domain/model/shadvarga_model.dart';
@@ -21,7 +22,7 @@ class MetaPdf {
 
     await createBasic(document);
 
-    await createRashiKundli(document, ctrs['ctr1']);
+    // await createRashiKundli(document, ctrs['ctr1']);
 
     await createPanchanga(document);
 //locked
@@ -54,6 +55,7 @@ class MetaPdf {
         destinationFileName: '$fileName.pdf',
       );
       log('Saved to $qw');
+      MetaAlert.showSuccessAlert(message: "pdf_downloaded_successfully");
     } on PlatformException catch (e) {
       log('file saving error: ${e.code}');
     }
@@ -357,7 +359,7 @@ class MetaPdf {
 
   createDhoomadi(PdfDocument document) {
     List<(String, String)> list =
-        HoroScopeUtils().getMetaDhoomadiValues(hm!) ?? [];
+        HoroScopeUtils().getMetaDhoomadiValues(hm!.raviValue) ?? [];
     String page = "";
 
     for (var (index, item) in list.indexed) {
@@ -386,7 +388,7 @@ class MetaPdf {
       if (image != null) {
         String fileName = DateTime.now().microsecondsSinceEpoch.toString();
         final directory = await getApplicationDocumentsDirectory();
-        File file = await File('${directory.path}/${fileName}.png');
+        File file = File('${directory.path}/$fileName.png');
         await file.writeAsBytes(image);
         return file;
       }

@@ -7,6 +7,7 @@ import 'package:adithya_horoscope/presentation/widgets/button.dart';
 import 'package:adithya_horoscope/presentation/widgets/style.dart';
 import 'package:adithya_horoscope/presentation/widgets/text_field.dart';
 import 'package:adithya_horoscope/presentation/widgets/text_view.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
@@ -134,7 +135,32 @@ class SignUpScreen extends StatelessWidget {
                                   fontSize: 20),
                               onTap: () {
                                 FocusScope.of(context).unfocus();
-                                formBloc.submit();
+
+                                var acs = ActionCodeSettings(
+                                    // URL you want to redirect back to. The domain (www.example.com) for this
+                                    // URL must be whitelisted in the Firebase Console.
+                                    url:
+                                        'https://www.example.com/finishSignUp?cartId=1234',
+                                    // This must be true
+                                    handleCodeInApp: true,
+                                    iOSBundleId: 'com.example.ios',
+                                    androidPackageName:
+                                        'creative.thief.adithya_horoscope',
+                                    // installIfNotAvailable
+                                    androidInstallApp: true,
+                                    // minimumVersion
+                                    androidMinimumVersion: '12');
+
+                                var emailAuth = 'vikkysalian@gmail.com';
+                                FirebaseAuth.instance
+                                    .sendSignInLinkToEmail(
+                                        email: emailAuth,
+                                        actionCodeSettings: acs)
+                                    .catchError((onError) => print(
+                                        'Error sending email verification $onError'))
+                                    .then((value) => print(
+                                        'Successfully sent email verification'));
+                                //  formBloc.submit();
                               },
                               text: "proceed".toUpperCase(),
                             ),

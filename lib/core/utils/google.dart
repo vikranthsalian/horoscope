@@ -72,15 +72,61 @@ class Google {
           print(error);
         });
       } else {
-        await ref.update(data).then((_) {
-          print(" Data saved successfully!");
-        }).catchError((error) {
-          print(error);
-        });
+        Map<dynamic, dynamic>? userData =
+            snapshot.value as Map<dynamic, dynamic>?;
+        print(userData);
+        userData!['last_login'] = DateTime.now().toString();
+
+        if (userData['plan_id'] != null &&
+            userData['plan_id'].toString().isNotEmpty &&
+            userData['plan_details'] == "premium") {
+          DatabaseReference pref = FirebaseDatabase.instance
+              .ref("payment_details/${userData['plan_id']}");
+
+          final snapshot = await pref.get();
+          Map<dynamic, dynamic>? paymentData =
+              snapshot.value as Map<dynamic, dynamic>?;
+
+          DateTime cdateTime = DateTime.now();
+          DateTime endDate =
+              DateFormat("dd-MM-yyyy").parse(paymentData!['end_date']);
+
+          var diff = endDate.difference(cdateTime).inDays;
+          if (diff < 1) {
+            await ref.update({
+              "plan_details": "basic",
+              "plan_id": "",
+              "last_login": DateTime.now().toString(),
+            }).then((_) {
+              print(" Data saved successfully!");
+            }).catchError((error) {
+              print(error);
+            });
+          }
+          print("------------");
+          print(diff);
+        } else {
+          //update user
+
+          await ref.update({
+            "last_login": DateTime.now().toString(),
+          }).then((_) {
+            print(" Data saved successfully!");
+          }).catchError((error) {
+            print(error);
+          });
+        }
       }
+      final sp = await ref.get();
+      Map<dynamic, dynamic>? finalData = sp.value as Map<dynamic, dynamic>?;
+      Map<String, dynamic> allData = finalData!.cast<String, dynamic>();
+
+      print("allData");
+      print(allData);
+
       MetaHiveConfig().putHive(StringConstants.keepLoggedIn, true);
-      MetaHiveConfig().putHive(StringConstants.userData, data);
-      UserData model = UserData.fromJson(data);
+      MetaHiveConfig().putHive(StringConstants.userData, allData);
+      UserData model = UserData.fromJson(allData);
       globalContext.read<LoginCubit>().setLoginResponse(model);
       Navigator.pushNamed(globalContext, RouteConstants.homePath);
     } catch (error) {

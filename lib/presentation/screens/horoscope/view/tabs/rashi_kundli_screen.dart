@@ -137,50 +137,54 @@ class RashiKundliScreen extends StatelessWidget {
           ]),
         ),
         SizedBox(height: 10.h),
-        Screenshot(
-          controller: screenshotController!,
-          child: Container(
-            padding: !isScreen ? paddingW : EdgeInsets.symmetric(horizontal: 0),
-            child: Stack(
-              alignment: Alignment.center,
-              children: [
-                kundliType == 0
-                    ? KundliWidget(list: listKundli)
-                    : NorthKundliWidget(kundli: kundli),
-                if (kundliType == 0)
-                  InkWell(
-                    onTap: () async {
-                      await screenshotController!
-                          .capture(delay: const Duration(milliseconds: 10))
-                          .then((Uint8List? image) async {
-                        print("screenshotController");
-                        print(image);
-                        if (image != null) {
-                          String fileName =
-                              DateTime.now().microsecondsSinceEpoch.toString();
-                          final directory =
-                              await getApplicationDocumentsDirectory();
-                          File file =
-                              await File('${directory.path}/${fileName}.png');
-                          await file.writeAsBytes(image);
-                          return file;
-                        }
-                      });
-                    },
-                    child: Container(
-                      color: MetaColors.whiteColor,
-                      width: 150.w,
-                      height: 150.w,
-                      child: MetaSVGView(
-                          svgName: AssetConstants.logoOnySVG,
-                          basePath: MetaFlavourConstants.flavorPath),
-                    ),
-                  ),
-              ],
-            ),
-          ),
-        )
+        isScreen
+            ? diagram()
+            : Screenshot(
+                controller: screenshotController!,
+                child: diagram(),
+              )
       ]),
+    );
+  }
+
+  diagram() {
+    return Container(
+      padding: !isScreen ? paddingW : EdgeInsets.symmetric(horizontal: 10),
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          kundliType == 0
+              ? KundliWidget(list: listKundli)
+              : NorthKundliWidget(kundli: kundli),
+          if (kundliType == 0)
+            InkWell(
+              onTap: () async {
+                await screenshotController!
+                    .capture(delay: const Duration(milliseconds: 10))
+                    .then((Uint8List? image) async {
+                  print("screenshotController");
+                  print(image);
+                  if (image != null) {
+                    String fileName =
+                        DateTime.now().microsecondsSinceEpoch.toString();
+                    final directory = await getApplicationDocumentsDirectory();
+                    File file = await File('${directory.path}/${fileName}.png');
+                    await file.writeAsBytes(image);
+                    return file;
+                  }
+                });
+              },
+              child: Container(
+                color: MetaColors.whiteColor,
+                width: 150.w,
+                height: 150.w,
+                child: MetaSVGView(
+                    svgName: AssetConstants.logoOnySVG,
+                    basePath: MetaFlavourConstants.flavorPath),
+              ),
+            ),
+        ],
+      ),
     );
   }
 

@@ -11,10 +11,11 @@ class TrisphutadiScreen extends StatelessWidget {
   TrisphutadiScreen({required this.list});
 
   List<(String, String)> list = [];
-  var padding = EdgeInsets.symmetric(horizontal: 8.w);
+  var padding = EdgeInsets.symmetric(horizontal: 40.w);
   @override
   Widget build(BuildContext context) {
     return Container(
+        padding: padding,
         child: ListView.builder(
             shrinkWrap: true,
             padding: EdgeInsets.zero,
@@ -27,8 +28,7 @@ class TrisphutadiScreen extends StatelessWidget {
                   Expanded(
                       child:
                           Container(child: rowText(list[i].$1, enabled: true))),
-                  Expanded(
-                      child: Container(child: superScriptText(list[i].$2))),
+                  Container(child: superScriptText(list[i].$2)),
                 ]),
               );
             }));
@@ -86,6 +86,7 @@ class TrisphutadiScreen extends StatelessWidget {
     return Container(
       child: MetaTextView(
         text: e,
+        textAlign: TextAlign.start,
         textStyle: MetaStyle(
             fontSize: 12,
             fontColor:

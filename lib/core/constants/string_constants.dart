@@ -2,6 +2,7 @@ class StringConstants {
   static const hiveApp = 'localDatabaseApp';
   static const accessToken = 'accessToken';
   static const userData = 'userData';
+  static const cityData = 'cityData';
   static const recentSearch = 'recentSearch';
   static const newStoreWeekControl = 'newStoreWeekControl';
   static const newReviewDayControl = 'newReviewDayControl';

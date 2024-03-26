@@ -4,10 +4,13 @@ import 'package:adithya_horoscope/core/constants/asset_constants.dart';
 import 'package:adithya_horoscope/core/constants/color_constants.dart';
 import 'package:adithya_horoscope/core/constants/flavour_constants.dart';
 import 'package:adithya_horoscope/core/constants/route_constants.dart';
+import 'package:adithya_horoscope/core/utils/calculate.dart';
 import 'package:adithya_horoscope/core/utils/date_time.dart';
 import 'package:adithya_horoscope/core/utils/show_alert.dart';
+import 'package:adithya_horoscope/domain/model/cities_model.dart';
 import 'package:adithya_horoscope/domain/model/user.dart';
 import 'package:adithya_horoscope/presentation/components/app_bar.dart';
+import 'package:adithya_horoscope/presentation/components/dialog/city_list_dialog.dart';
 import 'package:adithya_horoscope/presentation/screens/horoscope/add/add_horoscope_form_bloc.dart';
 import 'package:adithya_horoscope/presentation/widgets/column_view.dart';
 import 'package:adithya_horoscope/presentation/widgets/icon.dart';
@@ -109,9 +112,10 @@ class AddHoroScopeScreen extends StatelessWidget {
                                 uniqueID: generateRandom(),
                                 name: formBloc!.tfFName.value,
                                 place: formBloc!.tfBLoc.value,
-                                latitude: formBloc!.position.value!.latitude,
-                                longitude: formBloc!.position.value!.longitude,
+                                latitude: formBloc!.latitudeData.value,
+                                longitude: formBloc!.longitudeData.value,
                                 time: formBloc!.tfBT.value,
+                                timezone: formBloc!.timezoneData.value! / 60,
                                 createdData: DateTime.now().toString(),
                                 date: formBloc!.tfDOB.value)
                           });
@@ -215,8 +219,65 @@ class AddHoroScopeScreen extends StatelessWidget {
                           ),
                           InkWell(
                             onTap: () {
-                              Navigator.pushNamed(
-                                  context, RouteConstants.locationPickerPath);
+                              showDialog(
+                                  context: context,
+                                  builder: (_) => MetaCityDialogList(
+                                        selected: formBloc!.tfBLocID.value,
+                                        onSelected: (CitiesModel value) {
+                                          formBloc!.tfBLoc
+                                              .updateValue(value.city!);
+                                          formBloc!.tfBLocID.updateValue(
+                                              value.city.toString());
+
+                                          formBloc!.timezone.updateValue("+" +
+                                              value.tZoneHour.toString() +
+                                              "\u00B0 " +
+                                              value.tZoneMin.toString() +
+                                              "' ");
+
+                                          formBloc!.longitudeData.updateValue(
+                                              HoroScopeUtils()
+                                                  .getMetaDegreeToDecimal(
+                                            double.parse(
+                                                value.longDeg.toString()),
+                                            double.parse(
+                                                value.longMin.toString()),
+                                            double.parse("00"),
+                                          ));
+
+                                          formBloc!.longitude.updateValue(
+                                              value.longDeg.toString() +
+                                                  "\u00B0 " +
+                                                  value.longMin.toString() +
+                                                  "' " +
+                                                  value.longDir.toString()
+                                              // + '00" '
+                                              );
+                                          double dt = double.parse(
+                                                  value.tZoneHour * 60) +
+                                              double.parse(value.tZoneMin);
+                                          formBloc!.timezoneData
+                                              .updateValue(dt);
+                                          formBloc!.latitudeData.updateValue(
+                                              HoroScopeUtils()
+                                                  .getMetaDegreeToDecimal(
+                                            double.parse(
+                                                value.latDeg.toString()),
+                                            double.parse(
+                                                value.latMin.toString()),
+                                            double.parse("00"),
+                                          ));
+
+                                          formBloc!.latitude.updateValue(
+                                              value.latDeg.toString() +
+                                                  "\u00B0 " +
+                                                  value.latMin.toString() +
+                                                  "' " +
+                                                  value.latDir.toString()
+                                              // + '00" '
+                                              );
+                                        },
+                                      ));
                             },
                             child: Container(
                               padding: padding,

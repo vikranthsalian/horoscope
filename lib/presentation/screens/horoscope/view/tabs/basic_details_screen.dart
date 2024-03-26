@@ -106,8 +106,8 @@ class BasicDetailsScreen extends StatelessWidget {
                                           .write(horoscopeModel, controllers);
                                     },
                                     child: customButtons(
-                                        AssetConstants.historyIcon,
-                                        "downloas")),
+                                        AssetConstants.saveDownload,
+                                        "download")),
                               ])
                         ],
                       ),

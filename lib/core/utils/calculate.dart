@@ -267,8 +267,9 @@ class HoroScopeUtils {
 
     latitude = mUser.getLatitude();
     longitude = mUser.getLongitude();
-    mUser.timezone =
-        double.parse((dateTime!.timeZoneOffset.inMinutes / 60).toString());
+    // mUser.timezone =
+    //     double.parse((dateTime!.timeZoneOffset.inMinutes / 60).toString());
+    // print(dateTime!.timeZoneOffset.inMinutes / 60);
     timeZone = mUser.timezone!;
     print("================================>: Data Start Input");
     print("Name : " + mUser.getName());
@@ -2184,6 +2185,16 @@ class HoroScopeUtils {
         "' " +
         temp_sec.toString() +
         '" ';
+  }
+
+  double getMetaDegreeToDecimal(
+      double degrees, double minutes, double seconds) {
+    //Decimal degrees =
+    //   whole number of degrees,
+    //   plus minutes divided by 60,
+    //   plus seconds divided by 3600
+
+    return degrees + (minutes / 60) + (seconds / 3600);
   }
 
   String Udayadi(double TimeOfBirth, double sunRise) {

@@ -105,30 +105,36 @@ class NavamshaKundliScreen extends StatelessWidget {
 
   getBody() {
     return Container(
-      padding: !isScreen ? paddingW : EdgeInsets.symmetric(horizontal: 0),
+      padding: !isScreen ? paddingW : EdgeInsets.symmetric(horizontal: 10),
       child:
           MetaColumnView(mainAxisAlignment: MainAxisAlignment.start, children: [
-        Screenshot(
-          controller: screenshotController!,
-          child: Stack(
-            alignment: Alignment.center,
-            children: [
-              kundliType == 0
-                  ? KundliWidget(list: listKundli)
-                  : NorthKundliWidget(kundli: kundli),
-              if (kundliType == 0)
-                Container(
-                  color: MetaColors.whiteColor,
-                  width: 150.w,
-                  height: 150.w,
-                  child: MetaSVGView(
-                      svgName: AssetConstants.logoOnySVG,
-                      basePath: MetaFlavourConstants.flavorPath),
-                ),
-            ],
-          ),
-        )
+        isScreen
+            ? diagram()
+            : Screenshot(
+                controller: screenshotController!,
+                child: diagram(),
+              )
       ]),
+    );
+  }
+
+  diagram() {
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        kundliType == 0
+            ? KundliWidget(list: listKundli)
+            : NorthKundliWidget(kundli: kundli),
+        if (kundliType == 0)
+          Container(
+            color: MetaColors.whiteColor,
+            width: 150.w,
+            height: 150.w,
+            child: MetaSVGView(
+                svgName: AssetConstants.logoOnySVG,
+                basePath: MetaFlavourConstants.flavorPath),
+          ),
+      ],
     );
   }
 

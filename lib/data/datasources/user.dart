@@ -75,7 +75,8 @@ class UserData extends HiveObject {
   int? status;
   @HiveField(8)
   String? planDetails;
-
+  @HiveField(9)
+  String? planID;
   UserData({
     this.id,
     this.name,
@@ -86,6 +87,7 @@ class UserData extends HiveObject {
     this.lastLogin,
     this.status,
     this.planDetails,
+    this.planID,
   });
 
   bool get isPremium {
@@ -105,6 +107,7 @@ class UserData extends HiveObject {
     lastLogin = json['last_login'];
     status = json['status'];
     planDetails = json['plan_details'];
+    planID = json['plan_id'];
   }
 
   Map<String, dynamic> toJson() {
@@ -118,6 +121,7 @@ class UserData extends HiveObject {
     data['last_login'] = lastLogin;
     data['status'] = status;
     data['plan_details'] = planDetails;
+    data['plan_id'] = planID;
     return data;
   }
 }
