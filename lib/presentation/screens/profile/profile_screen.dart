@@ -212,15 +212,21 @@ class ProfileScreen extends StatelessWidget {
                           SizedBox(
                             height: 10.h,
                           ),
-                          Container(
-                            padding: padding,
-                            alignment: Alignment.centerLeft,
-                            child: MetaTextView(
-                              text: "settings",
-                              textStyle: MetaStyle(
-                                  fontSize: 15,
-                                  fontColor: MetaColors.color3F3F3F,
-                                  fontWeight: FontWeight.w400),
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.pushNamed(
+                                  context, RouteConstants.settingsPath);
+                            },
+                            child: Container(
+                              padding: padding,
+                              alignment: Alignment.centerLeft,
+                              child: MetaTextView(
+                                text: "settings",
+                                textStyle: MetaStyle(
+                                    fontSize: 15,
+                                    fontColor: MetaColors.color3F3F3F,
+                                    fontWeight: FontWeight.w400),
+                              ),
                             ),
                           ),
                           SizedBox(
@@ -324,7 +330,7 @@ class ProfileScreen extends StatelessWidget {
                                   .putHive(StringConstants.userData, "");
                               GoogleSignIn().signOut();
                               Navigator.pushNamedAndRemoveUntil(context,
-                                  RouteConstants.loginPath, (route) => false);
+                                  RouteConstants.welcomePath, (route) => false);
                             },
                             child: Container(
                               padding: padding,

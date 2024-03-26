@@ -119,8 +119,8 @@ class WelcomeScreen extends StatelessWidget {
                                 fontWeight: FontWeight.w100,
                                 fontSize: 20),
                             onTap: () async {
-                              Navigator.of(context).pushReplacementNamed(
-                                  RouteConstants.loginPath);
+                              Navigator.of(context)
+                                  .pushNamed(RouteConstants.loginPath);
                             },
                             text: "login",
                           ),

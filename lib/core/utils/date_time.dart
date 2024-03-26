@@ -113,8 +113,8 @@ class MetaDateTime {
     DateTime? pickedDate = await showDatePicker(
       context: appNavigatorKey.currentState!.context,
       initialDate: DateTime.now(), //get today's date
-      firstDate: DateTime
-          .now(), //DateTime.now() - not to allow to choose before today.
+      firstDate: DateFormat("dd-MM-yyyy").parse(
+          "01-01-1900"), //DateTime.now() - not to allow to choose before today.
       lastDate: DateTime(2101),
       builder: (context, child) {
         return Theme(

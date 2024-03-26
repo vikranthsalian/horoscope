@@ -2,6 +2,7 @@ import 'package:adithya_horoscope/core/constants/color_constants.dart';
 import 'package:adithya_horoscope/core/constants/flavour_constants.dart';
 import 'package:adithya_horoscope/core/utils/show_alert.dart';
 import 'package:adithya_horoscope/data/cubits/kundliType/kundli_type_cubit.dart';
+import 'package:adithya_horoscope/data/cubits/sunriseSystem/sunrise_system_cubit.dart';
 import 'package:adithya_horoscope/domain/model/sort_model.dart';
 import 'package:adithya_horoscope/presentation/components/app_bar.dart';
 import 'package:adithya_horoscope/presentation/components/dialog/list_dialog.dart';
@@ -169,6 +170,10 @@ class SettingsScreen extends StatelessWidget {
                                                 .updateValue(value.name);
                                             formBloc.systemId.updateValue(
                                                 value.id.toString());
+
+                                            context
+                                                .read<SunsriseSystemCubit>()
+                                                .setSunsriseSystem(value.id);
                                           },
                                         ));
                               },

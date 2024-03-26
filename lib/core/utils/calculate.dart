@@ -1,13 +1,15 @@
 import 'dart:math' as Math;
 
+import 'package:adithya_horoscope/core/app/navigator_key.dart';
 import 'package:adithya_horoscope/core/utils/calculations/my_data.dart';
+import 'package:adithya_horoscope/data/cubits/sunriseSystem/sunrise_system_cubit.dart';
 import 'package:adithya_horoscope/domain/model/bhava_sandhi_model.dart';
 import 'package:adithya_horoscope/domain/model/horoscope_model.dart';
 import 'package:adithya_horoscope/domain/model/planet_model.dart';
 import 'package:adithya_horoscope/domain/model/shadvarga_model.dart';
 import 'package:adithya_horoscope/domain/model/user.dart';
+import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 import 'package:intl/date_symbol_data_local.dart';
-import 'package:intl/intl.dart';
 
 class HoroScopeUtils {
   final int CenterLimb_INDEX = 0;
@@ -86,6 +88,9 @@ class HoroScopeUtils {
 
   calculate(User user) {
     this.data = MyData();
+    sunRise = globalContext.read<SunsriseSystemCubit>().getSunsriseSystem();
+    print("=================> Loaded Sunrise System");
+    print(sunRise);
 
     mUser = user;
     getInputs();

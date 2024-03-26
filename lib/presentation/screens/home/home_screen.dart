@@ -181,10 +181,11 @@ class HomeScreen extends StatelessWidget {
                                 String _date =
                                     DateFormat('dd-MM-yyyy').format(dateTime);
                                 TimeOfDay timeOfDay = TimeOfDay.now();
-
-                                Map<String, dynamic>? cityData =
-                                    MetaHiveConfig()
-                                        .getHive(StringConstants.cityData);
+                                Map<String, dynamic>? cityData;
+                                try {
+                                  cityData = MetaHiveConfig()
+                                      .getHive(StringConstants.cityData);
+                                } catch (e) {}
                                 CitiesModel cityModel = CitiesModel();
                                 if (cityData == null || cityData.isEmpty) {
                                   cityModel = CitiesModel(

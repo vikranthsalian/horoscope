@@ -63,12 +63,14 @@ class AddHoroScopeFormBloc extends FormBloc<String, String> {
     print("onLoading");
     //  Position pos = await LocationUtils().determinePosition();
     // position.updateValue(pos);
-    Map<String, dynamic>? cityData =
-        MetaHiveConfig().getHive(StringConstants.cityData);
+    Map<String, dynamic>? cityData = {};
+    try {
+      cityData = MetaHiveConfig().getHive(StringConstants.cityData);
 
-    if (cityData != null) {
-      selectedCity.updateValue(CitiesModel.fromJson(cityData));
-    }
+      if (cityData != null) {
+        selectedCity.updateValue(CitiesModel.fromJson(cityData));
+      }
+    } catch (e) {}
 
     tfBLoc.updateValue(selectedCity.value!.city!);
     timezone.updateValue(selectedCity.value!.timeZoneLiteral);

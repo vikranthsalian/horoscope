@@ -4,7 +4,6 @@ import 'package:adithya_horoscope/core/constants/flavour_constants.dart';
 import 'package:adithya_horoscope/core/constants/route_constants.dart';
 import 'package:adithya_horoscope/data/cubits/login/login_cubit.dart';
 import 'package:adithya_horoscope/data/datasources/user.dart';
-import 'package:adithya_horoscope/presentation/components/google_button.dart';
 import 'package:adithya_horoscope/presentation/screens/auth/login/login_form_bloc.dart';
 import 'package:adithya_horoscope/presentation/widgets/button.dart';
 import 'package:adithya_horoscope/presentation/widgets/column_view.dart';
@@ -14,6 +13,7 @@ import 'package:adithya_horoscope/presentation/widgets/text_field.dart';
 import 'package:adithya_horoscope/presentation/widgets/text_view.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -38,11 +38,8 @@ class _LoginScreenState extends State<LoginScreen> {
             LoginFormBloc formBloc = BlocProvider.of<LoginFormBloc>(context);
 
             if (kDebugMode) {
-              //formBloc.tfUsername.updateValue("episode1982@nate.com");
-              // formBloc.tfPassword.updateValue("12345678");
-              formBloc.tfMobile
-                  .updateValue("vikkysalian@adithya_horoscope.com");
-              formBloc.tfPassword.updateValue("Rikimaru@123");
+              formBloc.tfEmail.updateValue("vikkysalian@gmail.com");
+              formBloc.tfPassword.updateValue("12345678");
             }
 
             return FormBlocListener<LoginFormBloc, String, String>(
@@ -60,12 +57,9 @@ class _LoginScreenState extends State<LoginScreen> {
 
                     Navigator.pushReplacementNamed(
                         context, RouteConstants.navPath);
-                  } else {}
+                  }
                 },
-                onFailure: (context, state) {
-                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                      content: Text(state.hasFailureResponse.toString())));
-                },
+                onFailure: (context, state) {},
                 child: Stack(
                   children: [
                     Align(
@@ -76,7 +70,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               SizedBox(
-                                height: 60.h,
+                                height: 40.h,
                               ),
                               Container(
                                 alignment: Alignment.centerRight,
@@ -123,7 +117,6 @@ class _LoginScreenState extends State<LoginScreen> {
                     Align(
                       alignment: Alignment.bottomCenter,
                       child: Container(
-                        height: 300.h,
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.only(
                                 topRight: Radius.circular(30.r),
@@ -142,29 +135,44 @@ class _LoginScreenState extends State<LoginScreen> {
                           child: Container(
                             color: Colors.white,
                             child: MetaColumnView(
-                              mainAxisSize: MainAxisSize.max,
+                              mainAxisSize: MainAxisSize.min,
                               children: [
+                                SizedBox(height: 10.h),
                                 Container(
                                   alignment: Alignment.center,
                                   child: MetaTextView(
-                                    text: "welcome_to_title",
+                                    text: "login",
                                     textStyle: MetaStyle(
                                         fontSize: 20,
                                         fontColor: MetaColors.color3F3F3F,
                                         fontWeight: FontWeight.w100),
                                   ),
                                 ),
-                                SizedBox(height: 20.h),
+                                SizedBox(height: 10.h),
                                 Container(
                                   padding: padding,
                                   child: MetaBlocTextField(
-                                    labelText: "mobile_number",
-                                    hintText: "enter_mobile_number",
-                                    textFieldBloc: formBloc.tfMobile,
+                                    labelText: "email_address",
+                                    hintText: "enter_email_address",
+                                    textFieldBloc: formBloc.tfEmail,
                                   ),
                                 ),
                                 SizedBox(
-                                  height: 15.h,
+                                  height: 5.h,
+                                ),
+                                Container(
+                                  padding: padding,
+                                  child: MetaBlocTextField(
+                                    labelText: "password",
+                                    hintText: "enter_password",
+                                    textFieldBloc: formBloc.tfPassword,
+                                    inputFormatters: [
+                                      LengthLimitingTextInputFormatter(8)
+                                    ],
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 10.h,
                                 ),
                                 Container(
                                   height: 40.h,
@@ -177,27 +185,22 @@ class _LoginScreenState extends State<LoginScreen> {
                                         fontWeight: FontWeight.w100,
                                         fontSize: 20),
                                     onTap: () async {
-                                      Navigator.pushNamed(
-                                          context, RouteConstants.homePath);
-                                      // formBloc.submit();
+                                      formBloc.submit();
                                     },
                                     text: "login",
                                   ),
                                 ),
                                 SizedBox(
-                                  height: 10.h,
+                                  height: 15.h,
                                 ),
-                                MetaTextView(
-                                  text: "or",
-                                  textStyle: MetaStyle(
-                                      fontSize: 20,
-                                      fontColor: MetaColors.color3F3F3F,
-                                      fontWeight: FontWeight.w100),
-                                ),
-                                SizedBox(
-                                  height: 2.h,
-                                ),
-                                GoogleSignInButton()
+                                // MetaTextView(
+                                //   text: "or",
+                                //   textStyle: MetaStyle(
+                                //       fontSize: 20,
+                                //       fontColor: MetaColors.color3F3F3F,
+                                //       fontWeight: FontWeight.w100),
+                                // ),
+                                // GoogleSignInButton()
                               ],
                             ),
                           ),

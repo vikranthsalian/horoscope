@@ -263,6 +263,8 @@ class PremiumPlanScreen extends StatelessWidget {
     });
 
     userData.planDetails = "premium";
+    userData.planID = id;
+
     MetaHiveConfig().putHive(StringConstants.userData, userData.toJson());
 
     UserData model = UserData.fromJson(userData.toJson());
@@ -270,8 +272,6 @@ class PremiumPlanScreen extends StatelessWidget {
 
     Navigator.of(globalContext).pushNamed(RouteConstants.successPath);
     print(response.data.toString());
-    // showAlertDialog(
-    //     context, "Payment Successful", "Payment ID: ${response.paymentId}");
   }
 
   void handleExternalWalletSelected(ExternalWalletResponse response) {

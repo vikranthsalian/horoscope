@@ -1,24 +1,29 @@
 import 'dart:async';
 
+import 'package:adithya_horoscope/core/config/loader_config.dart';
+import 'package:adithya_horoscope/core/utils/show_alert.dart';
 import 'package:adithya_horoscope/domain/model/response.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 
 class SignupFormBloc extends FormBloc<String, String> {
-  final tfFName = TextFieldBloc(validators: [emptyValidator], initialValue: "");
-  final tfMobile = TextFieldBloc(
-      validators: [emptyValidator, mobileValidator], initialValue: "");
+  final tfFName =
+      TextFieldBloc(validators: [emptyValidator], initialValue: "vikkysalian");
+  final tfEmail = TextFieldBloc(
+      validators: [emptyValidator, emailValidator],
+      initialValue: "vikkysalian@gmail.com");
   final tfPassword =
-      TextFieldBloc(validators: [emptyValidator], initialValue: "");
-  final tfDOB = TextFieldBloc(validators: [emptyValidator], initialValue: "");
+      TextFieldBloc(validators: [emptyValidator], initialValue: "12345678");
+  // final tfDOB = TextFieldBloc(validators: [emptyValidator], initialValue: "");
   final dataModel = SelectFieldBloc<MetaResponse, String>();
 
   SignupFormBloc() : super(autoValidate: true) {
     addFieldBlocs(fieldBlocs: [
       tfFName,
-      tfMobile,
+      tfEmail,
       tfPassword,
-      tfDOB,
+      //  tfDOB,
     ]);
   }
 
@@ -48,29 +53,53 @@ class SignupFormBloc extends FormBloc<String, String> {
 
   @override
   FutureOr<void> onSubmitting() async {
-    // Map<String, dynamic> data = {
-    //   "email": tfPassword.value,
-    //   "password": tfPassword.value
-    // };
+    MetaProgressHUD.showLoading(text: "creating_account.......");
+    try {
+      UserCredential userCredential = await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(
+              email: tfEmail.value, password: tfPassword.value);
+      print(userCredential);
+      await addUser();
+      MetaAlert.showSuccessAlert(
+          message: "registration_successful_login_to_continue");
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'weak-password') {
+        print("Password Provided is too Weak");
+        MetaAlert.showSuccessAlert(message: "password_entered_is_too_weak");
+      } else if (e.code == 'email-already-in-use') {
+        print("Account Already exists");
+        MetaAlert.showSuccessAlert(message: "email_account_already_exists");
+        // ScaffoldMessenger.of(context).showSnackBar(
+      }
+    } finally {
+      MetaProgressHUD.dismiss();
+    }
+  }
 
-    var acs = ActionCodeSettings(
-        // URL you want to redirect back to. The domain (www.example.com) for this
-        // URL must be whitelisted in the Firebase Console.
-        url: 'https://www.example.com/finishSignUp?cartId=1234',
-        // This must be true
-        handleCodeInApp: true,
-        iOSBundleId: 'com.example.ios',
-        androidPackageName: 'creative.thief.adithya_horoscope',
-        // installIfNotAvailable
-        androidInstallApp: true,
-        // minimumVersion
-        androidMinimumVersion: '12');
+  addUser() async {
+    User? user = FirebaseAuth.instance.currentUser;
+    String uid = user!.uid;
+    DatabaseReference ref = FirebaseDatabase.instance.ref("users/$uid");
 
-    var emailAuth = 'vikkysalian@gmail.com';
-    FirebaseAuth.instance
-        .sendSignInLinkToEmail(email: emailAuth, actionCodeSettings: acs)
-        .catchError(
-            (onError) => print('Error sending email verification $onError'))
-        .then((value) => print('Successfully sent email verification'));
+    Map<String, dynamic> data = {
+      "id": uid,
+      "name": tfFName.value,
+      "email": tfEmail.value,
+      "mobile": "",
+      "photoUrl": "",
+      "last_login": DateTime.now().toString(),
+    };
+
+    data['status'] = 1;
+    data['plan_details'] = "basic";
+    data['reg_date'] = DateTime.now().toString();
+
+    await ref.set(data).then((_) {
+      print(" Data saved successfully!");
+    }).catchError((error) {
+      print(error);
+    });
+
+    return;
   }
 }

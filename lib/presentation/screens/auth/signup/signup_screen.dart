@@ -7,7 +7,6 @@ import 'package:adithya_horoscope/presentation/widgets/button.dart';
 import 'package:adithya_horoscope/presentation/widgets/style.dart';
 import 'package:adithya_horoscope/presentation/widgets/text_field.dart';
 import 'package:adithya_horoscope/presentation/widgets/text_view.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
@@ -90,27 +89,27 @@ class SignUpScreen extends StatelessWidget {
                           Container(
                             padding: padding,
                             child: MetaBlocTextField(
-                              labelText: "phone_number",
-                              hintText: "enter_phone_number",
-                              textFieldBloc: formBloc.tfMobile,
-                              inputType: TextInputType.number,
+                              labelText: "email_address",
+                              hintText: "enter_email_address",
+                              textFieldBloc: formBloc.tfEmail,
+                              inputType: TextInputType.emailAddress,
                             ),
                           ),
                           SizedBox(
                             height: 10.h,
                           ),
-                          Container(
-                            padding: padding,
-                            child: MetaBlocTextField(
-                              labelText: "date_of_birth",
-                              hintText: "choose_date_of_birth",
-                              textFieldBloc: formBloc.tfMobile,
-                              inputType: TextInputType.text,
-                            ),
-                          ),
-                          SizedBox(
-                            height: 10.h,
-                          ),
+                          // Container(
+                          //   padding: padding,
+                          //   child: MetaBlocTextField(
+                          //     labelText: "date_of_birth",
+                          //     hintText: "choose_date_of_birth",
+                          //     textFieldBloc: formBloc.tfMobile,
+                          //     inputType: TextInputType.text,
+                          //   ),
+                          // ),
+                          // SizedBox(
+                          //   height: 10.h,
+                          // ),
                           Container(
                             padding: padding,
                             child: MetaBlocTextField(
@@ -136,31 +135,30 @@ class SignUpScreen extends StatelessWidget {
                               onTap: () {
                                 FocusScope.of(context).unfocus();
 
-                                var acs = ActionCodeSettings(
-                                    // URL you want to redirect back to. The domain (www.example.com) for this
-                                    // URL must be whitelisted in the Firebase Console.
-                                    url:
-                                        'https://www.example.com/finishSignUp?cartId=1234',
-                                    // This must be true
-                                    handleCodeInApp: true,
-                                    iOSBundleId: 'com.example.ios',
-                                    androidPackageName:
-                                        'creative.thief.adithya_horoscope',
-                                    // installIfNotAvailable
-                                    androidInstallApp: true,
-                                    // minimumVersion
-                                    androidMinimumVersion: '12');
-
-                                var emailAuth = 'vikkysalian@gmail.com';
-                                FirebaseAuth.instance
-                                    .sendSignInLinkToEmail(
-                                        email: emailAuth,
-                                        actionCodeSettings: acs)
-                                    .catchError((onError) => print(
-                                        'Error sending email verification $onError'))
-                                    .then((value) => print(
-                                        'Successfully sent email verification'));
-                                //  formBloc.submit();
+                                // var acs = ActionCodeSettings(
+                                //     // URL you want to redirect back to. The domain (www.example.com) for this
+                                //     // URL must be whitelisted in the Firebase Console.
+                                //     url: 'adithyahoroscope.page.link',
+                                //     // This must be true
+                                //     handleCodeInApp: true,
+                                //     iOSBundleId: 'com.example.ios',
+                                //     androidPackageName:
+                                //         'creative.thief.adithya_horoscope',
+                                //     // installIfNotAvailable
+                                //     androidInstallApp: true,
+                                //     // minimumVersion
+                                //     androidMinimumVersion: '12');
+                                //
+                                // var emailAuth = 'vikkysalian@gmail.com';
+                                // FirebaseAuth.instance
+                                //     .sendSignInLinkToEmail(
+                                //         email: emailAuth,
+                                //         actionCodeSettings: acs)
+                                //     .catchError((onError) => print(
+                                //         'Error sending email verification $onError'))
+                                //     .then((value) => print(
+                                //         'Successfully sent email verification'));
+                                formBloc.submit();
                               },
                               text: "proceed".toUpperCase(),
                             ),

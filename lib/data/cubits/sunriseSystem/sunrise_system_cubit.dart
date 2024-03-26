@@ -6,7 +6,8 @@ import 'package:meta/meta.dart';
 part 'sunrise_system_state.dart';
 
 class SunsriseSystemCubit extends Cubit<SunsriseSystemState> {
-  SunsriseSystemCubit() : super(SunsriseSystemSet(sunriseSytem: 0));
+  SunsriseSystemCubit()
+      : super(SunsriseSystemSet(sunriseSytem: getSunriseLocal()));
 
   int getSunsriseSystem() {
     int sunrise = 0;
@@ -22,5 +23,13 @@ class SunsriseSystemCubit extends Cubit<SunsriseSystemState> {
       MetaHiveConfig().putHive(StringConstants.sunriseSystem, sunrise);
       emit(SunsriseSystemSet(sunriseSytem: sunrise));
     }
+  }
+
+  static getSunriseLocal() {
+    int? sunrise = MetaHiveConfig().getHive(StringConstants.sunriseSystem);
+    if (sunrise != null) {
+      return sunrise;
+    }
+    return 0;
   }
 }

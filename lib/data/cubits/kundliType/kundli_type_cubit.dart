@@ -6,7 +6,7 @@ import 'package:meta/meta.dart';
 part 'kundli_type_state.dart';
 
 class KundliTypeCubit extends Cubit<KundliTypeState> {
-  KundliTypeCubit() : super(KundliTypeSet(kundliType: 0));
+  KundliTypeCubit() : super(KundliTypeSet(kundliType: getKundliLocal()));
 
   int getKundliType() {
     int kundliType = 0;
@@ -22,5 +22,13 @@ class KundliTypeCubit extends Cubit<KundliTypeState> {
       MetaHiveConfig().putHive(StringConstants.kundliType, type);
       emit(KundliTypeSet(kundliType: type));
     }
+  }
+
+  static getKundliLocal() {
+    int? kundli = MetaHiveConfig().getHive(StringConstants.kundliType);
+    if (kundli != null) {
+      return kundli;
+    }
+    return 0;
   }
 }
