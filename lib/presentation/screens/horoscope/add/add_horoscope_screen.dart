@@ -41,7 +41,7 @@ class AddHoroScopeScreen extends StatelessWidget {
                 child: MetaIcon(
                     icon: Icons.settings,
                     onIconPressed: () {
-                      // Navigator.pushNamed(context, RouteConstants.settingsPath);
+                      Navigator.pushNamed(context, RouteConstants.settingsPath);
                     },
                     size: 15,
                     color: MetaColors.color3F3F3F),
