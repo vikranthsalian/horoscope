@@ -12,64 +12,67 @@ class NorthKundliWidget extends StatelessWidget {
 
   NorthKundliWidget({required this.kundli});
 
-  double boxw = 90.w;
+  double boxw = 70.w;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Transform.rotate(
-        angle: 150,
-        child: MetaColumnView(
-          children: [
-            MetaRowView(
-              children: [
-                Container(
-                  child: Stack(alignment: Alignment.center, children: [
-                    flipTriangle(true, false),
-                    Transform.translate(
-                      offset: Offset(boxw / 5, boxw / 5),
-                      child: getTextView(kundli.id2!.join(",")),
-                    )
-                  ]),
-                ),
-                Container(
-                  child: Stack(alignment: Alignment.center, children: [
-                    flipTriangle(false, false),
-                    Transform.translate(
-                      offset: Offset(-boxw / 5, boxw / 5),
-                      child: getTextView(kundli.id1!.join(",")),
-                    )
-                  ]),
-                )
-              ],
-            ),
-            Container(
-              //    margin: EdgeInsets.symmetric(horizontal: 20.w),
-              child: getGDData(),
-            ),
-            MetaRowView(
-              children: [
-                Container(
-                  child: Stack(alignment: Alignment.center, children: [
-                    flipTriangle(true, true),
-                    Transform.translate(
-                      offset: Offset(boxw / 5, -boxw / 5),
-                      child: getTextView(kundli.id7!.join(",")),
-                    )
-                  ]),
-                ),
-                Container(
-                  child: Stack(alignment: Alignment.center, children: [
-                    flipTriangle(false, true),
-                    Transform.translate(
-                      offset: Offset(-boxw / 5, -boxw / 5),
-                      child: getTextView(kundli.id8!.join(",")),
-                    )
-                  ]),
-                )
-              ],
-            ),
-          ],
+    return Transform.scale(
+      scale: 1.4,
+      child: Container(
+        child: Transform.rotate(
+          angle: 150,
+          child: MetaColumnView(
+            children: [
+              MetaRowView(
+                children: [
+                  Container(
+                    child: Stack(alignment: Alignment.center, children: [
+                      flipTriangle(true, false),
+                      Transform.translate(
+                        offset: Offset(boxw / 5, boxw / 5),
+                        child: getTextView(kundli.id2!.join(",")),
+                      )
+                    ]),
+                  ),
+                  Container(
+                    child: Stack(alignment: Alignment.center, children: [
+                      flipTriangle(false, false),
+                      Transform.translate(
+                        offset: Offset(-boxw / 5, boxw / 5),
+                        child: getTextView(kundli.id1!.join(",")),
+                      )
+                    ]),
+                  )
+                ],
+              ),
+              Container(
+                //    margin: EdgeInsets.symmetric(horizontal: 20.w),
+                child: getGDData(),
+              ),
+              MetaRowView(
+                children: [
+                  Container(
+                    child: Stack(alignment: Alignment.center, children: [
+                      flipTriangle(true, true),
+                      Transform.translate(
+                        offset: Offset(boxw / 5, -boxw / 5),
+                        child: getTextView(kundli.id7!.join(",")),
+                      )
+                    ]),
+                  ),
+                  Container(
+                    child: Stack(alignment: Alignment.center, children: [
+                      flipTriangle(false, true),
+                      Transform.translate(
+                        offset: Offset(-boxw / 5, -boxw / 5),
+                        child: getTextView(kundli.id8!.join(",")),
+                      )
+                    ]),
+                  )
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );
