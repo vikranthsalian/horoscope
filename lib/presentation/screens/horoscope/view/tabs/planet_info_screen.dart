@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:adithya_horoscope/core/constants/color_constants.dart';
 import 'package:adithya_horoscope/core/constants/route_constants.dart';
 import 'package:adithya_horoscope/domain/model/horoscope_model.dart';
@@ -169,25 +167,28 @@ class PlanetInfoScreen extends StatelessWidget {
                     fontColor: MetaColors.color3F3F3F,
                     fontWeight: FontWeight.w100)
                 .getStyle(),
-            children: <TextSpan>[
+            children: [
               TextSpan(
                 text: " ",
                 style: MetaStyle(
                         fontSize: 4,
-                        fontFeatures: [FontFeature.superscripts()],
                         fontColor: MetaColors.color3F3F3F,
                         fontWeight: FontWeight.w100)
                     .getStyle(),
               ),
-              TextSpan(
-                text: "ˢ",
-                style: MetaStyle(
-                        fontSize: 15,
-                        fontFeatures: [FontFeature.superscripts()],
-                        fontColor: MetaColors.color3F3F3F,
-                        fontWeight: FontWeight.w100)
-                    .getStyle(),
-              ),
+              WidgetSpan(
+                  alignment: PlaceholderAlignment.top,
+                  child: Container(
+                    child: MetaTextView(
+                      text: 's',
+                      textStyle: MetaStyle(
+                          fontSize: 8,
+                          fontColor: enabled
+                              ? MetaColors().primaryColor
+                              : MetaColors.color3F3F3F,
+                          fontWeight: FontWeight.w100),
+                    ),
+                  )),
               TextSpan(
                 text: array[1],
                 style: MetaStyle(

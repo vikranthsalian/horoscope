@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:adithya_horoscope/core/constants/color_constants.dart';
 import 'package:adithya_horoscope/core/utils/calculate.dart';
 import 'package:adithya_horoscope/domain/model/bhava_sandhi_model.dart';
@@ -22,49 +20,49 @@ class BhavaSandhiScreen extends StatelessWidget {
     list = HoroScopeUtils().getMetaBhavasandhiValues(lagnaValue, dasamaValue);
 
     return SingleChildScrollView(
-      child:
-          MetaColumnView(mainAxisAlignment: MainAxisAlignment.start, children: [
-        MetaRowView(
-            children: headers.asMap().entries.map((e) {
-          return Expanded(
-            child: Container(
-              child: MetaTextView(
-                text: e.value,
-                textStyle: MetaStyle(
-                    fontSize: 12,
-                    fontColor: MetaColors.color3F3F3F,
-                    fontWeight: FontWeight.w400),
+        child: MetaColumnView(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+          MetaRowView(
+              children: headers.asMap().entries.map((e) {
+            return Expanded(
+              child: Container(
+                child: MetaTextView(
+                  text: e.value,
+                  textStyle: MetaStyle(
+                      fontSize: 12,
+                      fontColor: MetaColors.color3F3F3F,
+                      fontWeight: FontWeight.w400),
+                ),
               ),
-            ),
-          );
-        }).toList()),
-        SizedBox(
-          height: 10.h,
-        ),
-        ListView.builder(
-            shrinkWrap: true,
-            padding: EdgeInsets.zero,
-            scrollDirection: Axis.vertical,
-            itemCount: list.length,
-            itemBuilder: (ctx, i) {
-              return Container(
-                padding: EdgeInsets.symmetric(vertical: 10.h),
-                child: MetaRowView(children: [
-                  Expanded(
-                      child: Container(
-                          child: rowText(list[i].bhava!.toString(),
-                              enabled: true))),
-                  Expanded(
-                      child:
-                          Container(child: superScriptText(list[i].madhya!))),
-                  Expanded(
-                      child:
-                          Container(child: superScriptText(list[i].anthya!))),
-                ]),
-              );
-            })
-      ]),
-    );
+            );
+          }).toList()),
+          SizedBox(
+            height: 10.h,
+          ),
+          ListView.builder(
+              shrinkWrap: true,
+              padding: EdgeInsets.zero,
+              scrollDirection: Axis.vertical,
+              itemCount: list.length,
+              itemBuilder: (ctx, i) {
+                return Container(
+                  padding: EdgeInsets.symmetric(vertical: 10.h),
+                  child: MetaRowView(children: [
+                    Expanded(
+                        child: Container(
+                            child: rowText(list[i].bhava!.toString(),
+                                enabled: true))),
+                    Expanded(
+                        child:
+                            Container(child: superScriptText(list[i].madhya!))),
+                    Expanded(
+                        child:
+                            Container(child: superScriptText(list[i].anthya!))),
+                  ]),
+                );
+              })
+        ]));
   }
 
   Widget superScriptText(String e, {bool enabled = false}) {
@@ -81,25 +79,28 @@ class BhavaSandhiScreen extends StatelessWidget {
                     fontColor: MetaColors.color3F3F3F,
                     fontWeight: FontWeight.w100)
                 .getStyle(),
-            children: <TextSpan>[
+            children: [
               TextSpan(
                 text: " ",
                 style: MetaStyle(
                         fontSize: 4,
-                        fontFeatures: [FontFeature.superscripts()],
                         fontColor: MetaColors.color3F3F3F,
                         fontWeight: FontWeight.w100)
                     .getStyle(),
               ),
-              TextSpan(
-                text: "ˢ",
-                style: MetaStyle(
-                        fontSize: 15,
-                        fontFeatures: [FontFeature.superscripts()],
-                        fontColor: MetaColors.color3F3F3F,
-                        fontWeight: FontWeight.w100)
-                    .getStyle(),
-              ),
+              WidgetSpan(
+                  alignment: PlaceholderAlignment.top,
+                  child: Container(
+                    child: MetaTextView(
+                      text: 's',
+                      textStyle: MetaStyle(
+                          fontSize: 8,
+                          fontColor: enabled
+                              ? MetaColors().primaryColor
+                              : MetaColors.color3F3F3F,
+                          fontWeight: FontWeight.w100),
+                    ),
+                  )),
               TextSpan(
                 text: array[1],
                 style: MetaStyle(

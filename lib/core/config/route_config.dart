@@ -7,6 +7,7 @@ import 'package:adithya_horoscope/presentation/screens/auth/welcome/welcome_scre
 import 'package:adithya_horoscope/presentation/screens/home/home_screen.dart';
 import 'package:adithya_horoscope/presentation/screens/horoscope/add/add_horoscope_screen.dart';
 import 'package:adithya_horoscope/presentation/screens/horoscope/saved/saved_horoscope_screen.dart';
+import 'package:adithya_horoscope/presentation/screens/horoscope/view/tabs/dhasha_bhukthi_screen.dart';
 import 'package:adithya_horoscope/presentation/screens/horoscope/view/tabs/navamsha_kundli_screen.dart';
 import 'package:adithya_horoscope/presentation/screens/horoscope/view/tabs/planet_info_screen.dart';
 import 'package:adithya_horoscope/presentation/screens/horoscope/view/tabs/rashi_kundli_screen.dart';
@@ -89,6 +90,11 @@ class RouteConfig {
       case RouteConstants.viewHoroScopePath:
         args as Map<String, dynamic>;
         return ViewHoroScopeScreen(data: args);
+
+      case RouteConstants.dashaBhukthiOtherPath:
+        args as Map<String, dynamic>;
+        return DhashaBhukthiOtherScreen(
+            list: args['list'], title: args['title']);
 
       default:
         return SplashScreen();

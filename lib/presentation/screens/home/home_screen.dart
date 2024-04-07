@@ -226,7 +226,7 @@ class HomeScreen extends StatelessWidget {
                                         place: cityModel.city,
                                         latitude: lat,
                                         longitude: long,
-                                        timezone: tm,
+                                        timezone: tm / 60,
                                         time: timeOfDay.toStringFormat,
                                         createdData: DateTime.now().toString(),
                                         date: _date));

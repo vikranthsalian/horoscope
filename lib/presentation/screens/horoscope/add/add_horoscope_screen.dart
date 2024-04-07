@@ -115,6 +115,7 @@ class AddHoroScopeScreen extends StatelessWidget {
                                 latitude: formBloc!.latitudeData.value,
                                 longitude: formBloc!.longitudeData.value,
                                 time: formBloc!.tfBT.value,
+                                timezoneAsText: formBloc!.timezone.value,
                                 timezone: formBloc!.timezoneData.value! / 60,
                                 createdData: DateTime.now().toString(),
                                 date: formBloc!.tfDOB.value)
@@ -253,9 +254,13 @@ class AddHoroScopeScreen extends StatelessWidget {
                                                   value.longDir.toString()
                                               // + '00" '
                                               );
-                                          double dt = double.parse(
-                                                  value.tZoneHour * 60) +
-                                              double.parse(value.tZoneMin);
+                                          print(value.tZoneHour);
+                                          double dhr = double.parse(
+                                                  value.tZoneHour.toString()) *
+                                              60;
+                                          double dmin = double.parse(
+                                              value.tZoneMin.toString());
+                                          double dt = dhr + dmin;
                                           formBloc!.timezoneData
                                               .updateValue(dt);
                                           formBloc!.latitudeData.updateValue(

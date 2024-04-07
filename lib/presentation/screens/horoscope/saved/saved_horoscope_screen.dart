@@ -100,6 +100,20 @@ class SavedHoroScopeScreen extends StatelessWidget {
                                 List<User> list =
                                     formBloc.dataModel.value ?? [];
                                 print(list.length);
+
+                                if (list.isEmpty) {
+                                  return Center(
+                                    child: MetaTextView(
+                                      text: "no_data_found",
+                                      textAlign: TextAlign.start,
+                                      textStyle: MetaStyle(
+                                          fontSize: 12,
+                                          fontColor: MetaColors.color3F3F3F,
+                                          fontWeight: FontWeight.w400),
+                                    ),
+                                  );
+                                }
+
                                 return Container(
                                     padding:
                                         EdgeInsets.symmetric(horizontal: 10.w),

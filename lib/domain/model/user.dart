@@ -8,6 +8,7 @@ class User {
   String? time = "";
   String? place = "";
   double? timezone = 0;
+  String? timezoneAsText = "";
   double? latitude = 0;
   double? longitude = 0;
   bool? selected = false;
@@ -22,6 +23,7 @@ class User {
       this.time,
       this.place,
       this.timezone,
+      this.timezoneAsText,
       this.latitude,
       this.longitude,
       this.selected});
@@ -38,6 +40,7 @@ class User {
     code = json['code'];
     name = json['name'];
     date = json['date'];
+    timezoneAsText = json['timezoneAsText'];
     createdData = json['createdData'];
     place = json['place'];
     time = json['time'];
@@ -51,6 +54,7 @@ class User {
     final Map<String, dynamic> data = {};
     data['userID'] = userID;
     data['uniqueID'] = uniqueID;
+    data['timezoneAsText'] = timezoneAsText;
     data['code'] = code;
     data['name'] = name;
     data['time'] = time;

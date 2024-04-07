@@ -85,7 +85,7 @@ class MetaCityDialogList extends StatelessWidget {
                     builder: (context, state) {
                       List<CitiesModel> list = formBloc.data.value ?? [];
 
-                      if (formBloc.controller.value!.text.length > 3) {
+                      if (formBloc.controller.value!.text.length > 2) {
                         return Container(
                           color: MetaColors.whiteColor,
                           child: ListView.separated(
@@ -126,7 +126,7 @@ class MetaCityDialogList extends StatelessWidget {
                         child: Container(
                           child: MetaTextView(
                             textAlign: TextAlign.center,
-                            text: "please_search_atleast_4_chars",
+                            text: "please_search_atleast_3_chars",
                             textStyle: MetaStyle(
                                 fontSize: 12,
                                 fontColor: MetaColors.greyColor,
@@ -194,7 +194,7 @@ class CityFormBloc extends FormBloc<String, String> {
 
   search() {
     List<CitiesModel> main = dataList.value ?? [];
-    if (controller.value!.text.length > 3) {
+    if (controller.value!.text.length > 2) {
       isLoading.updateValue(true);
       List<CitiesModel> filtered = main
           .where((e) => (e.city!

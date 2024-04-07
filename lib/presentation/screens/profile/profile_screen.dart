@@ -181,7 +181,7 @@ class ProfileScreen extends StatelessWidget {
                                 enabled: false,
                                 labelText: "location",
                                 hintText: "enter_location",
-                                textFieldBloc: formBloc!.location,
+                                textFieldBloc: formBloc.location,
                                 inputType: TextInputType.text,
                               ),
                             ),

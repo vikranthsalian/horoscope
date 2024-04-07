@@ -7,6 +7,7 @@ import 'package:adithya_horoscope/domain/model/horoscope_model.dart';
 import 'package:adithya_horoscope/domain/model/kundli_model.dart';
 import 'package:adithya_horoscope/presentation/components/kundli.dart';
 import 'package:adithya_horoscope/presentation/components/north_kundli.dart';
+import 'package:adithya_horoscope/presentation/screens/horoscope/view/tabs/rashi_kundli_screen.dart';
 import 'package:adithya_horoscope/presentation/widgets/column_view.dart';
 import 'package:adithya_horoscope/presentation/widgets/row_view.dart';
 import 'package:adithya_horoscope/presentation/widgets/style.dart';
@@ -45,29 +46,49 @@ class BhavaKundliScreen extends StatelessWidget {
   int kundliType = 0;
 
   NorthKundliModel kundli = NorthKundliModel(
-      id1: [],
-      id2: [],
-      id3: [],
-      id4: [],
-      id5: [],
-      id6: [],
-      id7: [],
-      id8: [],
-      id9: [],
-      id10: [],
-      id11: [],
-      id12: []);
+      id1: (0, []),
+      id2: (0, []),
+      id3: (0, []),
+      id4: (0, []),
+      id5: (0, []),
+      id6: (0, []),
+      id7: (0, []),
+      id8: (0, []),
+      id9: (0, []),
+      id10: (0, []),
+      id11: (0, []),
+      id0: (0, []));
+  Map<String, List<NorthDataClass>>? catGroup;
   @override
   Widget build(BuildContext context) {
     kundliType = context.read<KundliTypeCubit>().getKundliType();
     print("---------------------South Kundli---------------------------");
+    catGroup = grouper(HoroScopeUtils().getMetaBhavaKundliValues(model));
     for (var entry
         in HoroScopeUtils().getMetaBhavaKundliValues(model).asMap().entries) {
       Map<String, dynamic> planetName = entry.value;
       print(planetName);
-      northMapper(planetName);
       String mapperID = planetName.values.first.toString();
       String mapperKey = planetName.keys.first.toString();
+
+      if (mapperKey == "Lg") {
+        int maperID = planetName.values.first;
+        kundli.id0 = ((maperID + 1), [mapperKey]);
+        kundli.id1 = (getSlotMapper((maperID + 2) % 12), []);
+        kundli.id2 = (getSlotMapper((maperID + 3) % 12), []);
+        kundli.id3 = (getSlotMapper((maperID + 4) % 12), []);
+        kundli.id4 = (getSlotMapper((maperID + 5) % 12), []);
+        kundli.id5 = (getSlotMapper((maperID + 6) % 12), []);
+        kundli.id6 = (getSlotMapper((maperID + 7) % 12), []);
+        kundli.id7 = (getSlotMapper((maperID + 8) % 12), []);
+        kundli.id8 = (getSlotMapper((maperID + 9) % 12), []);
+
+        kundli.id9 = (getSlotMapper((maperID + 10) % 12), []);
+        kundli.id10 = (getSlotMapper((maperID + 11) % 12), []);
+        kundli.id11 = (getSlotMapper((maperID + 12) % 12), []);
+      } else {
+        // northMapper(planetName);
+      }
 
       int? index;
       for (var (i, e) in listKundli.indexed) {
@@ -101,7 +122,10 @@ class BhavaKundliScreen extends StatelessWidget {
             children: [
               kundliType == 0
                   ? KundliWidget(list: listKundli)
-                  : NorthKundliWidget(kundli: kundli),
+                  : NorthNewKundliWidget(
+                      kundli: kundli,
+                      newData: catGroup!,
+                    ),
               if (kundliType == 0)
                 Container(
                   color: MetaColors.whiteColor,
@@ -165,50 +189,62 @@ class BhavaKundliScreen extends StatelessWidget {
   }
 
   void northMapper(Map<String, dynamic> planetName) {
-    String mapperID = planetName.values.first.toString();
+    int mapperID = planetName.values.first;
     String mapperKey = planetName.keys.first.toString();
 
-    if (mapperID == "1") {
-      kundli.id7!.add(mapperKey);
-    }
-    if (mapperID == "2") {
-      kundli.id8!.add(mapperKey);
-    }
-    if (mapperID == "3") {
-      kundli.id9!.add(mapperKey);
-    }
-    if (mapperID == "4") {
-      kundli.id10!.add(mapperKey);
-    }
-    if (mapperID == "5") {
-      kundli.id11!.add(mapperKey);
-    }
-    if (mapperID == "6") {
-      if (mapperKey != "Lg") {
-        kundli.id12!.add(mapperKey);
-      }
-    }
-    if (mapperID == "7") {
-      kundli.id1!.add(mapperKey);
-    }
-    if (mapperID == "8") {
-      kundli.id2!.add(mapperKey);
-    }
-    if (mapperID == "9") {
-      kundli.id3!.add(mapperKey);
-    }
-    if (mapperID == "10") {
-      kundli.id4!.add(mapperKey);
-    }
-    if (mapperID == "11") {
-      kundli.id5!.add(mapperKey);
-    }
-    if (mapperID == "12") {
-      kundli.id6!.add(mapperKey);
+    if (mapperID == 3) {
+      kundli.id0!.$2.add(mapperKey);
     }
 
-    if (mapperID == "0") {
-      kundli.id6!.add(mapperKey);
+    if (mapperID == 2) {
+      kundli.id11!.$2.add(mapperKey);
     }
+
+    if (mapperID == 1) {
+      kundli.id10!.$2.add(mapperKey);
+    }
+
+    if (mapperID == 0) {
+      kundli.id9!.$2.add(mapperKey);
+    }
+
+    if (mapperID == 4) {
+      kundli.id1!.$2.add(mapperKey);
+    }
+
+    if (mapperID == 5) {
+      kundli.id2!.$2.add(mapperKey);
+    }
+
+    if (mapperID == 6) {
+      kundli.id3!.$2.add(mapperKey);
+    }
+
+    if (mapperID == 7) {
+      kundli.id4!.$2.add(mapperKey);
+    }
+
+    if (mapperID == 8) {
+      kundli.id5!.$2.add(mapperKey);
+    }
+
+    if (mapperID == 9) {
+      kundli.id6!.$2.add(mapperKey);
+    }
+
+    if (mapperID == 10) {
+      kundli.id7!.$2.add(mapperKey);
+    }
+
+    if (mapperID == 11) {
+      kundli.id8!.$2.add(mapperKey);
+    }
+  }
+
+  getSlotMapper(int i) {
+    if (i == 0) {
+      return 12;
+    }
+    return i;
   }
 }

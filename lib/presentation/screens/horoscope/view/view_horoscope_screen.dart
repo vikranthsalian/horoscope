@@ -265,6 +265,8 @@ class ViewHoroScopeScreen extends StatelessWidget {
 
                                             if (state.value == 7 && !isLocked) {
                                               return DhashaBhukthiScreen(
+                                                  model:
+                                                      formBloc.dataModel.value!,
                                                   list: HoroScopeUtils()
                                                       .getMeta9DasaBhuktiValues(
                                                           formBloc.dataModel

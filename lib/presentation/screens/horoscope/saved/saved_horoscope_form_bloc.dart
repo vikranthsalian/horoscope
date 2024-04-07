@@ -38,8 +38,8 @@ class SavedHoroScopeFormBloc extends FormBloc<String, String> {
         print("list.length");
         print(list.length);
         dataModel.updateValue(list);
-        isLoading.updateValue(false);
       }
+      isLoading.updateValue(false);
     });
   }
 

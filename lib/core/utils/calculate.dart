@@ -179,80 +179,8 @@ class HoroScopeUtils {
         grahaSputhaValues: datas.$2,
         rasiKundliValues: rasiKundliValues);
 
-    print("----------------------------" +
-        "Kalidin " +
-        kalidin.toString() +
-        "\n " +
-        " khandashesh " +
-        khandashesh.toString() +
-        "\n " +
-        " khandashesh_1hr " +
-        khandashesh_1hr.toString() +
-        "\n " +
-        " ayanams " +
-        ayanams.toString() +
-        "\n " +
-        " raviValue " +
-        raviValue.toString() +
-        "\n " +
-        " chandraValue " +
-        chandraValue.toString() +
-        "\n " +
-        " kujaValue " +
-        kujaValue.toString() +
-        "\n " +
-        " kujaValue_1hr " +
-        kujaValue_1hr.toString() +
-        "\n " +
-        " budhaValue " +
-        budhaValue.toString() +
-        " \n" +
-        " budhaValue_1hr " +
-        budhaValue_1hr.toString() +
-        "\n " +
-        " guruValue " +
-        guruValue.toString() +
-        "\n " +
-        " guruValue_1hr " +
-        guruValue_1hr.toString() +
-        "\n " +
-        " sukraValue " +
-        sukraValue.toString() +
-        "\n " +
-        " sukraValue_1hr " +
-        sukraValue_1hr.toString() +
-        "\n " +
-        " saniValue " +
-        saniValue.toString() +
-        " \n" +
-        " kt " +
-        kt.toString() +
-        "\n " +
-        " rahuValue " +
-        rahuValue.toString() +
-        "\n " +
-        " ketuValue " +
-        ketuValue.toString() +
-        "\n " +
-        " sunriseValue " +
-        sunriseValue.toString() +
-        "\n " +
-        " sunsetValue " +
-        sunsetValue.toString() +
-        "\n " +
-        " dinamanaValue " +
-        dinamanaValue.toString() +
-        "\n " +
-        " lagnaValue " +
-        lagnaValue.toString() +
-        "\n " +
-        " dasamaValue " +
-        dasamaValue.toString() +
-        "\n " +
-        " mandiValue " +
-        mandiValue.toString() +
-        "\n " +
-        "---------------------------");
+    print(
+        "----------------------------Kalidin $kalidin\n  khandashesh $khandashesh\n  khandashesh_1hr $khandashesh_1hr\n  ayanams $ayanams\n  raviValue $raviValue\n  chandraValue $chandraValue\n  kujaValue $kujaValue\n  kujaValue_1hr $kujaValue_1hr\n  budhaValue $budhaValue \n budhaValue_1hr $budhaValue_1hr\n  guruValue $guruValue\n  guruValue_1hr $guruValue_1hr\n  sukraValue $sukraValue\n  sukraValue_1hr $sukraValue_1hr\n  saniValue $saniValue \n kt $kt\n  rahuValue $rahuValue\n  ketuValue $ketuValue\n  sunriseValue $sunriseValue\n  sunsetValue $sunsetValue\n  dinamanaValue $dinamanaValue\n  lagnaValue $lagnaValue\n  dasamaValue $dasamaValue\n  mandiValue $mandiValue\n ---------------------------");
 
     return horoscopeModel;
   }
@@ -277,13 +205,13 @@ class HoroScopeUtils {
     // print(dateTime!.timeZoneOffset.inMinutes / 60);
     timeZone = mUser.timezone!;
     print("================================>: Data Start Input");
-    print("Name : " + mUser.getName());
-    print("Place : " + mUser.getPlace());
-    print("Latitude : " + mUser.getLatitude().toString());
-    print("Longitude : " + mUser.getLongitude().toString());
-    print("date : " + mUser.getDate());
-    print("time : " + mUser.getTime());
-    print("timeZone : " + timeZone.toString());
+    print("Name : ${mUser.getName()}");
+    print("Place : ${mUser.getPlace()}");
+    print("Latitude : ${mUser.getLatitude()}");
+    print("Longitude : ${mUser.getLongitude()}");
+    print("date : ${mUser.getDate()}");
+    print("time : ${mUser.getTime()}");
+    print("timeZone : $timeZone");
     print("================================>: Data End Input");
     // this is not working so split the time
     //	    Calendar calTime = Calendar.getInstance();
@@ -1613,7 +1541,7 @@ class HoroScopeUtils {
     n2 = (n1).floor();
     pada = ((n1 - n2) * 4).floor() + 1;
     //	    return String.format("%d#%d",naks[n2],pada);
-    return ("" + data.getNakArrayValue(n2), pada.toString());
+    return ("${data.getNakArrayValue(n2)}", pada.toString());
   }
 
   /**
@@ -1643,13 +1571,13 @@ class HoroScopeUtils {
 
     int counter = 0;
     for (var planetNames in data.getPlanetFullNameArray()) {
-      print(" " + planetNames + "  " + planetValues[counter].toString());
+      print(" $planetNames  ${planetValues[counter]}");
       String value =
-          planetNames + "#" + calculateShadvarga(planetValues[counter]);
+          "$planetNames#${calculateShadvarga(planetValues[counter])}";
       values.add(value);
       counter++;
     }
-    print("Size :" + values.length.toString());
+    print("Size :${values.length}");
     return values;
   }
 
@@ -1672,26 +1600,17 @@ class HoroScopeUtils {
 
     int counter = 0;
     for (var planetNames in engPlanetFullNameArr) {
-      print(" " + planetNames + "  " + planetValues[counter].toString());
+      print(" $planetNames  ${planetValues[counter]}");
       values.add(metaCalculateShadvarga(planetNames, planetValues[counter]));
       counter++;
     }
-    print("Size :" + values.length.toString());
+    print("Size :${values.length}");
     return values;
   }
 
   String calculateShadvarga(double Planet) {
-    String shadvarga_value = Drekkana(Planet) +
-        "#" +
-        Hora(Planet) +
-        "#" +
-        Navamsa(Planet) +
-        "#" +
-        Trimsamsa(Planet) +
-        "#" +
-        Dwadasamsa(Planet) +
-        "#" +
-        Kshetra(Planet);
+    String shadvarga_value =
+        "${Drekkana(Planet)}#${Hora(Planet)}#${Navamsa(Planet)}#${Trimsamsa(Planet)}#${Dwadasamsa(Planet)}#${Kshetra(Planet)}";
 
     return shadvarga_value;
   }
@@ -1875,8 +1794,7 @@ class HoroScopeUtils {
     d = ((c + b * 1) % (12 * 1)).floor();
 
     print(
-        "${"A: " + a.toString() + "  " + b.toString() + "  " + c.toString()}  " +
-            d.toString());
+        "${"A: " + a.toString() + "  " + b.toString() + "  " + c.toString()}  $d");
     e = engAdhipathiArr[d];
     return e;
   }
@@ -2229,7 +2147,14 @@ class HoroScopeUtils {
 
   List<(String, String)> getMeta9DasaBhuktiValues(HoroscopeModel hm) {
     //ShistaDasa(hm.chandraValue!); //First calclate  Bal_Dasa to find 9 das
+    print("getMeta9DasaBhuktiValues");
+
     (double, int) datas = betaShistaDasa(hm.chandraValue!);
+    print(hm.chandraValue!);
+    print(datas);
+    print(hm.getDateTime.day);
+    print(hm.getDateTime.month);
+    print(hm.getDateTime.year);
     return GetMeta9Dasa(hm.getDateTime.day, hm.getDateTime.month,
         hm.getDateTime.year, datas.$1, datas.$2);
   }
@@ -2237,6 +2162,17 @@ class HoroScopeUtils {
   /*Calculate and return value for Dasa-Bhukti Module */
   List<String> getADasaBhuktiValues(int id) {
     return GetBhukti(id, dd, mm, yyyy);
+  }
+
+  List<(String, String)> getMetaADasaBhuktiValues(int id, hm) {
+    (double, int) datas = betaShistaDasa(hm.chandraValue!);
+    print("getMetaADasaBhuktiValues");
+    print(datas);
+    print(hm.getDateTime.day);
+    print(hm.getDateTime.month);
+    print(hm.getDateTime.year);
+    return GetMetaBhukti(id, hm.getDateTime.day, hm.getDateTime.month,
+        hm.getDateTime.year, datas.$1, datas.$2);
   }
 
   List<int> dasayear = [7, 20, 6, 10, 7, 18, 16, 19, 17];
@@ -2307,18 +2243,7 @@ class HoroScopeUtils {
     bddd = (f).floor();
     //return [String stringWithFormat:@"%s : %d years ,%d months , %d days",sdasa,bdyy,bdmm,bddd];
 
-    return sdasa +
-        " " +
-        bdyy.toString() +
-        " " +
-        engYearArr[0] +
-        ", " +
-        bdmm.toString() +
-        " " +
-        engYearArr[1] +
-        ", " +
-        bddd.toString() +
-        engYearArr[2];
+    return "$sdasa $bdyy ${engYearArr[0]}, $bdmm ${engYearArr[1]}, $bddd${engYearArr[2]}";
   }
 
   (double, int) betaShistaDasa(double chan) {
@@ -2380,10 +2305,10 @@ class HoroScopeUtils {
     String str1 = "";
     String str2 = "";
 
-    str1 = (e < 10) ? "0" + e.toString() : "" + e.toString();
-    str2 = (c < 10) ? "0" + c.toString() : "" + c.toString();
+    str1 = (e < 10) ? "0$e" : "$e";
+    str2 = (c < 10) ? "0$c" : "$c";
 
-    String res = str1 + "-" + str2 + "-" + a.toString();
+    String res = "$str1-$str2-$a";
 
     return res;
   }
@@ -2431,7 +2356,7 @@ class HoroScopeUtils {
     c = DasaEndingDate(b);
     List<String> dasa = [];
     //String str1 = String.format("%s#%s", data.getDasaLordArray(dasaindex), c);
-    String str1 = data.getDasaLordArray(dasaindex) + "#" + c;
+    String str1 = "${data.getDasaLordArray(dasaindex)}#$c";
     dasa.add(str1);
 
     e = b;
@@ -2439,7 +2364,7 @@ class HoroScopeUtils {
       a = e + dasayear[((dasaindex + i * 1) % (9 * 1))];
       c = DasaEndingDate(a);
       //String res1 = String.format("%s#%s", data.getDasaLordArray((dasaindex + i) % (9)), c);
-      String res1 = data.getDasaLordArray((dasaindex + i) % (9)) + "#" + c;
+      String res1 = "${data.getDasaLordArray((dasaindex + i) % (9))}#$c";
       dasa.add(res1);
       e = a;
     }
@@ -2448,7 +2373,7 @@ class HoroScopeUtils {
 
   List<String> GetBhukti(int dasanumber, int dob_dd, int dob_mm, int dob_yyyy) {
     double a, b, c, d, e, g;
-    List<double> tdasa = [];
+    List<double> tdasa = List.filled(10, 0);
 
     List<String> Bhu = [];
     String f;
@@ -2474,10 +2399,58 @@ class HoroScopeUtils {
         f = DasaEndingDate(e);
         //String dasalord1 = String.format("%s#%s", data.getDasaLordArray((dasaindex + dasanumber + i * 1) % (9 * 1)), f);
         String dasalord1 =
-            data.getDasaLordArray((dasaindex + dasanumber + i * 1) % (9 * 1)) +
-                "#" +
-                f;
+            "${data.getDasaLordArray((dasaindex + dasanumber + i * 1) % (9 * 1))}#$f";
         Bhu.add(dasalord1);
+      }
+      c = e;
+    }
+    return Bhu;
+  }
+
+  List<(String, String)> GetMetaBhukti(int dasanumber, int dob_dd, int dob_mm,
+      int dob_yyyy, Bal_Dasa, dasaindex) {
+    List<String> engDasaLordArr = [
+      "Ketu",
+      "Sukr",
+      "Ravi",
+      "Chan",
+      "Kuja",
+      "Rahu",
+      "Guru",
+      "Sani",
+      "Budh"
+    ];
+
+    double a, b, c, d, e, g;
+    List<double> tdasa = List.filled(10, 0);
+
+    List<(String, String)> Bhu = [];
+    String f;
+
+    a = dob_yyyy + (dob_mm + (dob_dd / 30.0)) / 12.0;
+    g = a;
+    b = a + Bal_Dasa;
+    //NSLog(@"Bal_Dasa: %f   dasaindex: %d",Bal_Dasa,dasaindex);
+    tdasa[0] = b;
+    e = b;
+    for (int i = 1; i <= 8; i++) {
+      a = e + dasayear[((dasaindex + i * 1) % (9 * 1))];
+      tdasa[i] = a;
+      e = a;
+    }
+    c = tdasa[dasanumber] - dasayear[((dasaindex + dasanumber * 1) % (9 * 1))];
+    for (int i = 0; i <= 8; i++) {
+      d = dasayear[((dasaindex + dasanumber * 1) % (9 * 1))] *
+          dasayear[((dasaindex + dasanumber + i * 1) % (9 * 1))] /
+          120.0;
+      e = c + d;
+      if (e > g) {
+        f = DasaEndingDate(e);
+        //String dasalord1 = String.format("%s#%s", data.getDasaLordArray((dasaindex + dasanumber + i * 1) % (9 * 1)), f);
+        String dasalord1 =
+            engDasaLordArr[(dasaindex + dasanumber + i * 1) % (9 * 1)];
+
+        Bhu.add((dasalord1, f));
       }
       c = e;
     }
@@ -2548,16 +2521,28 @@ class HoroScopeUtils {
     return data.getVaraArrayValue(a);
   }
 
+  List<String> metaVara = [
+    "sunday",
+    "monday",
+    "tuesday",
+    "wednesday",
+    "thursday",
+    "friday",
+    "saturday",
+    "sunday",
+  ];
+
+  List<String> engVara = [
+    "friday",
+    "saturday",
+    "sunday",
+    "monday",
+    "tuesday",
+    "wednesday",
+    "thursday"
+  ];
+
   String metaVaara(int kali) {
-    List<String> engVara = [
-      "friday",
-      "saturday",
-      "sunday",
-      "monday",
-      "tuesday",
-      "wednesday",
-      "thursday"
-    ];
     int a;
     a = (kali * 1) % (7 * 1);
     return engVara[a];
@@ -3065,10 +3050,10 @@ class HoroScopeUtils {
     for (int i = 0; i < 12; i++) {
       madhya = RDMS(bhavaMandya[i]);
       anthya = RDMS(bhavaAntya[i]);
-      String value = madhya + "#" + anthya;
+      String value = "$madhya#$anthya";
       values.add(value);
     }
-    print("Bhavasandhi : Size :" + values.length.toString());
+    print("Bhavasandhi : Size :${values.length}");
     return values;
   }
 
@@ -3082,11 +3067,11 @@ class HoroScopeUtils {
     for (int i = 0; i < 12; i++) {
       madhya = RDMS(bhavaMandya[i]);
       anthya = RDMS(bhavaAntya[i]);
-      String value = madhya + "#" + anthya;
+      String value = "$madhya#$anthya";
       values
           .add(BhavaSandhiModel(bhava: i + 1, madhya: madhya, anthya: anthya));
     }
-    print("Bhavasandhi : Size :" + values.length.toString());
+    print("Bhavasandhi : Size :${values.length}");
     return values;
   }
 
@@ -3098,7 +3083,7 @@ class HoroScopeUtils {
     d = Round360(c - a) / 3.0;
 
     List<double> Bhava_m = List.filled(12, 0.0);
-
+    Bhava_m[0] = Lagna;
     Bhava_m[1] = Round360(Bhava_m[0] + b);
     Bhava_m[2] = Round360(Bhava_m[1] + b);
     Bhava_m[3] = a;
@@ -3275,7 +3260,7 @@ class HoroScopeUtils {
       String longitude = "";
       if (i == 3 || i == 4 || i == 5 || i == 6 || i == 7) {
         if ((planetValues_1hr[i] - planetValues[i]) < 0) {
-          longitude = RDMS(planetValues[i]) + "(R)";
+          longitude = "${RDMS(planetValues[i])}(R)";
         } else {
           longitude = RDMS(planetValues[i]);
         }
@@ -3291,13 +3276,7 @@ class HoroScopeUtils {
 
       //Use longitude value for navamsha kundli draw
       (String, String) datas = Naks(planetValues[i]);
-      String value = planetFullNames[i] +
-          "#" +
-          longitude +
-          "#" +
-          datas.$1 +
-          "#" +
-          datas.$2;
+      String value = "${planetFullNames[i]}#$longitude#${datas.$1}#${datas.$2}";
       values.add(value);
       planetList.add(PlanetModel(
           planet: planetFullNames[i],
@@ -3306,7 +3285,7 @@ class HoroScopeUtils {
           pada: datas.$2));
     }
 
-    print("Size :" + values.length.toString());
+    print("Size :${values.length}");
     return (values, planetList);
   }
 /******************************* GRAHASPUTHA END ********************************************/
