@@ -12,6 +12,7 @@ import 'package:adithya_horoscope/presentation/screens/horoscope/view/tabs/navam
 import 'package:adithya_horoscope/presentation/screens/horoscope/view/tabs/planet_info_screen.dart';
 import 'package:adithya_horoscope/presentation/screens/horoscope/view/tabs/rashi_kundli_screen.dart';
 import 'package:adithya_horoscope/presentation/screens/horoscope/view/view_horoscope_screen.dart';
+import 'package:adithya_horoscope/presentation/screens/prashna/prashna_screen.dart';
 import 'package:adithya_horoscope/presentation/screens/profile/profile_screen.dart';
 import 'package:adithya_horoscope/presentation/screens/setting/settings_screen.dart';
 import 'package:adithya_horoscope/presentation/screens/splash/splash_screen.dart';
@@ -90,6 +91,10 @@ class RouteConfig {
       case RouteConstants.viewHoroScopePath:
         args as Map<String, dynamic>;
         return ViewHoroScopeScreen(data: args);
+
+      case RouteConstants.prashnaPath:
+        args as Map<String, dynamic>;
+        return PrashnaScreen(data: args);
 
       case RouteConstants.dashaBhukthiOtherPath:
         args as Map<String, dynamic>;

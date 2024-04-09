@@ -125,61 +125,72 @@ class SavedHoroScopeScreen extends StatelessWidget {
                                         itemBuilder: (context, index) {
                                           User item = list[index];
 
-                                          return Container(
-                                            padding: EdgeInsets.symmetric(
-                                                horizontal: 10.w,
-                                                vertical: 5.h),
-                                            decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(10.r),
-                                                color: Colors.white,
-                                                border: Border.all(
-                                                    color: MetaColors
-                                                        .color3F3F3F
-                                                        .withOpacity(0.3))),
-                                            margin: EdgeInsets.symmetric(
-                                                vertical: 5.h,
-                                                horizontal: 10.w),
-                                            child: ListTile(
-                                              //   isThreeLine: true,
-                                              leading: Container(
-                                                height: 40.w,
-                                                width: 40.w,
-                                                child: MetaSVGView(
-                                                    svgName:
-                                                        AssetConstants.logoSVG,
-                                                    basePath:
-                                                        MetaFlavourConstants
-                                                            .flavorPath),
-                                              ),
-                                              contentPadding: EdgeInsets.zero,
-                                              trailing: Container(
-                                                alignment: Alignment.topCenter,
-                                                height: 80.w,
-                                                width: 40.w,
-                                                child: onclick(list[index]),
-                                              ),
-                                              title: MetaTextView(
-                                                text: item.name ?? "",
-                                                textAlign: TextAlign.start,
-                                                textStyle: MetaStyle(
-                                                    fontSize: 12,
-                                                    fontColor:
-                                                        MetaColors.color3F3F3F,
-                                                    fontWeight:
-                                                        FontWeight.w400),
-                                              ),
-                                              subtitle: MetaTextView(
-                                                text: (item.date ?? "") +
-                                                    "\n" +
-                                                    (item.place ?? ""),
-                                                textAlign: TextAlign.start,
-                                                textStyle: MetaStyle(
-                                                    fontSize: 10,
-                                                    fontColor:
-                                                        MetaColors.color3F3F3F,
-                                                    fontWeight:
-                                                        FontWeight.w100),
+                                          return GestureDetector(
+                                            onTap: () {
+                                              Navigator.pushNamed(
+                                                  globalContext,
+                                                  RouteConstants
+                                                      .viewHoroScopePath,
+                                                  arguments: {"user": item});
+                                            },
+                                            child: Container(
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: 10.w,
+                                                  vertical: 5.h),
+                                              decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          10.r),
+                                                  color: Colors.white,
+                                                  border: Border.all(
+                                                      color: MetaColors
+                                                          .color3F3F3F
+                                                          .withOpacity(0.3))),
+                                              margin: EdgeInsets.symmetric(
+                                                  vertical: 5.h,
+                                                  horizontal: 10.w),
+                                              child: ListTile(
+                                                //   isThreeLine: true,
+                                                leading: Container(
+                                                  height: 40.w,
+                                                  width: 40.w,
+                                                  child: MetaSVGView(
+                                                      svgName: AssetConstants
+                                                          .logoSVG,
+                                                      basePath:
+                                                          MetaFlavourConstants
+                                                              .flavorPath),
+                                                ),
+                                                contentPadding: EdgeInsets.zero,
+                                                trailing: Container(
+                                                  alignment:
+                                                      Alignment.topCenter,
+                                                  height: 80.w,
+                                                  width: 40.w,
+                                                  child: onclick(list[index]),
+                                                ),
+                                                title: MetaTextView(
+                                                  text: item.name ?? "",
+                                                  textAlign: TextAlign.start,
+                                                  textStyle: MetaStyle(
+                                                      fontSize: 12,
+                                                      fontColor: MetaColors
+                                                          .color3F3F3F,
+                                                      fontWeight:
+                                                          FontWeight.w400),
+                                                ),
+                                                subtitle: MetaTextView(
+                                                  text: (item.date ?? "") +
+                                                      "\n" +
+                                                      (item.place ?? ""),
+                                                  textAlign: TextAlign.start,
+                                                  textStyle: MetaStyle(
+                                                      fontSize: 10,
+                                                      fontColor: MetaColors
+                                                          .color3F3F3F,
+                                                      fontWeight:
+                                                          FontWeight.w100),
+                                                ),
                                               ),
                                             ),
                                           );
@@ -237,7 +248,7 @@ class SavedHoroScopeScreen extends StatelessWidget {
                     Container(
                       //      padding: const EdgeInsets.fromLTRB(12, 0, 0, 0),
                       child: MetaTextView(
-                        text: "View",
+                        text: "view",
                         textStyle: MetaStyle(
                             fontSize: 12,
                             fontColor: MetaColors().primaryColor,
@@ -264,7 +275,7 @@ class SavedHoroScopeScreen extends StatelessWidget {
                     Container(
                       //    padding: const EdgeInsets.fromLTRB(16, 0, 0, 0),
                       child: MetaTextView(
-                        text: "Download",
+                        text: "download",
                         textStyle: MetaStyle(
                             fontSize: 12,
                             fontColor: MetaColors().primaryColor,
@@ -291,7 +302,7 @@ class SavedHoroScopeScreen extends StatelessWidget {
                     Container(
                         // padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
                         child: MetaTextView(
-                      text: "Delete",
+                      text: "delete",
                       textStyle: MetaStyle(
                           fontSize: 12,
                           fontColor: MetaColors().primaryColor,

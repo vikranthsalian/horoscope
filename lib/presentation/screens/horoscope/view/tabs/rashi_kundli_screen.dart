@@ -95,8 +95,6 @@ class RashiKundliScreen extends StatelessWidget {
         kundli.id9 = (getSlotMapper((maperID + 10) % 12), []);
         kundli.id10 = (getSlotMapper((maperID + 11) % 12), []);
         kundli.id11 = (getSlotMapper((maperID + 12) % 12), []);
-      } else {
-        //   northMapper(planetName);
       }
 
       int? index;
@@ -110,7 +108,6 @@ class RashiKundliScreen extends StatelessWidget {
         listKundli[index].data!.add(mapperKey);
       }
     }
-    //   print(listKundli);
 
     if (isScreen) {
       return SafeArea(
@@ -151,14 +148,14 @@ class RashiKundliScreen extends StatelessWidget {
         Container(
           padding: paddingW,
           child: MetaColumnView(children: [
-            getView("name", model.name),
+            if (screenshotController != null) getView("name", model.name),
             getView("date_of_birth", model.dob),
             getView("nakshatra",
                 HoroScopeUtils().getMetaNakshatra(model.chandraValue!)),
           ]),
         ),
         SizedBox(height: 10.h),
-        isScreen
+        screenshotController == null
             ? diagram()
             : Screenshot(
                 controller: screenshotController!,
@@ -260,63 +257,6 @@ class RashiKundliScreen extends StatelessWidget {
         ));
   }
 
-  void northMapper(Map<String, dynamic> planetName) {
-    int mapperID = planetName.values.first;
-    String mapperKey = planetName.keys.first.toString();
-
-    if (kundli.id11!.$1 == 11) {
-      kundli.id11!.$2.add(mapperKey);
-    }
-
-    // if (mapperID == 3) {
-    //   kundli.id0!.$2.add(mapperKey);
-    // }
-    //
-    // if (mapperID == 2) {
-    //   kundli.id11!.$2.add(mapperKey);
-    // }
-    //
-    // if (mapperID == 1) {
-    //   kundli.id10!.$2.add(mapperKey);
-    // }
-    //
-    // if (mapperID == 0) {
-    //   kundli.id9!.$2.add(mapperKey);
-    // }
-    //
-    // if (mapperID == 4) {
-    //   kundli.id1!.$2.add(mapperKey);
-    // }
-    //
-    // if (mapperID == 5) {
-    //   kundli.id2!.$2.add(mapperKey);
-    // }
-    //
-    // if (mapperID == 6) {
-    //   kundli.id3!.$2.add(mapperKey);
-    // }
-    //
-    // if (mapperID == 7) {
-    //   kundli.id4!.$2.add(mapperKey);
-    // }
-    //
-    // if (mapperID == 8) {
-    //   kundli.id5!.$2.add(mapperKey);
-    // }
-    //
-    // if (mapperID == 9) {
-    //   kundli.id6!.$2.add(mapperKey);
-    // }
-    //
-    // if (mapperID == 10) {
-    //   kundli.id7!.$2.add(mapperKey);
-    // }
-    //
-    // if (mapperID == 11) {
-    //   kundli.id8!.$2.add(mapperKey);
-    // }
-  }
-
   getSlotMapper(int i) {
     if (i == 0) {
       return 12;
@@ -327,11 +267,13 @@ class RashiKundliScreen extends StatelessWidget {
 
 grouper(List<Map<String, int>> rasiKundliValues) {
   List<NorthDataClass> dataClass = [];
-  for (var entry in rasiKundliValues!.asMap().entries) {
+  for (var entry in rasiKundliValues.asMap().entries) {
     Map<String, dynamic> planetName = entry.value;
     int mapperID = planetName.values.first;
     String mapperKey = planetName.keys.first.toString();
-    dataClass.add(NorthDataClass(id: mapperID, key: mapperKey));
+    if (mapperKey != "Lg") {
+      dataClass.add(NorthDataClass(id: mapperID, key: mapperKey));
+    }
   }
 
   var catGroup = groupBy(dataClass, (val) => val.id.toString());

@@ -19,99 +19,106 @@ class NorthNewKundliWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Transform.scale(
-      scale: 1.4,
+      scale: 1.6,
       child: Container(
-        child: Transform.rotate(
-          angle: 150,
-          child: MetaColumnView(
-            children: [
-              MetaRowView(
+        margin: EdgeInsets.only(top: 20.h),
+        child: Container(
+          child: Transform.rotate(
+            angle: 150,
+            child: Container(
+              child: MetaColumnView(
                 children: [
-                  Container(
-                    child: Stack(alignment: Alignment.center, children: [
-                      flipTriangle(true, false),
-                      Transform.translate(
-                        offset: Offset(30.w, -25.w),
-                        child: getTextView(
-                            kundli.id2!.$1), //splitList(kundli.id2!)
+                  MetaRowView(
+                    children: [
+                      Container(
+                        child: Stack(alignment: Alignment.center, children: [
+                          flipTriangle(true, false),
+                          Transform.translate(
+                            offset: Offset(30.w, -25.w),
+                            child: getTextView(
+                                kundli.id2!.$1), //splitList(kundli.id2!)
+                          ),
+                          Container(
+                            child: Transform.translate(
+                              offset: Offset(11.w, 15.w),
+                              child: getTextView(splitList(newData[
+                                  (kundli.id2!.$1 - 1)
+                                      .toString()])), //splitList(kundli.id2!)
+                            ),
+                          )
+                        ]),
                       ),
                       Container(
-                        child: Transform.translate(
-                          offset: Offset(11.w, 15.w),
-                          child: getTextView(splitList(newData[
-                              (kundli.id2!.$1 - 1)
-                                  .toString()])), //splitList(kundli.id2!)
-                        ),
+                        child: Stack(alignment: Alignment.center, children: [
+                          flipTriangle(false, false),
+                          Transform.translate(
+                            offset: Offset(-30.w, -25.w),
+                            child: Container(
+                              child:
+                                  getTextView(" " + kundli.id1!.$1.toString()),
+                            ),
+                          ),
+                          Container(
+                            child: Transform.translate(
+                              offset: Offset(-12.w, 12.w),
+                              child: getTextView(splitList4(newData[
+                                  (kundli.id1!.$1 - 1)
+                                      .toString()])), //splitList(kundli.id12!)
+                            ),
+                          ),
+                        ]),
                       )
-                    ]),
+                    ],
                   ),
                   Container(
-                    child: Stack(alignment: Alignment.center, children: [
-                      flipTriangle(false, false),
-                      Transform.translate(
-                        offset: Offset(-30.w, -25.w),
-                        child: Container(
-                          child: getTextView(" " + kundli.id1!.$1.toString()),
-                        ),
+                    //    margin: EdgeInsets.symmetric(horizontal: 20.w),
+                    child: getGDData(),
+                  ),
+                  MetaRowView(
+                    children: [
+                      Container(
+                        child: Stack(alignment: Alignment.center, children: [
+                          flipTriangle(true, true),
+                          Transform.translate(
+                            offset: Offset(30.w, -30.w),
+                            child: Container(
+                              child: getTextView(kundli.id7!.$1.toString()),
+                            ),
+                          ),
+                          Container(
+                            child: Transform.translate(
+                              offset: Offset(8.w, -8.w),
+                              child: getTextView(splitList5(newData[
+                                  (kundli.id7!.$1 - 1)
+                                      .toString()])), //splitList(kundli.id5!)
+                            ),
+                          )
+                        ]),
                       ),
                       Container(
-                        child: Transform.translate(
-                          offset: Offset(-12.w, 12.w),
-                          child: getTextView(splitList4(newData[
-                              (kundli.id1!.$1 - 1)
-                                  .toString()])), //splitList(kundli.id12!)
-                        ),
+                        child: Stack(alignment: Alignment.center, children: [
+                          flipTriangle(false, true),
+                          Transform.translate(
+                            offset: Offset(20.w, -30.w),
+                            child: getTextView(" " +
+                                kundli.id8!.$1
+                                    .toString()), //splitList(kundli.id2!)
+                          ),
+                          Container(
+                            child: Transform.translate(
+                              offset: Offset(-15.w, -10.w),
+                              child: getTextView(splitList(newData[
+                                  (kundli.id8!.$1 - 1)
+                                      .toString()])), //splitList(kundli.id2!)
+                            ),
+                          )
+                        ]),
                       ),
-                    ]),
-                  )
+                    ],
+                  ),
                 ],
               ),
-              Container(
-                //    margin: EdgeInsets.symmetric(horizontal: 20.w),
-                child: getGDData(),
-              ),
-              MetaRowView(
-                children: [
-                  Container(
-                    child: Stack(alignment: Alignment.center, children: [
-                      flipTriangle(true, true),
-                      Transform.translate(
-                        offset: Offset(30.w, -30.w),
-                        child: Container(
-                          child: getTextView(kundli.id7!.$1.toString()),
-                        ),
-                      ),
-                      Container(
-                        child: Transform.translate(
-                          offset: Offset(8.w, -8.w),
-                          child: getTextView(splitList5(newData[
-                              (kundli.id7!.$1 - 1)
-                                  .toString()])), //splitList(kundli.id5!)
-                        ),
-                      )
-                    ]),
-                  ),
-                  Container(
-                    child: Stack(alignment: Alignment.center, children: [
-                      flipTriangle(false, true),
-                      Transform.translate(
-                        offset: Offset(20.w, -30.w),
-                        child: getTextView(" " +
-                            kundli.id8!.$1.toString()), //splitList(kundli.id2!)
-                      ),
-                      Container(
-                        child: Transform.translate(
-                          offset: Offset(-15.w, -10.w),
-                          child: getTextView(splitList(newData[
-                              (kundli.id8!.$1 - 1)
-                                  .toString()])), //splitList(kundli.id2!)
-                        ),
-                      )
-                    ]),
-                  ),
-                ],
-              ),
-            ],
+            ),
           ),
         ),
       ),
@@ -159,63 +166,65 @@ class NorthNewKundliWidget extends StatelessWidget {
         ],
       ),
       Container(
+          color: Colors.white,
           child: MetaColumnView(children: [
-        Stack(
-          alignment: Alignment.center,
-          children: [
-            Container(
-              width: boxw,
-              height: boxw,
-              decoration: BoxDecoration(
-                  border: Border.all(color: Colors.black, width: 0.5)),
-              child: Stack(
-                alignment: Alignment.topRight,
-                children: [
-                  Container(
-                    height: 10,
-                    child: getTextView(kundli.id3!.$1.toString() + "  "),
+            Stack(
+              alignment: Alignment.center,
+              children: [
+                Container(
+                  width: boxw,
+                  height: boxw,
+                  decoration: BoxDecoration(
+                      border: Border.all(color: Colors.black, width: 0.5)),
+                  child: Stack(
+                    alignment: Alignment.topRight,
+                    children: [
+                      Container(
+                        height: 10,
+                        child: getTextView(kundli.id3!.$1.toString() + "  "),
+                      ),
+                    ],
                   ),
-                ],
-              ),
-            ),
-            Container(
-              child: Transform.translate(
-                offset: Offset(-0.w, -0.w),
-                child: getTextView(splitList(newData[
-                    (kundli.id3!.$1 - 1).toString()])), //splitList(kundli.id3!)
-              ),
-            )
-          ],
-        ),
-        Stack(
-          alignment: Alignment.center,
-          children: [
-            Container(
-              width: boxw,
-              height: boxw,
-              decoration: BoxDecoration(
-                  border: Border.all(color: Colors.black, width: 0.5)),
-              child: Stack(
-                alignment: Alignment.topRight,
-                children: [
-                  Container(
-                    height: 10,
-                    child: getTextView(kundli.id6!.$1.toString() + "  "),
+                ),
+                Container(
+                  child: Transform.translate(
+                    offset: Offset(-0.w, -0.w),
+                    child: getTextView(splitList(newData[(kundli.id3!.$1 - 1)
+                        .toString()])), //splitList(kundli.id3!)
                   ),
-                ],
-              ),
+                )
+              ],
             ),
-            Container(
-              child: Transform.translate(
-                offset: Offset(-0.w, -0.w),
-                child: getTextView(splitList(newData[
-                    (kundli.id6!.$1 - 1).toString()])), //splitList(kundli.id6!)
-              ),
+            Stack(
+              alignment: Alignment.center,
+              children: [
+                Container(
+                  width: boxw,
+                  height: boxw,
+                  decoration: BoxDecoration(
+                      border: Border.all(color: Colors.black, width: 0.5)),
+                  child: Stack(
+                    alignment: Alignment.topRight,
+                    children: [
+                      Container(
+                        height: 10,
+                        child: getTextView(kundli.id6!.$1.toString() + "  "),
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  child: Transform.translate(
+                    offset: Offset(-0.w, -0.w),
+                    child: getTextView(splitList(newData[(kundli.id6!.$1 - 1)
+                        .toString()])), //splitList(kundli.id6!)
+                  ),
+                ),
+              ],
             ),
-          ],
-        ),
-      ])),
+          ])),
       Container(
+        color: Colors.white,
         child: MetaColumnView(children: [
           Stack(alignment: Alignment.center, children: [
             Container(
@@ -390,431 +399,16 @@ class NorthNewKundliWidget extends StatelessWidget {
   }
 
   flipTriangle(bool X, bool Y) {
-    return Transform.flip(
-      flipX: X,
-      flipY: Y,
-      child: CustomPaint(
-        size: Size(boxw, boxw), // You can adjust the size as needed
-        painter: TrianglePainter(),
-      ),
-    );
-  }
-}
-
-class NorthKundliWidget extends StatelessWidget {
-  NorthKundliModel kundli;
-  NorthKundliWidget({required this.kundli});
-  double boxw = 70.w;
-
-  @override
-  Widget build(BuildContext context) {
-    return Transform.scale(
-      scale: 1.4,
-      child: Container(
-        child: Transform.rotate(
-          angle: 150,
-          child: MetaColumnView(
-            children: [
-              MetaRowView(
-                children: [
-                  Container(
-                    child: Stack(alignment: Alignment.center, children: [
-                      flipTriangle(true, false),
-                      Transform.translate(
-                        offset: Offset(30.w, -25.w),
-                        child: getTextView(
-                            kundli.id2!.$1), //splitList(kundli.id2!)
-                      ),
-                      Container(
-                        child: Transform.translate(
-                          offset: Offset(11.w, 15.w),
-                          child: getTextView(splitList(
-                              kundli.id2!.$2)), //splitList(kundli.id2!)
-                        ),
-                      )
-                    ]),
-                  ),
-                  Container(
-                    child: Stack(alignment: Alignment.center, children: [
-                      flipTriangle(false, false),
-                      Transform.translate(
-                        offset: Offset(-30.w, -25.w),
-                        child: Container(
-                          child: getTextView(" " + kundli.id1!.$1.toString()),
-                        ),
-                      ),
-                      Container(
-                        child: Transform.translate(
-                          offset: Offset(-12.w, 12.w),
-                          child: getTextView(splitList4(
-                              kundli.id1!.$2)), //splitList(kundli.id12!)
-                        ),
-                      ),
-                    ]),
-                  )
-                ],
-              ),
-              Container(
-                //    margin: EdgeInsets.symmetric(horizontal: 20.w),
-                child: getGDData(),
-              ),
-              MetaRowView(
-                children: [
-                  Container(
-                    child: Stack(alignment: Alignment.center, children: [
-                      flipTriangle(true, true),
-                      Transform.translate(
-                        offset: Offset(30.w, -30.w),
-                        child: Container(
-                          child: getTextView(kundli.id7!.$1.toString()),
-                        ),
-                      ),
-                      Container(
-                        child: Transform.translate(
-                          offset: Offset(8.w, -8.w),
-                          child: getTextView(splitList5(
-                              kundli.id7!.$2)), //splitList(kundli.id5!)
-                        ),
-                      )
-                    ]),
-                  ),
-                  Container(
-                    child: Stack(alignment: Alignment.center, children: [
-                      flipTriangle(false, true),
-                      Transform.translate(
-                        offset: Offset(20.w, -30.w),
-                        child: getTextView(" " +
-                            kundli.id8!.$1.toString()), //splitList(kundli.id2!)
-                      ),
-                      Container(
-                        child: Transform.translate(
-                          offset: Offset(-15.w, -10.w),
-                          child: getTextView(splitList(
-                              kundli.id8!.$2)), //splitList(kundli.id2!)
-                        ),
-                      )
-                    ]),
-                  ),
-                ],
-              ),
-            ],
-          ),
+    return Container(
+      child: Transform.flip(
+        flipX: X,
+        flipY: Y,
+        child: CustomPaint(
+          size: Size(boxw, boxw), // You can adjust the size as needed
+          painter: TrianglePainter(),
         ),
       ),
     );
-  }
-
-  getTextView(text) {
-    return Transform.rotate(
-        angle: -150,
-        child: MetaTextView(
-            text: text.toString(),
-            textStyle: MetaStyle(
-                fontSize: 8,
-                fontColor: MetaColors().primaryColor,
-                fontWeight: FontWeight.w100)));
-  }
-
-  flipTriangle(bool X, bool Y) {
-    return Transform.flip(
-      flipX: X,
-      flipY: Y,
-      child: CustomPaint(
-        size: Size(boxw, boxw), // You can adjust the size as needed
-        painter: TrianglePainter(),
-      ),
-    );
-  }
-
-  getGDData() {
-    return MetaRowView(children: [
-      MetaColumnView(
-        children: [
-          Container(
-            child: Stack(alignment: Alignment.center, children: [
-              flipTriangle(true, false),
-              Transform.translate(
-                offset: Offset(30.w, -25.w),
-                child: getTextView(kundli.id4!.$1), //splitList(kundli.id2!)
-              ),
-              Container(
-                child: Transform.translate(
-                  offset: Offset(11.w, 15.w),
-                  child: getTextView(
-                      splitList(kundli.id4!.$2)), //splitList(kundli.id2!)
-                ),
-              )
-            ]),
-          ),
-          Container(
-            child: Stack(alignment: Alignment.center, children: [
-              flipTriangle(true, true),
-              Transform.translate(
-                offset: Offset(30.w, -30.w),
-                child: Container(
-                  child: getTextView(kundli.id5!.$1.toString()),
-                ),
-              ),
-              Container(
-                child: Transform.translate(
-                  offset: Offset(8.w, -8.w),
-                  child: getTextView(
-                      splitList5(kundli.id5!.$2)), //splitList(kundli.id5!)
-                ),
-              )
-            ]),
-          )
-        ],
-      ),
-      Container(
-          child: MetaColumnView(children: [
-        Stack(
-          alignment: Alignment.center,
-          children: [
-            Container(
-              width: boxw,
-              height: boxw,
-              decoration: BoxDecoration(
-                  border: Border.all(color: Colors.black, width: 0.5)),
-              child: Stack(
-                alignment: Alignment.topRight,
-                children: [
-                  Container(
-                    height: 10,
-                    child: getTextView(kundli.id3!.$1.toString() + "  "),
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              child: Transform.translate(
-                offset: Offset(-0.w, -0.w),
-                child: getTextView(
-                    splitList(kundli.id3!.$2)), //splitList(kundli.id3!)
-              ),
-            )
-          ],
-        ),
-        Stack(
-          alignment: Alignment.center,
-          children: [
-            Container(
-              width: boxw,
-              height: boxw,
-              decoration: BoxDecoration(
-                  border: Border.all(color: Colors.black, width: 0.5)),
-              child: Stack(
-                alignment: Alignment.topRight,
-                children: [
-                  Container(
-                    height: 10,
-                    child: getTextView(kundli.id6!.$1.toString() + "  "),
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              child: Transform.translate(
-                offset: Offset(-0.w, -0.w),
-                child: getTextView(
-                    splitList(kundli.id6!.$2)), //splitList(kundli.id6!)
-              ),
-            ),
-          ],
-        ),
-      ])),
-      Container(
-        child: MetaColumnView(children: [
-          Stack(alignment: Alignment.center, children: [
-            Container(
-              width: boxw,
-              height: boxw,
-              decoration: BoxDecoration(
-                  border: Border.all(color: Colors.black, width: 0.5)),
-              child: Stack(
-                alignment: Alignment.topRight,
-                children: [
-                  Container(
-                    height: 10,
-                    child: getTextView(kundli.id0!.$1.toString() + "  "),
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              child: Transform.translate(
-                offset: Offset(-0.w, -0.w),
-                child: getTextView(
-                    splitList(kundli.id0!.$2)), //splitList(kundli.id0!)
-              ),
-            )
-          ]),
-          Stack(
-            alignment: Alignment.center,
-            children: [
-              Container(
-                width: boxw,
-                height: boxw,
-                decoration: BoxDecoration(
-                    border: Border.all(color: Colors.black, width: 0.5)),
-                child: Stack(
-                  alignment: Alignment.topRight,
-                  children: [
-                    Container(
-                      height: 10,
-                      child: getTextView(kundli.id9!.$1.toString() + "  "),
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                child: Transform.translate(
-                  offset: Offset(-0.w, -0.w),
-                  child: getTextView(
-                      splitList(kundli.id9!.$2)), //splitList(kundli.id9!)
-                ),
-              ),
-              // Transform.translate(
-              //   offset: Offset(25, -25.w),
-              //   child: getTextView("10"), //splitList(kundli.id9!)
-              // )
-            ],
-          ),
-        ]),
-      ),
-      MetaColumnView(
-        children: [
-          Container(
-            child: Stack(alignment: Alignment.center, children: [
-              flipTriangle(false, false),
-              Transform.translate(
-                offset: Offset(-30.w, -25.w),
-                child: Container(
-                  child: getTextView(" " + kundli.id11!.$1.toString()),
-                ),
-              ),
-              Container(
-                child: Transform.translate(
-                  offset: Offset(-12.w, 12.w),
-                  child: getTextView(
-                      splitList4(kundli.id11!.$2)), //splitList(kundli.id12!)
-                ),
-              ),
-            ]),
-          ),
-          Container(
-            child: Stack(alignment: Alignment.center, children: [
-              flipTriangle(false, true),
-              Transform.translate(
-                offset: Offset(20.w, -30.w),
-                child: getTextView(
-                    " " + kundli.id10!.$1.toString()), //splitList(kundli.id2!)
-              ),
-              Container(
-                child: Transform.translate(
-                  offset: Offset(-15.w, -10.w),
-                  child: getTextView(
-                      splitList(kundli.id10!.$2)), //splitList(kundli.id2!)
-                ),
-              )
-            ]),
-          ),
-          // Container(
-          //   child: Stack(alignment: Alignment.center, children: [
-          //     flipTriangle(false, true),
-          //     MetaColumnView(
-          //       children: [
-          //         Transform.translate(
-          //           offset: Offset(15.w, -25.w),
-          //           child:
-          //               getTextView(kundli.id10!.$1), //splitList(kundli.id10!)
-          //         ),
-          //         Container(
-          //           child: Transform.translate(
-          //             offset: Offset(-0.w, -5.w),
-          //             child: getTextView(
-          //                 splitList(kundli.id10!.$2)), //splitList(kundli.id10!)
-          //           ),
-          //         ),
-          //       ],
-          //     ),
-          //     // Transform.translate(
-          //     //   offset: Offset(15.w, -25.w),
-          //     //   child: getTextView("11"), //splitList(kundli.id10!)
-          //     // )
-          //   ]),
-          // )
-        ],
-      ),
-    ]);
-  }
-
-  splitList4(List data) {
-    // .join(",")
-    String text = "";
-    for (var (i, item) in data.indexed) {
-      if (i == 0) {
-        text = item;
-      } else {
-        if (i % 4 == 0) {
-          text = "$text,\n$item";
-        } else {
-          text = "$text,$item";
-        }
-      }
-    }
-    return text;
-  }
-
-  splitList5(List data) {
-    // .join(",")
-    String text = "";
-    for (var (i, item) in data.indexed) {
-      if (i == 0) {
-        text = item;
-      } else {
-        if (i % 5 == 0) {
-          text = "$text,\n$item";
-        } else {
-          text = "$text,$item";
-        }
-      }
-    }
-    return text;
-  }
-
-  splitList(List data) {
-    // .join(",")
-    String text = "";
-    for (var (i, item) in data.indexed) {
-      if (i == 0) {
-        text = item;
-      } else {
-        if (i % 3 == 0) {
-          text = "$text,\n$item";
-        } else {
-          text = "$text,$item";
-        }
-      }
-    }
-    return text;
-  }
-
-  splitListHoriz(List data) {
-    // .join(",")
-    String text = "";
-    for (var (i, item) in data.indexed) {
-      if (i == 0) {
-        text = item;
-      } else {
-        if (i % 2 == 0) {
-          text = "$text,\n$item";
-        } else {
-          text = "$text,$item";
-        }
-      }
-    }
-    return text;
   }
 }
 

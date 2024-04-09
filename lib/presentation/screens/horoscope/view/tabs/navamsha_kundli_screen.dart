@@ -126,7 +126,7 @@ class NavamshaKundliScreen extends StatelessWidget {
       padding: !isScreen ? paddingW : EdgeInsets.symmetric(horizontal: 10),
       child:
           MetaColumnView(mainAxisAlignment: MainAxisAlignment.start, children: [
-        isScreen
+        screenshotController == null
             ? diagram()
             : Screenshot(
                 controller: screenshotController!,

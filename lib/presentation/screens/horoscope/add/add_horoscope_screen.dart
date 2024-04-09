@@ -72,7 +72,9 @@ class AddHoroScopeScreen extends StatelessWidget {
                   children: [
                     MetaRowView(children: [
                       InkWell(
-                          onTap: () {},
+                          onTap: () {
+                            formBloc!.initialValues();
+                          },
                           child: customButtons(AssetConstants.nowIcon, "now")),
                       InkWell(
                           onTap: () {

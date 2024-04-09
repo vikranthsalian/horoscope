@@ -230,14 +230,30 @@ class HomeScreen extends StatelessWidget {
                                         time: timeOfDay.toStringFormat,
                                         createdData: DateTime.now().toString(),
                                         date: _date));
+                                //
+                                // print(model.rasiKundliValues);
+                                //
+                                // Navigator.of(context).pushNamed(
+                                //     RouteConstants.rashiKundliPath,
+                                //     arguments: {
+                                //       "isScreen": true,
+                                //       "model": model,
+                                //     });
 
-                                print(model.rasiKundliValues);
-
-                                Navigator.of(context).pushNamed(
-                                    RouteConstants.rashiKundliPath,
+                                Navigator.pushNamed(
+                                    context, RouteConstants.prashnaPath,
                                     arguments: {
-                                      "isScreen": true,
-                                      "model": model,
+                                      "user": User(
+                                          uniqueID: generateRandom(),
+                                          name: "",
+                                          place: cityModel.city,
+                                          latitude: lat,
+                                          longitude: long,
+                                          timezone: tm / 60,
+                                          time: timeOfDay.toStringFormat,
+                                          createdData:
+                                              DateTime.now().toString(),
+                                          date: _date)
                                     });
                               },
                               text: "prashna",

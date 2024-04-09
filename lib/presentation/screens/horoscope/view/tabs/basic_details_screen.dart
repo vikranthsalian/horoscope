@@ -37,11 +37,8 @@ class BasicDetailsScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
           getView("name", horoscopeModel.name),
-          getView(
-              "date_of_birth",
-              horoscopeModel.dob! +
-                  " " +
-                  HoroScopeUtils().metaVara[horoscopeModel.getDateTime.day]),
+          getView("date_of_birth",
+              "${horoscopeModel.dob!} ${HoroScopeUtils().metaVara[horoscopeModel.getDateTime.weekday]}"),
           getView("time", horoscopeModel.tob),
           getView("birth_place", horoscopeModel.place),
           getView("time_zone", userModel.timezoneAsText),

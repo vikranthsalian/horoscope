@@ -20,6 +20,7 @@ class MetaFlavourConstants {
   static String shareAsset = FlavorConfig.instance.variables["shareAsset"];
   static List<dynamic> featuresList =
       FlavorConfig.instance.variables["features"];
+  static List<dynamic> prashnaList = FlavorConfig.instance.variables["prashna"];
   static List<dynamic> premiumPlansList =
       FlavorConfig.instance.variables["premiumPlans"];
   static String serverAssetPath =

@@ -63,6 +63,16 @@ class AddHoroScopeFormBloc extends FormBloc<String, String> {
     print("onLoading");
     //  Position pos = await LocationUtils().determinePosition();
     // position.updateValue(pos);
+
+    initialValues();
+  }
+
+  @override
+  FutureOr<void> onSubmitting() async {
+    emitSuccess(canSubmitAgain: true);
+  }
+
+  initialValues() {
     Map<String, dynamic>? cityData = {};
     try {
       cityData = MetaHiveConfig().getHive(StringConstants.cityData);
@@ -101,12 +111,7 @@ class AddHoroScopeFormBloc extends FormBloc<String, String> {
       double.parse(model.longMin.toString()),
       double.parse("00"),
     ));
-
+    tfFName.updateValue("");
     emitLoaded();
-  }
-
-  @override
-  FutureOr<void> onSubmitting() async {
-    emitSuccess(canSubmitAgain: true);
   }
 }

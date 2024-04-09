@@ -8,12 +8,17 @@ class TrianglePainter extends CustomPainter {
       ..strokeWidth = 1
       ..style = PaintingStyle.stroke;
 
+    final Paint paint2 = Paint()
+      ..color = Colors.white
+      ..style = PaintingStyle.fill;
+
     final Path path = Path();
     path.moveTo(0, size.height); // starting point (bottom-left corner)
     path.lineTo(size.width, size.height); // horizontal line (bottom side)
     path.lineTo(0, 0); // vertical line (left side)
     path.close(); // close the path to form a triangle
 
+    canvas.drawPath(path, paint2);
     canvas.drawPath(path, paint);
   }
 
