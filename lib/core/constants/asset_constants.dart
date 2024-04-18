@@ -2,7 +2,7 @@ class AssetConstants {
   static const String imagesPath = "images/";
   static const String jsonPath = "jsons/";
 
-  static String logoSVG = "logo.svg";
+//  static String logoSVG = "logo.svg";
   static String logoGrey = "logo_grey.svg";
   static String logoOnySVG = "logo_square.svg";
   static String bg = "bg.svg";

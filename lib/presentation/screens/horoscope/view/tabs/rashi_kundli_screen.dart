@@ -149,7 +149,9 @@ class RashiKundliScreen extends StatelessWidget {
           padding: paddingW,
           child: MetaColumnView(children: [
             if (screenshotController != null) getView("name", model.name),
-            getView("date_of_birth", model.dob),
+            getView(
+                screenshotController == null ? "current_date" : "date_of_birth",
+                model.dob),
             getView("nakshatra",
                 HoroScopeUtils().getMetaNakshatra(model.chandraValue!)),
           ]),

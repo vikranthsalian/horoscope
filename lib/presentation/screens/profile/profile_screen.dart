@@ -18,6 +18,7 @@ import 'package:adithya_horoscope/presentation/widgets/style.dart';
 import 'package:adithya_horoscope/presentation/widgets/svg_view.dart';
 import 'package:adithya_horoscope/presentation/widgets/text_field.dart';
 import 'package:adithya_horoscope/presentation/widgets/text_view.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -104,44 +105,6 @@ class ProfileScreen extends StatelessWidget {
                                       child: MetaImageNetwork(
                                         path: data!.profilePic ?? "",
                                       ))),
-                              // Positioned(
-                              //     bottom: 10,
-                              //     right: 0,
-                              //     child: Container(
-                              //         width: 25.w,
-                              //         height: 25.w,
-                              //         decoration: BoxDecoration(
-                              //             border: Border.all(
-                              //                 color: MetaColors.color3F3F3F),
-                              //             borderRadius:
-                              //                 BorderRadius.circular(100.r),
-                              //             color: MetaColors.whiteColor),
-                              //         child: MetaIcon(
-                              //           onIconPressed: () {
-                              //             // showDialog(
-                              //             //     context: globalContext,
-                              //             //     builder: (_) {
-                              //             //       return   MetaDialogUpload(
-                              //             //           list: [
-                              //             //             DialogListModel(
-                              //             //                 id: 1,
-                              //             //                 name: "GALLERY"),
-                              //             //             DialogListModel(
-                              //             //                 id: 2,
-                              //             //                 name: "CAMERA"),
-                              //             //           ],
-                              //             //           onSelected: (XFile file,
-                              //             //               type, index) {
-                              //             //             onSelect!(file);
-                              //             //           });
-                              //             //     }
-                              //             //
-                              //             // );
-                              //           },
-                              //           icon: Icons.camera_alt,
-                              //           color: MetaColors.color3F3F3F,
-                              //           size: 15,
-                              //         ))),
                             ],
                           ),
                           SizedBox(
@@ -150,8 +113,8 @@ class ProfileScreen extends StatelessWidget {
                           Container(
                             padding: padding,
                             child: MetaBlocTextField(
-                              labelText: "name",
-                              hintText: "name",
+                              labelText: "full_name",
+                              hintText: "enter_full_name",
                               textFieldBloc: formBloc.tfFName,
                               enabled: false,
                             ),
@@ -180,7 +143,7 @@ class ProfileScreen extends StatelessWidget {
                               child: MetaBlocTextField(
                                 enabled: false,
                                 labelText: "location",
-                                hintText: "enter_location",
+                                hintText: "choose_location",
                                 textFieldBloc: formBloc.location,
                                 inputType: TextInputType.text,
                               ),
@@ -203,7 +166,7 @@ class ProfileScreen extends StatelessWidget {
                             padding: padding,
                             child: MetaBlocTextField(
                               labelText: "email_address",
-                              hintText: "email_address",
+                              hintText: "enter_email_address",
                               textFieldBloc: formBloc.tfPhNo,
                               inputType: TextInputType.text,
                               enabled: false,
@@ -301,10 +264,8 @@ class ProfileScreen extends StatelessWidget {
                                               ),
                                               Expanded(
                                                 child: MetaTextView(
-                                                  text: formBloc.days.value
-                                                          .toString() +
-                                                      " " +
-                                                      "days_remaining",
+                                                  text:
+                                                      "${formBloc.days.value} ${"days_remaining".tr()}",
                                                   textAlign: TextAlign.end,
                                                   textStyle: MetaStyle(
                                                       fontSize: 12,

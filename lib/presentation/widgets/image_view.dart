@@ -71,7 +71,7 @@ class MetaImageNetwork extends StatelessWidget {
           return Container(
             height: MediaQuery.sizeOf(context).height * 0.4,
             child: MetaSVGView(
-                svgName: AssetConstants.logoSVG,
+                svgName: AssetConstants.logoOnySVG,
                 basePath: MetaFlavourConstants.flavorPath),
           );
         }
@@ -84,7 +84,7 @@ class MetaImageNetwork extends StatelessWidget {
           return Container(
             height: MediaQuery.sizeOf(context).height * 0.4,
             child: MetaSVGView(
-                svgName: AssetConstants.logoSVG,
+                svgName: AssetConstants.logoOnySVG,
                 basePath: MetaFlavourConstants.flavorPath),
           );
         }

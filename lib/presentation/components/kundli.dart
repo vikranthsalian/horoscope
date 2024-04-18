@@ -29,17 +29,7 @@ class KundliWidget extends StatelessWidget {
                 child: Container(
                     alignment: Alignment.center,
                     color: MetaColors.whiteColor,
-                    child:
-                        // MetaTextView(
-                        //   text: data.data!.join(","),
-                        //   textStyle:
-                        //   MetaStyle(
-                        //       fontSize: 12,
-                        //       fontColor: MetaColors().primaryColor,
-                        //       fontWeight: FontWeight.w400),
-                        // )
-
-                        resetSlots(data)));
+                    child: resetSlots(data)));
           }).toList()),
     );
   }

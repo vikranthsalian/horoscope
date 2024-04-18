@@ -363,9 +363,7 @@ class ViewHoroScopeScreen extends StatelessWidget {
           Container(
             alignment: Alignment.center,
             child: MetaTextView(
-              text: '''Above option has been locked.
-Subscribe to Aditya premium for more 
-view option''',
+              text: "above_option_locked",
               textStyle: MetaStyle(
                   fontSize: 14,
                   fontColor: MetaColors.color3c3c3c,

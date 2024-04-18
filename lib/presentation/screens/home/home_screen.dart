@@ -63,7 +63,7 @@ class HomeScreen extends StatelessWidget {
                                 Container(
                                   alignment: Alignment.centerRight,
                                   child: MetaTextView(
-                                    text: "AMPWORK",
+                                    text: "ampwork",
                                     textStyle: MetaStyle(
                                         fontSize: 16,
                                         fontColor: MetaColors.color3F3F3F,
@@ -73,7 +73,7 @@ class HomeScreen extends StatelessWidget {
                                 Container(
                                   alignment: Alignment.centerRight,
                                   child: MetaTextView(
-                                    text: "We AMPlify You",
+                                    text: "we_amplify_you",
                                     textStyle: MetaStyle(
                                         fontSize: 10,
                                         fontColor: MetaColors.color3F3F3F,
@@ -87,7 +87,7 @@ class HomeScreen extends StatelessWidget {
                     Container(
                       height: MediaQuery.sizeOf(context).height * 0.4,
                       child: MetaSVGView(
-                          svgName: AssetConstants.logoSVG,
+                          svgName: AssetConstants.logoOnySVG,
                           basePath: MetaFlavourConstants.flavorPath),
                     ),
                     SizedBox(
@@ -96,7 +96,7 @@ class HomeScreen extends StatelessWidget {
                     Container(
                       alignment: Alignment.center,
                       child: MetaTextView(
-                        text: "Aditya",
+                        text: MetaFlavourConstants.appTitle,
                         textStyle: MetaStyle(
                             fontSize: 28,
                             fontColor: MetaColors().primaryColor,

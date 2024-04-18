@@ -5,104 +5,6 @@ class MyData {
 
   Language type = Language.ENGLISH;
 
-  // Ashtakavarga headings
-  // List<String> engAshtakavarga = ["Rasi","Sarv"};
-  // List<String> kanAshtakavarga = {"gÁ²","¸ÀªÀð"};
-  // // List<String> malAshtakavarga={"രാശി","സര്വം"};
-  // List<String> malAshtakavarga={"രാശി","സര്വം"};
-  // List<String> hinAshtakavarga={"UÉÍvÉ","xÉuÉï"};
-
-  List<String> getLagnaNames() {
-    List<String> lgNames = ["Lg", "®", "sÉ", "k"];
-    return lgNames;
-  }
-
-  // Planet short names
-  List<String> getPlanetShortNameArray() {
-    List<String> engPlanetShortNameArr = [
-      "Lg",
-      "Rv",
-      "Ch",
-      "Kj",
-      "Bd",
-      "Gr",
-      "Sk",
-      "Sn",
-      "Rh",
-      "Kt",
-      "Md"
-    ];
-    List<String> kanPlanetShortNameArr = [
-      "®",
-      "gÀ",
-      "ZÀ",
-      "PÀÄ",
-      "§Ä",
-      "UÀÄ",
-      "±ÀÄ",
-      "±À",
-      "gÁ",
-      "PÉÃ",
-      "ªÀiÁ"
-    ];
-    // List<String>
-    // hinPlanetShortNameArr={"ल","र ","च","मं","बु","गु","शु","श","रा","के","मा"};
-    List<String> malPlanetShortNameArr = [
-      "k",
-      "j",
-      "O",
-      "J¤",
-      "f¤",
-      "L¤",
-      "m¤",
-      "h",
-      "o",
-      "m¢",
-      "h¡"
-    ];
-    // List<String>
-    // malPlanetShortNameArr={"ല","ര","ച","കു","ബു","ഗു","ശു","മ്","സ","ശി","മാ"};
-    List<String> hinPlanetShortNameArr = [
-      "sÉ",
-      "U",
-      "cÉ",
-      "qÉÇ",
-      "oÉÑ",
-      "aÉÑ",
-      "vÉÑ",
-      "vÉ",
-      "UÉ",
-      "Mãü",
-      "qÉÉ"
-    ];
-
-    if (AndroidSDKVersion >= 21) {
-      malPlanetShortNameArr = [
-        "ല",
-        "ര",
-        "ച",
-        "കു",
-        "ബു",
-        "ഗു",
-        "ശു",
-        "മ്",
-        "സ",
-        "ശി",
-        "മാ"
-      ];
-    }
-
-    if (type == Language.KANNADA) {
-      return kanPlanetShortNameArr;
-    } else if (type == Language.ENGLISH) {
-      return engPlanetShortNameArr;
-    } else if (type == Language.HINDI) {
-      return hinPlanetShortNameArr;
-    } else {
-      return malPlanetShortNameArr;
-    }
-  }
-
   String getPlanetShortNameArrayValue(int index) {
     List<String> engPlanetShortNameArr = [
       "Lg",
@@ -1672,26 +1574,9 @@ class MyData {
   }
 
   List<String> getGrahaSputhaHeadingArray() {
-    // For Planet info Page
-    List<String> kanPlanetInfo = ["UÀæºÀ", "gÉÃSÁA±À", "£ÀPÀëvÀæ", "¥ÁzÀ"];
-    List<String> engPlanetInfo = ["Planet", "Longitude", "Nakshatra", "Pada"];
-    // /List<String> malPlanetInfo={"ഗ്രഹം ","സ്ഫുടം","നക്ഷത്രം","പാദം"};
-    // List<String> hinPlanetInfo={"ग्रह","स्फुट","नक्षत्र","पाद"};
-    List<String> hinPlanetInfo = ["aÉëWû", "xTÑüOû", "lÉ¤É§É", "mÉÉS"];
-    List<String> malPlanetInfo = ["Lp« ", "o®e¤T«", "cÈ±Y«", "d¡a«"];
+    List<String> engPlanetInfo = ["planet", "longitude", "nakshatra", "pada"];
 
-    if (AndroidSDKVersion >= 21) {
-      malPlanetInfo = ["ഗ്രഹം ", "സ്ഫുടം", "നക്ഷത്രം", "പാദം"];
-    }
-    if (type == Language.KANNADA) {
-      return kanPlanetInfo;
-    } else if (type == Language.ENGLISH) {
-      return engPlanetInfo;
-    } else if (type == Language.HINDI) {
-      return hinPlanetInfo;
-    } else {
-      return malPlanetInfo;
-    }
+    return engPlanetInfo;
   }
 
   List<String> getAshtakaVargaHeadingArray() {
@@ -1707,66 +1592,8 @@ class MyData {
       "Sn",
       "Sarv"
     ];
-    List<String> kanAshtakavargaHeadingArr = [
-      "gÁ²",
-      "gÀ",
-      "ZÀ",
-      "PÀÄ",
-      "§Ä",
-      "UÀÄ",
-      "±ÀÄ",
-      "±À",
-      "¸ÀªÀð"
-    ];
-    // List<String> hinAshtakavargaHeadingArr
-    // ={"राशी","र","च","मं","बु","गु","शु","श","सर्व",};
-    // List<String> malAshtakavargaHeadingArr
-    // ={"രാശി","ര","ച","കു","ബു","ഗു","ശു","മ","സര്വം"];
-    List<String> hinAshtakavargaHeadingArr = [
-      "UÉÍvÉ",
-      "U",
-      "cÉ",
-      "qÉÇ",
-      "oÉÑ",
-      "aÉÑ",
-      "vÉÑ",
-      "vÉ ",
-      "xÉuÉï"
-    ];
-    List<String> malAshtakavargaHeadingArr = [
-      "±Lp«",
-      "j",
-      "O",
-      "J¤",
-      "f¤",
-      "L¤",
-      "m¤",
-      "h",
-      "otl«"
-    ];
 
-    if (AndroidSDKVersion >= 21) {
-      malAshtakavargaHeadingArr = [
-        "രാശി",
-        "ര",
-        "ച",
-        "കു",
-        "ബു",
-        "ഗു",
-        "ശു",
-        "മ",
-        "സര്വം"
-      ];
-    }
-    if (type == Language.KANNADA) {
-      return kanAshtakavargaHeadingArr;
-    } else if (type == Language.ENGLISH) {
-      return engAshtakavargaHeadingArr;
-    } else if (type == Language.HINDI) {
-      return hinAshtakavargaHeadingArr;
-    } else {
-      return malAshtakavargaHeadingArr;
-    }
+    return engAshtakavargaHeadingArr;
   }
 
   List<String> getShadvargaHeadingArray() {

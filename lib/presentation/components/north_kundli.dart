@@ -54,8 +54,7 @@ class NorthNewKundliWidget extends StatelessWidget {
                           Transform.translate(
                             offset: Offset(-30.w, -25.w),
                             child: Container(
-                              child:
-                                  getTextView(" " + kundli.id1!.$1.toString()),
+                              child: getTextView(" ${kundli.id1!.$1}"),
                             ),
                           ),
                           Container(
@@ -100,9 +99,8 @@ class NorthNewKundliWidget extends StatelessWidget {
                           flipTriangle(false, true),
                           Transform.translate(
                             offset: Offset(20.w, -30.w),
-                            child: getTextView(" " +
-                                kundli.id8!.$1
-                                    .toString()), //splitList(kundli.id2!)
+                            child: getTextView(
+                                " ${kundli.id8!.$1}"), //splitList(kundli.id2!)
                           ),
                           Container(
                             child: Transform.translate(
@@ -181,7 +179,7 @@ class NorthNewKundliWidget extends StatelessWidget {
                     children: [
                       Container(
                         height: 10,
-                        child: getTextView(kundli.id3!.$1.toString() + "  "),
+                        child: getTextView("${kundli.id3!.$1}  "),
                       ),
                     ],
                   ),
@@ -208,7 +206,7 @@ class NorthNewKundliWidget extends StatelessWidget {
                     children: [
                       Container(
                         height: 10,
-                        child: getTextView(kundli.id6!.$1.toString() + "  "),
+                        child: getTextView("${kundli.id6!.$1}  "),
                       ),
                     ],
                   ),
@@ -237,7 +235,7 @@ class NorthNewKundliWidget extends StatelessWidget {
                 children: [
                   Container(
                     height: 10,
-                    child: getTextView(kundli.id0!.$1.toString() + "  "),
+                    child: getTextView("${kundli.id0!.$1}  "),
                   ),
                 ],
               ),
@@ -263,7 +261,7 @@ class NorthNewKundliWidget extends StatelessWidget {
                   children: [
                     Container(
                       height: 10,
-                      child: getTextView(kundli.id9!.$1.toString() + "  "),
+                      child: getTextView("${kundli.id9!.$1}  "),
                     ),
                   ],
                 ),
@@ -287,7 +285,7 @@ class NorthNewKundliWidget extends StatelessWidget {
               Transform.translate(
                 offset: Offset(-30.w, -25.w),
                 child: Container(
-                  child: getTextView(" " + kundli.id11!.$1.toString()),
+                  child: getTextView(" ${kundli.id11!.$1}"),
                 ),
               ),
               Container(
@@ -304,8 +302,8 @@ class NorthNewKundliWidget extends StatelessWidget {
               flipTriangle(false, true),
               Transform.translate(
                 offset: Offset(20.w, -30.w),
-                child: getTextView(
-                    " " + kundli.id10!.$1.toString()), //splitList(kundli.id2!)
+                child:
+                    getTextView(" ${kundli.id10!.$1}"), //splitList(kundli.id2!)
               ),
               Container(
                 child: Transform.translate(
@@ -322,9 +320,6 @@ class NorthNewKundliWidget extends StatelessWidget {
   }
 
   splitList4(List<NorthDataClass>? data) {
-    // .join(",")
-    print("splitList");
-    print(jsonEncode(data));
     String text = "";
     if (data == null || data.isEmpty) {
       return text;
@@ -344,8 +339,6 @@ class NorthNewKundliWidget extends StatelessWidget {
   }
 
   splitList5(List<NorthDataClass>? data) {
-    // .join(",")
-    print("splitList");
     print(jsonEncode(data));
     String text = "";
     if (data == null || data.isEmpty) {
@@ -366,9 +359,6 @@ class NorthNewKundliWidget extends StatelessWidget {
   }
 
   splitList(List<NorthDataClass>? data) {
-    // .join(",")
-    print("splitList");
-    print(jsonEncode(data));
     String text = "";
     if (data == null || data.isEmpty) {
       return text;

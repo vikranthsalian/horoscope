@@ -56,8 +56,8 @@ class MetaCityDialogList extends StatelessWidget {
                   )),
               Container(
                 child: MetaTextField(
-                  labelText: "searchHere",
-                  hintText: "searchHere",
+                  labelText: "search_here",
+                  hintText: "search_here",
                   onTapped: (ts) {
                     formBloc.search();
                   },
@@ -126,7 +126,7 @@ class MetaCityDialogList extends StatelessWidget {
                         child: Container(
                           child: MetaTextView(
                             textAlign: TextAlign.center,
-                            text: "please_search_atleast_3_chars",
+                            text: "please_type_atleast_3_chars",
                             textStyle: MetaStyle(
                                 fontSize: 12,
                                 fontColor: MetaColors.greyColor,

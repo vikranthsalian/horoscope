@@ -3,7 +3,6 @@ import 'package:adithya_horoscope/core/config/init_config.dart';
 import 'package:adithya_horoscope/core/config/json_config.dart';
 import 'package:adithya_horoscope/core/config/localization_config.dart';
 import 'package:adithya_horoscope/core/dio/dio_client.dart';
-import 'package:adithya_horoscope/core/injector/injector_config.dart';
 import 'package:adithya_horoscope/firebase_options.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -24,11 +23,9 @@ void main() async {
 }
 
 configureFlavour() async {
-  InjectorConfig.setup();
   await MetaHiveConfig().initConfig();
 
   await MetaJsonConfig().initFlavor(jsonPath: "assets/master-flavor.json");
-  // 13.3318078,74.7264917
   MetaDio().setDio();
   EasyLoading.instance
     ..displayDuration = const Duration(milliseconds: 2000)

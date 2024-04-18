@@ -56,13 +56,13 @@ class SplashScreenState extends State<SplashScreen> {
                 Container(
                   height: MediaQuery.sizeOf(context).height * 0.7,
                   child: MetaSVGView(
-                      svgName: AssetConstants.logoSVG,
+                      svgName: AssetConstants.logoOnySVG,
                       basePath: MetaFlavourConstants.flavorPath),
                 ),
                 Container(
                   alignment: Alignment.center,
                   child: MetaTextView(
-                    text: "Aditya",
+                    text: MetaFlavourConstants.appTitle,
                     textStyle: MetaStyle(
                         fontSize: 28,
                         fontColor: MetaColors().primaryColor,
@@ -72,7 +72,7 @@ class SplashScreenState extends State<SplashScreen> {
                 Container(
                   alignment: Alignment.center,
                   child: MetaTextView(
-                    text: "AMPWORK",
+                    text: "ampwork",
                     textStyle: MetaStyle(
                         fontSize: 16,
                         fontColor: MetaColors.color3F3F3F,
@@ -82,7 +82,7 @@ class SplashScreenState extends State<SplashScreen> {
                 Container(
                   alignment: Alignment.center,
                   child: MetaTextView(
-                    text: "We AMPlify You",
+                    text: "we_amplify_you",
                     textStyle: MetaStyle(
                         fontSize: 10,
                         fontColor: MetaColors.color3F3F3F,

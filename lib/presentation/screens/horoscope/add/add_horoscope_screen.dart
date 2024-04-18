@@ -291,7 +291,7 @@ class AddHoroScopeScreen extends StatelessWidget {
                               child: MetaBlocTextField(
                                 enabled: false,
                                 labelText: "birth_location",
-                                hintText: "enter_birth_location",
+                                hintText: "choose_birth_location",
                                 textFieldBloc: formBloc!.tfBLoc,
                                 inputType: TextInputType.text,
                               ),

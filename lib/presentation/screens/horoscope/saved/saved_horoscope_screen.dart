@@ -156,7 +156,7 @@ class SavedHoroScopeScreen extends StatelessWidget {
                                                   width: 40.w,
                                                   child: MetaSVGView(
                                                       svgName: AssetConstants
-                                                          .logoSVG,
+                                                          .logoOnySVG,
                                                       basePath:
                                                           MetaFlavourConstants
                                                               .flavorPath),

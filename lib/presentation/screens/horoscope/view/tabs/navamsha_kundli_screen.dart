@@ -126,6 +126,20 @@ class NavamshaKundliScreen extends StatelessWidget {
       padding: !isScreen ? paddingW : EdgeInsets.symmetric(horizontal: 10),
       child:
           MetaColumnView(mainAxisAlignment: MainAxisAlignment.start, children: [
+        if (screenshotController == null)
+          Container(
+            child: MetaColumnView(children: [
+              if (screenshotController != null) getView("name", model.name),
+              getView(
+                  screenshotController == null
+                      ? "current_date"
+                      : "date_of_birth",
+                  model.dob),
+              getView("nakshatra",
+                  HoroScopeUtils().getMetaNakshatra(model.chandraValue!)),
+            ]),
+          ),
+        SizedBox(height: 10.h),
         screenshotController == null
             ? diagram()
             : Screenshot(
@@ -167,7 +181,6 @@ class NavamshaKundliScreen extends StatelessWidget {
             Expanded(
               flex: 3,
               child: Container(
-                padding: paddingW,
                 alignment: Alignment.centerLeft,
                 child: MetaTextView(
                   text: title,
@@ -179,7 +192,6 @@ class NavamshaKundliScreen extends StatelessWidget {
               ),
             ),
             Container(
-              padding: paddingW,
               alignment: Alignment.centerLeft,
               child: MetaTextView(
                 text: " : ",

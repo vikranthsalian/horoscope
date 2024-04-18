@@ -25,18 +25,14 @@ class SavedHoroScopeFormBloc extends FormBloc<String, String> {
       isLoading.updateValue(true);
       Map<dynamic, dynamic>? receivedData =
           event.snapshot.value as Map<dynamic, dynamic>?;
-      print(userData.id);
       if (receivedData != null) {
         list.clear(); // Clear the previous list before updating
         receivedData.forEach((key, value) {
-          print(value);
           Map<String, dynamic> data = value.cast<String, dynamic>();
           if (data['userID'].toString() == userData.id) {
             list.add(User.fromJson(data));
           }
         });
-        print("list.length");
-        print(list.length);
         dataModel.updateValue(list);
       }
       isLoading.updateValue(false);

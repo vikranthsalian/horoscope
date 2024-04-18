@@ -48,7 +48,7 @@ class PremiumPlanScreen extends StatelessWidget {
               onTap: () async {
                 makePayment();
               },
-              text: "annual" + " " + amount.toString() + " / " + "year".tr(),
+              text: "${"annual".tr()} $amount / ${"year".tr()}",
             ),
           ),
           body: Container(
@@ -80,7 +80,7 @@ class PremiumPlanScreen extends StatelessWidget {
                           child: Container(
                             height: MediaQuery.sizeOf(context).height,
                             child: MetaSVGView(
-                                svgName: AssetConstants.logoSVG,
+                                svgName: AssetConstants.logoOnySVG,
                                 basePath: MetaFlavourConstants.flavorPath),
                           ),
                         ),

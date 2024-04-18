@@ -135,29 +135,6 @@ class SignUpScreen extends StatelessWidget {
                               onTap: () {
                                 FocusScope.of(context).unfocus();
 
-                                // var acs = ActionCodeSettings(
-                                //     // URL you want to redirect back to. The domain (www.example.com) for this
-                                //     // URL must be whitelisted in the Firebase Console.
-                                //     url: 'adithyahoroscope.page.link',
-                                //     // This must be true
-                                //     handleCodeInApp: true,
-                                //     iOSBundleId: 'com.example.ios',
-                                //     androidPackageName:
-                                //         'creative.thief.adithya_horoscope',
-                                //     // installIfNotAvailable
-                                //     androidInstallApp: true,
-                                //     // minimumVersion
-                                //     androidMinimumVersion: '12');
-                                //
-                                // var emailAuth = 'vikkysalian@gmail.com';
-                                // FirebaseAuth.instance
-                                //     .sendSignInLinkToEmail(
-                                //         email: emailAuth,
-                                //         actionCodeSettings: acs)
-                                //     .catchError((onError) => print(
-                                //         'Error sending email verification $onError'))
-                                //     .then((value) => print(
-                                //         'Successfully sent email verification'));
                                 formBloc.submit();
                               },
                               text: "proceed".toUpperCase(),
@@ -169,7 +146,7 @@ class SignUpScreen extends StatelessWidget {
                           Container(
                             alignment: Alignment.center,
                             child: MetaTextView(
-                              text: "Aditya",
+                              text: MetaFlavourConstants.appTitle,
                               textStyle: MetaStyle(
                                   fontSize: 28,
                                   fontColor: MetaColors().primaryColor,
@@ -179,7 +156,7 @@ class SignUpScreen extends StatelessWidget {
                           Container(
                             alignment: Alignment.center,
                             child: MetaTextView(
-                              text: "AMPWORK",
+                              text: "ampwork",
                               textStyle: MetaStyle(
                                   fontSize: 16,
                                   fontColor: MetaColors.color3F3F3F,
@@ -189,7 +166,7 @@ class SignUpScreen extends StatelessWidget {
                           Container(
                             alignment: Alignment.center,
                             child: MetaTextView(
-                              text: "We AMPlify You",
+                              text: "we_amplify_you",
                               textStyle: MetaStyle(
                                   fontSize: 10,
                                   fontColor: MetaColors.color3F3F3F,

@@ -35,7 +35,6 @@ class MetaAppBar extends StatelessWidget implements PreferredSizeWidget {
                         ? Icons.close
                         : Icons.arrow_back_ios_new_outlined,
                     onIconPressed: () {
-                      print("sdasdasda");
                       if (leadingAction != null) {
                         leadingAction!();
                       } else {

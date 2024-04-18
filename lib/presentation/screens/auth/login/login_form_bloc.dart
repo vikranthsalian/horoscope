@@ -45,7 +45,7 @@ class LoginFormBloc extends FormBloc<String, String> {
 
   static String? emptyValidator(dynamic value) {
     if (value.isEmpty) {
-      return "fieldCannotEmpty".tr();
+      return "field_cannot_be_empty".tr();
     }
     return null;
   }

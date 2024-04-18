@@ -60,10 +60,6 @@ class AddHoroScopeFormBloc extends FormBloc<String, String> {
 
   @override
   onLoading() async {
-    print("onLoading");
-    //  Position pos = await LocationUtils().determinePosition();
-    // position.updateValue(pos);
-
     initialValues();
   }
 

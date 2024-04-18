@@ -15,7 +15,7 @@ class MetaSearchView extends StatelessWidget {
   final FontWeight fontWeight;
   final Function? onSearch;
   MetaSearchView({
-    this.text = "Search Products",
+    this.text = "search",
     this.fontSize = 18,
     this.colors = MetaColors.whiteColor,
     this.fontWeight = FontWeight.w800,
